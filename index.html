@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentina Arboleda — Architect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+  <!-- ══ CUSTOM CURSOR ══ -->
+  <div class="c-cursor" id="cCursor" aria-hidden="true">
+    <div class="c-ring" id="cRing"></div>
+    <div class="c-dot" id="cDot"></div>
+  </div>
+
+  <!-- ══ FLOATING CTA ══ -->
+  <button class="float-cta" onclick="showPage('contact')">
+    <span class="float-dot"></span>Let's Talk
+  </button>
+
+  <!-- ══ SCROLL PROGRESS ══ -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ══════════════ NAV ══════════════ -->
+  <nav class="nav">
+    <div class="nav-in">
+      <div class="nav-logo" onclick="showPage('home')">
+        <div class="nav-badge">VA</div>
+        <div>
+          <div class="nav-name">Valentina Arboleda</div>
+          <div class="nav-sub">Architect</div>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><a id="nav-projects" onclick="showPage('projects')">Work</a></li>
+        <li><a id="nav-about" onclick="showPage('about')">About</a></li>
+        <li><a id="nav-process" onclick="showPage('process')">Process</a></li>
+        <li><a id="nav-journal" onclick="showPage('journal')">Journal</a></li>
+        <li><a id="nav-contact" onclick="showPage('contact')">Contact</a></li>
+        <li><a class="nav-cta" onclick="showPage('contact')">Let's Build ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ══════════════ PAGE: HOME ══════════════ -->
+  <div id="page-home" class="page active">
+
+    <!-- HERO -->
+    <section class="h-hero">
+      <img class="bg" src="images/home/img-hero.jpg" alt="Architectural visualization of a modern building">
+      <div class="h-hero-content">
+        <div class="h-hero-tag">Architecture · Visualization · Design</div>
+        <div>
+          <h1 class="h-hero-title">Spaces<br>with <em>purpose.</em></h1>
+          <p class="h-hero-sub">Architecture, visualization and design that connects people to place — rooted in
+            emotion, strategy and clarity.</p>
+          <div class="h-hero-actions">
+            <span class="pill pill-dark" onclick="showPage('projects')">View Projects →</span>
+            <div class="h-hero-ncarb"><span class="h-hero-ncarb-pill">NCARB</span> International Architect Path</div>
+          </div>
+        </div>
+        <div class="h-hero-bottom">
+          <span>Colombia · Spain · USA</span>
+          <div class="h-scroll"><span>Scroll to explore</span>
+            <div class="h-scroll-dot">↓</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="h-about">
+      <div class="h-about-img"><img src="images/home/img-portrait.jpg" alt="Valentina Arboleda"></div>
+      <div class="h-about-text">
+        <div class="h-about-text-l">
+          <p class="eyebrow">About Me</p>
+          <h2>I design with <em>emotion,</em><br>strategy and clarity.</h2>
+          <p>Architect and designer focused on creating meaningful spaces through intentional design, visualization and
+            development strategy.</p>
+          <p>My work is inspired by nature, human behavior, and the connection between space psychology and
+            architecture.</p>
+          <span class="link-arrow" onclick="showPage('about')">More About Me →</span>
+        </div>
+        <div class="h-about-text-r">
+          <div class="h-svc-row">
+            <div class="h-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                <polyline points="2 17 12 22 22 17" />
+                <polyline points="2 12 12 17 22 12" />
+              </svg></div>BIM &amp; Documentation
+          </div>
+          <div class="h-svc-row">
+            <div class="h-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+              </svg></div>Architectural Design
+          </div>
+          <div class="h-svc-row">
+            <div class="h-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg></div>Interior Design
+          </div>
+          <div class="h-svc-row">
+            <div class="h-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                <line x1="12" y1="22.08" x2="12" y2="12" />
+              </svg></div>3D Visualization
+          </div>
+          <div class="h-svc-row">
+            <div class="h-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <line x1="18" y1="20" x2="18" y2="10" />
+                <line x1="12" y1="20" x2="12" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="14" />
+              </svg></div>Cost Estimation
+          </div>
+          <div class="h-svc-row highlight">
+            <div class="h-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                <polyline points="17 6 23 6 23 12" />
+              </svg></div>Development Strategy
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="h-marquee">
+      <div class="h-marquee-track">
+        <span>Spain</span><span>·</span><span>USA</span><span>·</span><span>Architectural
+          Designer</span><span>·</span><span>Interior Design</span><span>·</span><span>BIM
+          Coordination</span><span>·</span><span>NCARB Verified</span><span>·</span><span>AXP
+          Candidate</span><span>·</span><span>Colombia</span><span>·</span><span>Spain</span><span>·</span><span>USA</span><span>·</span><span>Architectural
+          Designer</span><span>·</span><span>Interior Design</span><span>·</span><span>BIM
+          Coordination</span><span>·</span><span>NCARB Verified</span><span>·</span><span>AXP
+          Candidate</span><span>·</span><span>Colombia</span><span>·</span>
+      </div>
+    </div>
+
+    <!-- FEATURED PROJECTS -->
+    <section class="h-feat">
+      <div class="h-feat-head">
+        <div>
+          <p class="eyebrow">Portfolio</p>
+          <h2>Featured <em>Projects</em></h2>
+        </div>
+        <span class="h-feat-link" onclick="showPage('projects')">View All Projects →</span>
+      </div>
+      <div class="h-feat-grid">
+        <div class="fproj" onclick="window.open('https://sites.google.com/miugca.edu.co/arboretum/inicio','_blank')">
+          <span class="fproj-num">01</span>
+          <span class="fproj-badge">🥇 Winning</span>
+          <img src="images/home/img-hero.jpg" alt="Arboretum 2">
+          <div class="fproj-info">
+            <div class="fproj-info-loc">Colombia</div>
+            <div class="fproj-info-name">Arboretum 2</div>
+          </div>
+          <div class="fproj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></div>
+        </div>
+        <div class="fproj" onclick="window.open('https://sites.google.com/miugca.edu.co/mana/inicio','_blank')">
+          <span class="fproj-num">02</span>
+          <span class="fproj-badge">🥇 Winning</span>
+          <img src="images/home/img-mana.jpg" alt="Maná">
+          <div class="fproj-info">
+            <div class="fproj-info-loc">Colombia</div>
+            <div class="fproj-info-name">Maná</div>
+          </div>
+          <div class="fproj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></div>
+        </div>
+        <div class="fproj"
+          onclick="window.open('https://sites.google.com/miugca.edu.co/centro-cultural-de-eventos/p%C3%A1gina-principal','_blank')">
+          <span class="fproj-num">03</span>
+          <span class="fproj-badge">🥇 Winning</span>
+          <img src="images/home/img-cultural.jpg" alt="Cultural &amp; Convention Center">
+          <div class="fproj-info">
+            <div class="fproj-info-loc">Colombia</div>
+            <div class="fproj-info-name">Cultural &amp; Convention Center</div>
+          </div>
+          <div class="fproj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></div>
+        </div>
+        <div class="fproj" onclick="window.open('https://arangoconstructions.com/arboretum-project/','_blank')">
+          <span class="fproj-num">04</span>
+          <img src="images/home/img-arboretum-georgia.jpg" alt="Arboretum">
+          <div class="fproj-info">
+            <div class="fproj-info-loc">USA</div>
+            <div class="fproj-info-name">Arboretum</div>
+          </div>
+          <div class="fproj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></div>
+        </div>
+        <div class="fproj"
+          onclick="showPage('process');setTimeout(()=>switchProc('interior',document.querySelector('.proc-tab[onclick*=interior]')),50)">
+          <span class="fproj-num">05</span>
+          <img src="images/home/img-burgos.jpg" alt="Burgos">
+          <div class="fproj-info">
+            <div class="fproj-info-loc">Spain</div>
+            <div class="fproj-info-name">Burgos</div>
+          </div>
+          <div class="fproj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></div>
+        </div>
+        <div class="fproj"
+          onclick="window.open('https://sites.google.com/miugca.edu.co/tebaidaquindio/inicio','_blank')">
+          <span class="fproj-num">06</span>
+          <img src="images/home/img-ecohotel.jpg" alt="Eco Hotel">
+          <div class="fproj-info">
+            <div class="fproj-info-loc">Colombia</div>
+            <div class="fproj-info-name">Eco Hotel</div>
+          </div>
+          <div class="fproj-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="h-proc">
+      <div class="h-proc-head">
+        <p class="eyebrow">How I Work</p>
+        <h3>The <em>Process</em></h3>
+      </div>
+      <div class="h-proc-steps">
+        <div class="h-proc-step">
+          <div class="h-proc-num">01</div>
+          <h4>Vision</h4>
+          <p>Understanding needs and project goals.</p>
+        </div>
+        <div class="h-proc-step">
+          <div class="h-proc-num">02</div>
+          <h4>Strategy</h4>
+          <p>Concept development and spatial planning.</p>
+        </div>
+        <div class="h-proc-step">
+          <div class="h-proc-num">03</div>
+          <h4>Design</h4>
+          <p>Functional and beautiful design solutions.</p>
+        </div>
+        <div class="h-proc-step">
+          <div class="h-proc-num">04</div>
+          <h4>Documentation</h4>
+          <p>Detailed drawings and technical development.</p>
+        </div>
+        <div class="h-proc-step">
+          <div class="h-proc-num">05</div>
+          <h4>Execution</h4>
+          <p>Bringing the vision to life with precision.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D / VR -->
+    <section class="h-explore">
+      <div class="h-exp-card" onclick="window.open('https://web.connect.trimble.com/#/project/wehrkefpzo','_blank')">
+        <img src="images/home/img-arboretum-georgia.jpg" alt="3D model viewer">
+        <div class="h-exp-content">
+          <span class="h-exp-tag">3D Experience</span>
+          <h3>Explore design<br>in 3D.</h3>
+          <p>Interact with the model and explore every detail.</p>
+          <span class="h-exp-btn">Explore 3D Model <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></span>
+        </div>
+      </div>
+      <div class="h-exp-card"
+        onclick="window.open('https://kuula.co/share/collection/7mB4r?logo=0&info=0&fs=1&vr=1&sd=1&initload=0&thumbs=1','_blank')">
+        <img src="images/home/img-hero.jpg" alt="VR walkthrough viewer">
+        <div class="h-exp-content">
+          <span class="h-exp-tag">VR Experience</span>
+          <h3>Explore design<br>in <em>virtual reality</em></h3>
+          <p>Experience spaces before they are built.</p>
+          <span class="h-exp-btn">Explore VR Model <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+  </div>
+
+  <!-- ══════════════ PAGE: ABOUT ══════════════ -->
+  <div id="page-about" class="page">
+
+    <!-- HERO -->
+    <div class="ab-hero">
+      <div class="ab-hero-l">
+        <p class="eyebrow">About Me</p>
+        <h1 class="ab-hero-title" id="blur-about"></h1>
+        <p class="ab-hero-desc">Licensed architect in Colombia, with international experience across Colombia, Spain,
+          and the United States. Focused on residential design, BIM coordination, visualization, and development
+          strategy.</p>
+        <a class="link-arrow" onclick="showPage('contact')">Start a Project <svg viewBox="0 0 16 16" fill="none"
+            stroke="currentColor" stroke-width="1.5">
+            <path d="M3 8h10M9 4l4 4-4 4" />
+          </svg></a>
+      </div>
+      <div class="ab-hero-r">
+        <img src="images/home/img-portrait.jpg" alt="Valentina Arboleda">
+      </div>
+    </div>
+
+    <!-- BIO + SERVICES -->
+    <div class="ab-body">
+      <div class="ab-text reveal">
+        <p class="eyebrow">My Story</p>
+        <p>Hello, I'm Valentina Arboleda, Licensed Architect - Colombia | NCARB
+          International Architect Path | AXP & ARE Candidate and Construction Project
+          Management Specialist.</p>
+        <p>My background spans residential architecture, interior design, space planning,
+          and construction processes allowing me to approach every project from both a
+          creative and technical perspective. I'm drawn to design build solutions where the
+          architect stays close to the making.</p>
+        <p>I believe the strongest spaces are achieved through the balance of aesthetic
+          intention, functional clarity, and disciplined execution built environments that
+          quietly improve the way people live within them.</p>
+      </div>
+      <div class="ab-svcs reveal d1">
+        <h3 class="ab-svcs-title">Services</h3>
+        <div class="ab-svc-row">
+          <div class="ab-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M3 9h18M9 21V9" />
+            </svg></div>BIM &amp; Documentation (Revit · AutoCAD)
+        </div>
+        <div class="ab-svc-row">
+          <div class="ab-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3 9l9-6 9 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg></div>Architectural Design
+        </div>
+        <div class="ab-svc-row">
+          <div class="ab-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z" />
+            </svg></div>Interior Design
+        </div>
+        <div class="ab-svc-row">
+          <div class="ab-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+            </svg></div>3D Visualization (Lumion · Enscape · AI)
+        </div>
+        <div class="ab-svc-row">
+          <div class="ab-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4l3 3" />
+            </svg></div>Cost Estimation &amp; PlanSwift Takeoffs
+        </div>
+        <div class="ab-svc-row">
+          <div class="ab-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 11l3 3L22 4" />
+            </svg></div>Development Strategy
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE TIMELINE -->
+    <div class="ab-exp reveal">
+      <p class="eyebrow" style="margin-bottom:20px;">Experience</p>
+      <div class="ab-exp-inner">
+
+        <div class="ab-exp-item">
+          <div>
+            <p class="ab-exp-date">Jul 2025 – Present</p>
+            <p class="ab-exp-country">United States</p>
+          </div>
+          <div class="ab-exp-body">
+            <h3 class="ab-exp-role">Executive &amp; Construction Assistant</h3>
+            <p class="ab-exp-company">Arango Insulation · Peachtree City, Georgia</p>
+            <div class="ab-exp-bullet"><span class="ab-exp-dash">—</span>Residential drafting and plan updates;
+              coordinated revisions based on contractor/field feedback (AutoCAD · Revit)</div>
+            <div class="ab-exp-bullet"><span class="ab-exp-dash">—</span>PlanSwift takeoffs, cost estimation, budgeting
+              support and labor cost tracking</div>
+            <div class="ab-exp-bullet"><span class="ab-exp-dash">—</span>Documentation workflows and coordination
+              between office and field teams</div>
+            <div class="ab-exp-bullet"><span class="ab-exp-dash">—</span>Budgeting and accounting support for Eva
+              Gardens Subdivision — Entitlement Project (36 residential lots)</div>
+          </div>
+        </div>
+
+        <div class="ab-exp-item">
+          <div>
+            <p class="ab-exp-date">Dec 2022 – Jun 2024</p>
+            <p class="ab-exp-country">Colombia</p>
+          </div>
+          <div class="ab-exp-body">
+            <h3 class="ab-exp-role">Architectural Designer &amp; Superintendent</h3>
+            <p class="ab-exp-company">Arboleda Engineer and Architecture · Colombia</p>
+            <div class="ab-exp-bullet"><span class="ab-exp-dash">—</span>Construction drawings and BIM documentation
+              (AutoCAD · Revit)</div>
+            <div class="ab-exp-bullet"><span class="ab-exp-dash">—</span>Residential buildings, eco-cabin developments,
+              bridges and cable-car infrastructure</div>
+            <div class="ab-exp-bullet"><span class="ab-exp-dash">—</span>On-site supervision, budgeting documentation
+              and construction coordination</div>
+            <div class="ab-exp-bullet"><span class="ab-exp-dash">—</span>Full interior design of a 5-story residential
+              building in Spain — concept to installation</div>
+          </div>
+        </div>
+
+        <div class="ab-exp-item">
+          <div>
+            <p class="ab-exp-date">Feb 2022 – Jun 2022</p>
+            <p class="ab-exp-country">Colombia</p>
+          </div>
+          <div class="ab-exp-body">
+            <h3 class="ab-exp-role">Architectural Design Intern — Public Space</h3>
+            <p class="ab-exp-company">Municipality of Salento · Colombia</p>
+            <div class="ab-exp-bullet"><span class="ab-exp-dash">—</span>Led the design of the Mirador public viewpoint
+              project for municipal approval</div>
+            <div class="ab-exp-bullet"><span class="ab-exp-dash">—</span>Technical drawings, details and specifications
+              for public-space projects</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CREDENTIALS -->
+    <div class="ab-creds">
+      <div class="cred-ab reveal">
+        <div class="cred-ey">Education</div>
+        <h3 class="cred-title">Architect<br>Universidad La Gran Colombia</h3>
+        <p class="cred-body-txt">May 2023 · GPA 3.46/4.00<br>Architecture degree with international validation through
+          the NCARB IAP.</p>
+      </div>
+      <div class="cred-ab reveal d1">
+        <div class="cred-ey">Specialization</div>
+        <h3 class="cred-title">Building Construction Management<br>Universidad La Gran Colombia</h3>
+        <p class="cred-body-txt">Dec 2023 · GPA 4.00/4.00<br>Top score in the program. Focused on construction
+          management, cost control and project delivery.</p>
+      </div>
+      <div class="cred-ab reveal d2">
+        <div class="cred-ey">Licensure · NCARB</div>
+        <h3 class="cred-title">Licensed Architect Colombia<br>AXP &amp; ARE Candidate</h3>
+        <p class="cred-body-txt">License No. A23522024 – CPNAA<br>Currently accumulating AXP hours and advancing through
+          ARE exams toward U.S. licensure.</p>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="ab-skills reveal">
+      <div class="ab-skills-inner">
+        <p class="eyebrow">Tools &amp; Skills</p>
+        <div class="ab-skills-grid">
+          <div>
+            <p class="ab-skill-cat">Design &amp; BIM</p>
+            <div class="ab-skill-items">
+              <div class="ab-skill-item"><span class="ab-skill-name">Revit (BIM)</span>
+                <div class="ab-skill-bar">
+                  <div class="ab-skill-fill" style="width:90%"></div>
+                </div>
+              </div>
+              <div class="ab-skill-item"><span class="ab-skill-name">AutoCAD</span>
+                <div class="ab-skill-bar">
+                  <div class="ab-skill-fill" style="width:95%"></div>
+                </div>
+              </div>
+              <div class="ab-skill-item"><span class="ab-skill-name">SketchUp</span>
+                <div class="ab-skill-bar">
+                  <div class="ab-skill-fill" style="width:85%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="ab-skill-cat">Visualization</p>
+            <div class="ab-skill-items">
+              <div class="ab-skill-item"><span class="ab-skill-name">Lumion</span>
+                <div class="ab-skill-bar">
+                  <div class="ab-skill-fill" style="width:90%"></div>
+                </div>
+              </div>
+              <div class="ab-skill-item"><span class="ab-skill-name">Enscape</span>
+                <div class="ab-skill-bar">
+                  <div class="ab-skill-fill" style="width:85%"></div>
+                </div>
+              </div>
+              <div class="ab-skill-item"><span class="ab-skill-name">AI Rendering</span>
+                <div class="ab-skill-bar">
+                  <div class="ab-skill-fill" style="width:88%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="ab-skill-cat">Construction</p>
+            <div class="ab-skill-items">
+              <div class="ab-skill-item"><span class="ab-skill-name">PlanSwift</span>
+                <div class="ab-skill-bar">
+                  <div class="ab-skill-fill" style="width:90%"></div>
+                </div>
+              </div>
+              <div class="ab-skill-item"><span class="ab-skill-name">Cost Estimation</span>
+                <div class="ab-skill-bar">
+                  <div class="ab-skill-fill" style="width:82%"></div>
+                </div>
+              </div>
+              <div class="ab-skill-item"><span class="ab-skill-name">Site Supervision</span>
+                <div class="ab-skill-bar">
+                  <div class="ab-skill-fill" style="width:80%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="ab-skill-cat">Languages</p>
+            <div class="ab-skill-items">
+              <div class="ab-skill-item"><span class="ab-skill-name">Spanish</span>
+                <div class="ab-skill-bar">
+                  <div class="ab-skill-fill" style="width:100%"></div>
+                </div>
+              </div>
+              <div class="ab-skill-item"><span class="ab-skill-name">English (B2)</span>
+                <div class="ab-skill-bar">
+                  <div class="ab-skill-fill" style="width:70%"></div>
+                </div>
+              </div>
+            </div>
+            <div class="ab-connect">
+              <p class="ab-skill-cat">Connect</p>
+              <a href="https://www.linkedin.com/in/valenarboledab/" target="_blank" class="ab-connect-link">
+                <svg viewBox="0 0 24 24">
+                  <path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-6a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="1.5" />
+                </svg>
+                linkedin.com/in/valenarboledab
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ PAGE: PROJECTS / WORK ══════════════ -->
+  <div id="page-projects" class="page">
+    <div class="wk-hero">
+      <div class="wk-hero-l">
+        <div>
+          <p class="eyebrow">Portfolio</p>
+          <h1>All <em>projects.</em></h1>
+          <p>A selection of work across different scales. From residential to commercial, interior design and masterplan
+            — each space designed with intention.</p>
+          <button class="wk-cta" onclick="showPage('home')">View Featured <svg viewBox="0 0 16 16" fill="none"
+              stroke="currentColor" stroke-width="1.5">
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg></button>
+        </div>
+      </div>
+      <div class="wk-hero-r">
+        <img src="images/home/img-arboretum-georgia.jpg" alt="Portfolio overview">
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <span class="fl">Filter by</span>
+      <button class="ftab on" onclick="filterProj('all',this)">All</button>
+      <button class="ftab" onclick="filterProj('residential',this)">Residential</button>
+      <button class="ftab" onclick="filterProj('commercial',this)">Commercial</button>
+      <button class="ftab" onclick="filterProj('interior',this)">Interior</button>
+      <button class="ftab" onclick="filterProj('masterplan',this)">Public Space</button>
+    </div>
+
+    <div class="wk-grid" id="projGrid">
+      <div class="wcard" data-cat="commercial">
+        <img src="images/COWORKING.png" alt="Coworking The Shed">
+        <div class="wcard-label">
+          <div class="wcard-lname">Coworking The Shed</div>
+          <div class="wcard-lsub">Commercial · Spain</div>
+        </div>
+        <div class="wcard-ov"></div>
+        <div class="wcard-info">
+          <div class="wcard-cat">Commercial</div>
+          <div class="wcard-name">Coworking The Shed</div>
+          <div class="wcard-loc">Spain</div>
+        </div>
+        <div class="wcard-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="wcard" data-cat="residential">
+        <img src="images/residencial.png" alt="Edificio Residencial">
+        <div class="wcard-label">
+          <div class="wcard-lname">Edificio Residencial</div>
+          <div class="wcard-lsub">Residential · Spain</div>
+        </div>
+        <div class="wcard-ov"></div>
+        <div class="wcard-info">
+          <div class="wcard-cat">Residential</div>
+          <div class="wcard-name">Edificio Residencial</div>
+          <div class="wcard-loc">Spain</div>
+        </div>
+        <div class="wcard-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="wcard" data-cat="masterplan">
+        <img src="images/teleferico.jpeg" alt="Teleférico Fátima">
+        <div class="wcard-label">
+          <div class="wcard-lname">Teleférico Fátima</div>
+          <div class="wcard-lsub">Masterplan · Infrastructure · Colombia</div>
+        </div>
+        <div class="wcard-ov"></div>
+        <div class="wcard-info">
+          <div class="wcard-cat">Masterplan · Infrastructure</div>
+          <div class="wcard-name">Teleférico Fátima</div>
+          <div class="wcard-loc">Colombia</div>
+        </div>
+        <div class="wcard-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="wcard" data-cat="residential"
+        onclick="window.open('https://arangoconstructions.com/arboretum-project/','_blank')">
+        <img src="images/home/img-arboretum-georgia.jpg" alt="Arboretum">
+        <div class="wcard-label">
+          <div class="wcard-lname">Arboretum</div>
+          <div class="wcard-lsub">Residential · Lake Oconee, GA</div>
+        </div>
+        <div class="wcard-ov"></div>
+        <div class="wcard-info">
+          <div class="wcard-cat">Residential Development</div>
+          <div class="wcard-name">Arboretum</div>
+          <div class="wcard-loc">Lake Oconee, GA</div>
+        </div>
+        <div class="wcard-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="wcard" data-cat="commercial"
+        onclick="window.open('https://sites.google.com/miugca.edu.co/centro-cultural-de-eventos/p%C3%A1gina-principal','_blank')">
+        <img src="images/home/img-cultural.jpg" alt="Cultural & Convention Center">
+        <div class="wcard-badge">🥇 Winning Project</div>
+        <div class="wcard-label">
+          <div class="wcard-lname">Cultural & Convention Center</div>
+          <div class="wcard-lsub">Commercial · Cultural · Colombia</div>
+        </div>
+        <div class="wcard-ov"></div>
+        <div class="wcard-info">
+          <div class="wcard-cat">Commercial · Cultural</div>
+          <div class="wcard-name">Cultural & Convention Center</div>
+          <div class="wcard-loc">Colombia</div>
+        </div>
+        <div class="wcard-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="wcard" data-cat="commercial"
+        onclick="window.open('https://sites.google.com/miugca.edu.co/tebaidaquindio/inicio','_blank')">
+        <img src="images/home/img-ecohotel.jpg" alt="Eco Hotel">
+        <div class="wcard-label">
+          <div class="wcard-lname">Eco Hotel</div>
+          <div class="wcard-lsub">Commercial · Hospitality · Colombia</div>
+        </div>
+        <div class="wcard-ov"></div>
+        <div class="wcard-info">
+          <div class="wcard-cat">Commercial · Hospitality</div>
+          <div class="wcard-name">Eco Hotel</div>
+          <div class="wcard-loc">Quindío, Colombia</div>
+        </div>
+        <div class="wcard-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="wcard" data-cat="commercial"
+        onclick="window.open('https://sites.google.com/miugca.edu.co/mana/inicio','_blank')">
+        <img src="images/home/img-mana.jpg" alt="MANÁ Complex">
+        <div class="wcard-badge">🥇 Winning Project</div>
+        <div class="wcard-label">
+          <div class="wcard-lname">MANÁ Complex</div>
+          <div class="wcard-lsub">Commercial · Cultural · Educational · Colombia</div>
+        </div>
+        <div class="wcard-ov"></div>
+        <div class="wcard-info">
+          <div class="wcard-cat">Commercial · Cultural · Educational</div>
+          <div class="wcard-name">MANÁ Complex</div>
+          <div class="wcard-loc">Colombia</div>
+        </div>
+        <div class="wcard-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+      <div class="wcard" data-cat="interior"
+        onclick="showPage('process');setTimeout(()=>switchProc('interior',document.querySelector('.proc-tab[onclick*=interior]')),50)">
+        <img src="images/home/img-burgos.jpg" alt="Edificio Burgos">
+        <div class="wcard-label">
+          <div class="wcard-lname">Edificio Burgos</div>
+          <div class="wcard-lsub">Interior Design · Burgos, Spain</div>
+        </div>
+        <div class="wcard-ov"></div>
+        <div class="wcard-info">
+          <div class="wcard-cat">Interior Design</div>
+          <div class="wcard-name">Edificio Burgos</div>
+          <div class="wcard-loc">Burgos, Spain</div>
+        </div>
+        <div class="wcard-arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg></div>
+      </div>
+    </div>
+
+    <div class="wk-approach">
+      <p class="wk-approach-l">I combine architecture, strategy and visualization to create spaces that are functional,
+        beautiful and meaningful.</p>
+      <div class="wk-approach-div"></div>
+      <p class="wk-approach-r">"Architecture is not just about buildings, it's about how we live, feel and connect."</p>
+    </div>
+  </div>
+
+  <!-- ══════════════ PAGE: PROCESS ══════════════ -->
+  <div id="page-process" class="page">
+
+    <!-- TABS -->
+    <!--
+    <div class="pr-tabs">
+      <button class="proc-tab on" onclick="switchProc('arch',this)">Architecture Process</button>
+      <button class="proc-tab" onclick="switchProc('interior',this)">Interior Design Process</button>
+    </div>
+    -->
+
+    <!-- ═══ ARCHITECTURE TAB ═══ -->
+    <div id="proc-arch" class="proc-content show">
+
+      <div class="pr-hero">
+        <div class="pr-hero-l">
+          <div>
+            <p class="eyebrow">Process</p>
+            <h1 class="pr-hero-title">A vision brought<br><em>to life, step by step.</em></h1>
+          </div>
+          <p class="pr-hero-desc">A comprehensive process that integrates design, precision and construction to create a framework for exceptional projects.</p>
+        </div>
+        <div class="pr-hero-r">
+          <img src="images/home/img-burgos.jpg" alt="Architecture Process">
+        </div>
+      </div>
+
+      <div class="pr-steps">
+
+        <div class="pstep reveal">
+          <div class="pstep-num">01</div>
+          <div class="pstep-info">
+            <div class="pstep-title">Concept & Masterplan</div>
+            <div class="pstep-body">We begin with a deep understanding of the site, its context and potential. A masterplan is developed to organize the program around nature, connectivity and experience.</div>
+            <div class="pstep-expand"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 4l4 4-4 4M3 8h10"/></svg></div>
+          </div>
+          <div class="pstep-photos">
+            <div class="pstep-photo"><img src="RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Front_facade_02.png" alt="Concept"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Strategic%20Positioning.png" alt="Strategic"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Welcome%20to%20Arboretum.png" alt="Arboretum"></div>
+          </div>
+        </div>
+
+        <div class="pstep reveal">
+          <div class="pstep-num">02</div>
+          <div class="pstep-info">
+            <div class="pstep-title">Schematic Design</div>
+            <div class="pstep-body">The architecture takes shape. Volumes, circulation, spatial strategies and landscape integration are defined to create a harmonious relationship between buildings and nature.</div>
+            <div class="pstep-expand"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 4l4 4-4 4M3 8h10"/></svg></div>
+          </div>
+          <div class="pstep-photos">
+            <div class="pstep-photo"><img src="RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Front_facade_03.png" alt="Facade 3"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Front_facade_05.png" alt="Facade 5"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Warm%20Minimalist%20Aesthetic.png" alt="Aesthetic"></div>
+          </div>
+        </div>
+
+        <div class="pstep reveal">
+          <div class="pstep-num">03</div>
+          <div class="pstep-info">
+            <div class="pstep-title">Design Development</div>
+            <div class="pstep-body">Materials, structure, systems and details are refined. Every decision ensures functionality, sustainability and timeless quality aligned with the design intent.</div>
+            <div class="pstep-expand"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 4l4 4-4 4M3 8h10"/></svg></div>
+          </div>
+          <div class="pstep-photos">
+            <div class="pstep-photo"><img src="RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Floor-to-Ceiling%20Windows.png" alt="Windows"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Indoor-Outdoor%20Living.png" alt="Indoor-Outdoor"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Mid-to-High%20Custom%20Finishes.png" alt="Finishes"></div>
+          </div>
+        </div>
+
+        <div class="pstep reveal">
+          <div class="pstep-num">04</div>
+          <div class="pstep-info">
+            <div class="pstep-title">Construction Documentation</div>
+            <div class="pstep-body">Detailed plans, specifications and coordination documents produced to guide construction with clarity and accuracy at every phase.</div>
+            <div class="pstep-expand"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 4l4 4-4 4M3 8h10"/></svg></div>
+          </div>
+          <div class="pstep-photos">
+            <div class="pstep-photo"><img src="RESIDENTIAL/Facade%20-%20United%20States/1_1%20-%20Photo.jpg" alt="Facade 1"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/Facade%20-%20United%20States/1_3%20-%20Photo.jpg" alt="Facade 3"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/Facade%20-%20United%20States/FACADE.png" alt="Facade render"></div>
+          </div>
+        </div>
+
+        <div class="pstep reveal">
+          <div class="pstep-num">05</div>
+          <div class="pstep-info">
+            <div class="pstep-title">Construction & Execution</div>
+            <div class="pstep-body">On site, the vision becomes reality. We work closely with contractors and consultants to ensure quality, timing and faithful execution of every detail.</div>
+            <div class="pstep-expand"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 4l4 4-4 4M3 8h10"/></svg></div>
+          </div>
+          <div class="pstep-photos">
+            <div class="pstep-photo"><img src="RESIDENTIAL/Pool%20-%20United%20States/Pool_11%20-%20Foto.jpg" alt="Pool 11"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/Pool%20-%20United%20States/Con%20Agua_1%20-%20Photo.jpg" alt="Pool water"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/BBQ%20-%20United%20States/BBQ.png" alt="BBQ"></div>
+          </div>
+        </div>
+
+        <div class="pstep reveal">
+          <div class="pstep-num">06</div>
+          <div class="pstep-info">
+            <div class="pstep-title">Completion & Impact</div>
+            <div class="pstep-body">A project that transforms the site and enhances the lives of those who experience it — a legacy of architecture, nature and community.</div>
+            <div class="pstep-expand"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 4l4 4-4 4M3 8h10"/></svg></div>
+          </div>
+          <div class="pstep-photos">
+            <div class="pstep-photo"><img src="RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Living_room_06.png" alt="Living room"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Kitchen_01.png" alt="Kitchen"></div>
+            <div class="pstep-photo"><img src="RESIDENTIAL/Pool%20-%20United%20States/Con%20Agua_3%20-%20Photo.jpg" alt="Pool complete"></div>
+          </div>
+        </div>
+
+      </div><!-- /pr-steps -->
+
+      <!-- Development -->
+      <div class="pr-dev reveal">
+        <div class="pr-dev-hdr">
+          <div>
+            <div class="pr-dev-num">07</div>
+            <div class="pstep-title">Development Strategy</div>
+            <p class="pr-dev-desc">From land acquisition and financial structuring to permits and commercialization, we lead the entire development process.</p>
+          </div>
+          <div class="pr-dev-grid">
+            <div class="pr-dev-item">
+              <div class="dev-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+              <div class="dev-title">Land Acquisition</div>
+              <div class="dev-body">Strategic analysis and selection of the ideal land.</div>
+            </div>
+            <div class="pr-dev-item">
+              <div class="dev-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
+              <div class="dev-title">Financial Structuring</div>
+              <div class="dev-body">Feasibility studies and financial models.</div>
+            </div>
+            <div class="pr-dev-item">
+              <div class="dev-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+              <div class="dev-title">Permits & Approvals</div>
+              <div class="dev-body">Management of licenses and regulatory approvals.</div>
+            </div>
+            <div class="pr-dev-item">
+              <div class="dev-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+              <div class="dev-title">Construction Management</div>
+              <div class="dev-body">Coordination and control throughout the build.</div>
+            </div>
+            <div class="pr-dev-item">
+              <div class="dev-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-6 9 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
+              <div class="dev-title">Commercialization</div>
+              <div class="dev-body">Marketing and final delivery of the vision.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /proc-arch -->
+
+    <!-- ═══ INTERIOR DESIGN TAB ═══ -->
+    <div id="proc-interior" class="proc-content">
+
+      <div class="pr-hero">
+        <div class="pr-hero-l">
+          <div>
+            <p class="eyebrow">Interior Design Process</p>
+            <h1 class="pr-hero-title">From feeling<br><em>to finished space.</em></h1>
+          </div>
+          <p class="pr-hero-desc">My interior design process is built around one belief: a space should first make you feel something, then function beautifully around that feeling.</p>
+        </div>
+        <div class="pr-hero-r">
+          <img src="images/home/img-ecohotel.jpg" alt="Interior Design Process">
+        </div>
+      </div>
+
+      <!-- Case Study Banner -->
+      <div class="pr-case-banner reveal">
+        <div class="pr-case-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--cream)" stroke-width="1.5" width="20" height="20"><path d="M3 9l9-6 9 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        </div>
+        <div>
+          <p class="pr-case-label">Case Study · Spain</p>
+          <p class="pr-case-name">Edificio Burgos — Reforma Integral · 5 pisos · Burgos, Castilla y León</p>
+        </div>
+        <p class="pr-case-desc">Complete interior design of a 5-story residential building — 3 units, 2 penthouses and common areas.</p>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="pr-int-step reveal">
+        <div class="pr-int-step-hdr">
+          <span class="pr-int-num">01</span>
+          <div class="pr-int-divider"></div>
+          <div><p class="pr-int-label">First Step</p><h2 class="pr-int-title">Brief & <em>Project Scope</em></h2></div>
+        </div>
+        <div class="pr-int-2col">
+          <div>
+            <p class="pr-int-body">Every project starts with a deep conversation — not about dimensions, but about how the client wants to feel in their space. Lifestyle, references, what bothers them about the current space, and what they dream for the new one.</p>
+            <p class="pr-int-body">From that I define the <strong>Project Scope</strong>: spaces to intervene, style direction, budget range, and timeline.</p>
+            <div class="pr-int-note">
+              <p>Edificio Burgos scope:</p>
+              <div class="pr-int-note-items">
+                <span>— 3 viviendas + 2 buhardillas + zona común</span>
+                <span>— Style: Japandi · Orgánico · Mediterráneo</span>
+                <span>— Sala, comedor, cocina, cuartos, baños per floor</span>
+                <span>— Aesthetic coherence across all 5 floors</span>
+              </div>
+            </div>
+          </div>
+          <div class="pr-img-r"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80" alt="Brief"></div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="pr-int-step alt reveal">
+        <div class="pr-int-step-hdr">
+          <span class="pr-int-num">02</span>
+          <div class="pr-int-divider"></div>
+          <div><p class="pr-int-label">Second Step</p><h2 class="pr-int-title"><em>Moodboard</em> by Space</h2></div>
+        </div>
+        <p class="pr-int-body" style="max-width:680px;margin-bottom:32px">I build a separate moodboard for each space: <strong>bedrooms, living rooms, kitchens and bathrooms</strong>. Each captures emotion, textures, shapes, lighting direction and color palette specific to that space.</p>
+        <div class="pr-mood-grid">
+          <div class="pr-mood-item"><img src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=600&q=80" alt="Habitaciones"><div class="pr-mood-label"><p>Moodboard</p><p>Habitaciones</p></div></div>
+          <div class="pr-mood-item"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Sala"><div class="pr-mood-label"><p>Moodboard</p><p>Sala & Living</p></div></div>
+          <div class="pr-mood-item"><img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=600&q=80" alt="Cocina"><div class="pr-mood-label"><p>Moodboard</p><p>Cocina</p></div></div>
+          <div class="pr-mood-item"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80" alt="Baños"><div class="pr-mood-label"><p>Moodboard</p><p>Baños</p></div></div>
+        </div>
+        <p style="font-size:12px;color:var(--light);font-style:italic;text-align:center">Each moodboard includes: emotion · color palette (HEX) · materials · texture · lighting · shapes</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="pr-int-step reveal">
+        <div class="pr-int-step-hdr">
+          <span class="pr-int-num">03</span>
+          <div class="pr-int-divider"></div>
+          <div><p class="pr-int-label">Third Step</p><h2 class="pr-int-title">Space Planning & <em>Colorimetry</em></h2></div>
+        </div>
+        <div class="pr-int-2col">
+          <div>
+            <p class="pr-int-body">With the moodboard approved, I move into spatial planning — laying out furniture, circulation flows, and functional zones within the actual floor plan in AutoCAD or Revit.</p>
+            <p class="pr-int-body"><strong>Colorimetry</strong> happens simultaneously: exact paint colors, material finishes and surface tones defined for each room based on orientation, size, and mood.</p>
+            <div class="pr-int-note">
+              <p>Per room I define:</p>
+              <div class="pr-int-note-items" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+                <span>— Furniture layout</span><span>— Traffic flow</span>
+                <span>— Paint color (HEX)</span><span>— Floor finish</span>
+                <span>— Wall treatment</span><span>— Light zoning</span>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div style="border-radius:12px;overflow:hidden;aspect-ratio:3/4"><img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=400&q=80" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+            <div style="border-radius:12px;overflow:hidden;aspect-ratio:3/4;margin-top:20px"><img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=400&q=80" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="pr-int-step alt2 reveal">
+        <div class="pr-int-step-hdr">
+          <span class="pr-int-num">04</span>
+          <div class="pr-int-divider"></div>
+          <div><p class="pr-int-label">Fourth Step</p><h2 class="pr-int-title"><em>Shopping</em> List</h2></div>
+        </div>
+        <p class="pr-int-body" style="max-width:680px;margin-bottom:32px">A curated, numbered catalog of every item the space needs — furniture, lighting, fixtures, textiles and objects — each selected to match the moodboard aesthetically, fit the plan dimensionally, and respect the budget.</p>
+        <div class="pr-shop-grid">
+          <div class="pr-shop-item"><div class="pr-shop-img"><img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&q=80" alt="Camas"></div><div class="pr-shop-info"><p class="pr-shop-eye">Shopping List</p><p class="pr-shop-name">Mesas de Noche & Camas</p><p class="pr-shop-count">12 opciones</p></div></div>
+          <div class="pr-shop-item"><div class="pr-shop-img"><img src="https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=400&q=80" alt="Luz"></div><div class="pr-shop-info"><p class="pr-shop-eye">Shopping List</p><p class="pr-shop-name">Esquema de Luz</p><p class="pr-shop-count">19 opciones</p></div></div>
+          <div class="pr-shop-item"><div class="pr-shop-img"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80" alt="Sofás"></div><div class="pr-shop-info"><p class="pr-shop-eye">Shopping List</p><p class="pr-shop-name">Sofás & Puffs</p><p class="pr-shop-count">11 opciones</p></div></div>
+          <div class="pr-shop-item"><div class="pr-shop-img"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80" alt="Baño"></div><div class="pr-shop-info"><p class="pr-shop-eye">Shopping List</p><p class="pr-shop-name">Espejos & Baño</p><p class="pr-shop-count">20 ítems</p></div></div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="pr-int-step reveal">
+        <div class="pr-int-step-hdr">
+          <span class="pr-int-num">05</span>
+          <div class="pr-int-divider"></div>
+          <div><p class="pr-int-label">Fifth Step</p><h2 class="pr-int-title">3D Visualization & <em>Renders</em></h2></div>
+        </div>
+        <p class="pr-int-body" style="max-width:680px;margin-bottom:24px">Photorealistic 3D renders for every room — exact furniture placement, materials, lighting and atmosphere — so the client experiences the space before anything is moved.</p>
+        <p style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--light);margin-bottom:14px">Edificio Burgos · Renders by space</p>
+        <div class="pr-renders-grid">
+          <div class="pr-render"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb3?w=500&q=80" alt="Sala"><span class="pr-render-tag">Sala · P.Semisótano</span></div>
+          <div class="pr-render"><img src="https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=500&q=80" alt="Cuarto"><span class="pr-render-tag">Cuarto 2 · P.Semisótano</span></div>
+          <div class="pr-render"><img src="https://images.unsplash.com/photo-1617806118233-18e1de247200?w=500&q=80" alt="Comedor"><span class="pr-render-tag">Comedor · P.Semisótano</span></div>
+        </div>
+        <div class="pr-renders-grid">
+          <div class="pr-render"><img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&q=80" alt="Baño"><span class="pr-render-tag">Baño Social · P.Primera</span></div>
+          <div class="pr-render"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&q=80" alt="Sala"><span class="pr-render-tag">Sala · P.Primera</span></div>
+          <div class="pr-render"><img src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=500&q=80" alt="Baño 2"><span class="pr-render-tag">Cuarto 2 Baño</span></div>
+        </div>
+        <div class="pr-renders-grid" style="margin-bottom:0">
+          <div class="pr-render"><img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?w=500&q=80" alt="Sala 2/3"><span class="pr-render-tag">Sala · P.Segunda/Tercera</span></div>
+          <div class="pr-render"><img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=500&q=80" alt="Cocina"><span class="pr-render-tag">Cocina · P.Segunda/Tercera</span></div>
+          <div class="pr-render"><img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=500&q=80" alt="Cuarto 4"><span class="pr-render-tag">Cuarto 2 · P.Cuarta</span></div>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="pr-exec reveal">
+        <img class="pr-exec-bg" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=80" alt="Execution">
+        <div class="pr-exec-overlay"></div>
+        <div class="pr-exec-body">
+          <div class="pr-exec-hdr">
+            <span class="pr-exec-num">06</span>
+            <div><p class="pr-exec-label">Final Step</p><h2 class="pr-exec-title">Execution & Installation</h2></div>
+          </div>
+          <p class="pr-exec-desc">I coordinate with contractors for finishing work, track deliveries, and supervise installation to ensure the design intent is preserved from screen to reality.</p>
+          <div class="pr-exec-tags">
+            <span class="pr-exec-tag">Contractor coordination</span>
+            <span class="pr-exec-tag">Delivery tracking</span>
+            <span class="pr-exec-tag">On-site supervision</span>
+            <span class="pr-exec-tag">Final styling</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="pr-cta reveal">
+        <div>
+          <p class="eyebrow">Ready to start?</p>
+          <h2 class="pr-cta-title">Let's design a space that feels exactly right.</h2>
+        </div>
+        <button class="pr-cta-btn" onclick="showPage('contact')">Start Your Project <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+      </div>
+
+    </div><!-- /proc-interior -->
+  </div>
+
+  <!-- ══════════════ PAGE: JOURNAL ══════════════ -->
+  <div id="page-journal" class="page">
+    <div class="jo-hero">
+      <div class="jo-hero-l">
+        <div>
+          <p class="eyebrow">Journal</p>
+          <h1 class="serif" style="font-size:clamp(34px,5vw,62px)">Ideas that shape<br><em style="font-style:italic">meaningful</em> spaces.</h1>
+        </div>
+        <div>
+          <p style="font-size:13.5px;color:var(--mid);line-height:1.8;font-weight:300;max-width:340px;margin-bottom:24px">Thoughts on architecture, design, development and the details that make a difference.</p>
+          <button class="pill">Explore Articles <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+        </div>
+      </div>
+      <div class="jo-hero-r"><img src="images/process.jpg" alt="Journal hero"></div>
+    </div>
+    <div class="jo-filters">
+      <span class="ftab on">All</span>
+      <span class="ftab">Architecture</span>
+      <span class="ftab">Design</span>
+      <span class="ftab">Development</span>
+      <span class="ftab">BIM & Tech</span>
+      <div class="jo-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search articles...">
+      </div>
+    </div>
+    <div class="jo-grid">
+      <!-- Cada enlace "Read More" usa href="#" como marcador. Reemplaza cada "#" por la URL del artículo correspondiente (p. ej. href="blog/designing-for-connection.html" o la URL externa del post). -->
+      <div class="jcard reveal">
+        <div class="jcard-img"><img src="images/home/img-arboretum-georgia.jpg" alt=""></div>
+        <div class="jcard-body">
+          <div class="jcard-meta"><span class="jcard-date">May 12, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">Architecture</span></div>
+          <h3 class="jcard-title">Designing for Connection: People, Nature & Place</h3>
+          <p class="jcard-exc">Exploring how architecture can foster connection and create spaces that enhance well-being.</p>
+          <a class="jcard-read" href="https://www.google.com">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="jcard reveal d1">
+        <div class="jcard-img"><img src="images/home/img-burgos.jpg" alt=""></div>
+        <div class="jcard-body">
+          <div class="jcard-meta"><span class="jcard-date">Apr 28, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">Development</span></div>
+          <h3 class="jcard-title">From Vision to Reality: The Arboretum Journey</h3>
+          <p class="jcard-exc">A behind-the-scenes look at the process, challenges and decisions that brought Arboretum to life.</p>
+          <a class="jcard-read" href="#">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="jcard reveal d2">
+        <div class="jcard-img"><img src="images/home/img-cultural.jpg" alt=""></div>
+        <div class="jcard-body">
+          <div class="jcard-meta"><span class="jcard-date">Apr 10, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">Design</span></div>
+          <h3 class="jcard-title">The Power of Materiality in Interior Spaces</h3>
+          <p class="jcard-exc">How textures, natural materials and light work together to create calm, timeless interiors.</p>
+          <a class="jcard-read" href="#">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="jcard reveal">
+        <div class="jcard-img"><img src="images/home/img-ecohotel.jpg" alt=""></div>
+        <div class="jcard-body">
+          <div class="jcard-meta"><span class="jcard-date">Mar 22, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">BIM & Tech</span></div>
+          <h3 class="jcard-title">BIM as a Design Tool, Not Just Documentation</h3>
+          <p class="jcard-exc">Leveraging BIM from concept to construction to improve coordination and decision-making.</p>
+          <a class="jcard-read" href="#">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="jcard reveal d1">
+        <div class="jcard-img"><img src="images/home/img-mana.jpg" alt=""></div>
+        <div class="jcard-body">
+          <div class="jcard-meta"><span class="jcard-date">Mar 05, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">Lifestyle</span></div>
+          <h3 class="jcard-title">Lessons from Travel That Inspire My Designs</h3>
+          <p class="jcard-exc">Moments, textures and cultures that influence the way I see and design for spaces.</p>
+          <a class="jcard-read" href="#">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="jcard reveal d2">
+        <div class="jcard-img"><img src="images/home/img-hero.jpg" alt=""></div>
+        <div class="jcard-body">
+          <div class="jcard-meta"><span class="jcard-date">Feb 18, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">Architecture</span></div>
+          <h3 class="jcard-title">Outdoor Living: More Than a Trend</h3>
+          <p class="jcard-exc">Designing outdoor spaces that are functional, beautiful and built to last over time.</p>
+          <a class="jcard-read" href="#">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="jo-sub reveal">
+      <div>
+        <h2 class="jo-sub-title">Stay inspired.</h2>
+        <p class="jo-sub-body">Thoughtful insights on design, architecture and more — straight to your inbox.</p>
+      </div>
+      <div>
+        <div class="jo-sub-form">
+          <input class="jo-sub-input" type="email" placeholder="Your email address">
+          <button class="jo-sub-btn">Subscribe <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ══════════════ PAGE: ARBORETUM ══════════════ -->
+  <div id="page-arboretum" class="page">
+    <div class="arb-wrap">
+      <aside class="arb-sidebar">
+        <button class="arb-back" onclick="showPage('journal')">← Back to Journal</button>
+        <p class="arb-s-label">Category</p>
+        <span class="arb-cat">Development</span>
+        <p class="arb-date">April 28, 2024 · Lake Oconee, Georgia</p>
+        <div class="arb-divider"></div>
+        <p class="arb-s-label" style="margin-bottom:12px;">In this article</p>
+        <ul class="arb-toc">
+          <li><a href="#">Architecture & Market Performance</a></li>
+          <li><a href="#">Designing for Emotional Connection</a></li>
+          <li><a href="#">Visualization as Strategy</a></li>
+          <li><a href="#">Landscape as Architecture</a></li>
+          <li><a href="#">Development Thinking</a></li>
+          <li><a href="#">Building With Intention</a></li>
+        </ul>
+        <div class="arb-sidebar-img"><img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=500&q=80"
+            alt="Arboretum"></div>
+      </aside>
+      <main class="arb-main">
+        <div class="arb-hero-img"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80"
+            alt="Arboretum"></div>
+        <p class="arb-tagline">Final Thoughts · Development</p>
+        <h1 class="arb-h1">Arboretum:<br>Designing More<br>Than a <em>House</em></h1>
+        <p class="arb-intro-big">Some residential projects begin with square footage, budgets or market comparables.
+          Arboretum began with a different question: <em>How should a place feel?</em></p>
+        <p class="arb-p">When I started studying the Lake Oconee market in Georgia, I realized buyers were not simply
+          searching for larger homes or luxury finishes. They were searching for calm. For privacy. For nature. For a
+          slower and more intentional lifestyle that still felt refined and timeless.</p>
+        <p class="arb-p">That idea became the foundation behind Arboretum. More than a residential proposal, the project
+          became an exploration of how architecture, landscape, visualization and development strategy can work together
+          to shape emotional experience and long-term value simultaneously.</p>
+        <div class="arb-img-row">
+          <div class="arb-img-box"><img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=700&q=80"
+              alt=""></div>
+          <div class="arb-img-box"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=80"
+              alt=""></div>
+        </div>
+        <div class="arb-divider-line"></div>
+        <div>
+          <p class="arb-sec-num">Architecture Aligned With</p>
+          <h2 class="arb-sec-title"><em>Market Performance</em></h2>
+          <p class="arb-p">One of the most important lessons I've learned through development is that good architecture
+            cannot exist disconnected from market reality. Beautiful spaces alone are not enough. The strongest projects
+            balance emotion with strategy.</p>
+          <p class="arb-p">The proposal for Arboretum was built around two questions: How can we create a space that
+            feels genuinely elevated? And how do we ensure that elevation translates into real, measurable value?</p>
+          <div class="arb-pull">
+            <p>"Spaces that feel elevated while remaining financially intelligent and executable."</p>
+          </div>
+        </div>
+        <div class="arb-img-full"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80"
+            alt="Arboretum front view"></div>
+        <div>
+          <p class="arb-sec-num">Designing for</p>
+          <h2 class="arb-sec-title">Emotional <em>Connection</em></h2>
+          <p class="arb-p">The design process began with a simple goal: to create a home that felt calm, grounded and
+            connected to nature. Every material, proportion and visual decision was selected to support a sense of
+            comfort, privacy and belonging.</p>
+          <p class="arb-p">The goal was not to create a beautiful object. The goal was to create a place where people
+            felt genuinely at home — in the deepest and most intentional sense of the word.</p>
+        </div>
+        <div class="arb-img-row">
+          <div class="arb-img-box"><img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=700&q=80"
+              alt=""></div>
+          <div class="arb-img-box"><img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=700&q=80"
+              alt=""></div>
+        </div>
+        <div>
+          <p class="arb-sec-num">Visualization as</p>
+          <h2 class="arb-sec-title"><em>Strategy</em></h2>
+          <p class="arb-p">Visualization was not treated as decoration. It became a strategic tool to communicate the
+            lifestyle, atmosphere and value of the project before construction. Through realistic imagery, the project
+            could be understood emotionally and commercially.</p>
+          <div class="arb-pull">
+            <p>"The future of residential development is not about building more. It is about building spaces people
+              genuinely connect with."</p>
+          </div>
+        </div>
+        <div>
+          <p class="arb-sec-num">Landscape as Part of</p>
+          <h2 class="arb-sec-title">The <em>Architecture</em></h2>
+          <p class="arb-p">At Arboretum, the landscape became part of the architecture itself. Outdoor living, natural
+            textures, framed views and soft transitions between interior and exterior were essential to the project
+            identity.</p>
+        </div>
+        <div class="arb-img-full"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80"
+            alt="Landscape"></div>
+        <div>
+          <p class="arb-sec-num">Development</p>
+          <h2 class="arb-sec-title"><em>Thinking</em></h2>
+          <p class="arb-p">Arboretum was also shaped by development logic. Every decision had to support both beauty and
+            strategy — responding to the market, buyer expectations, construction feasibility and long-term value.</p>
+        </div>
+        <div>
+          <p class="arb-sec-num">Building with</p>
+          <h2 class="arb-sec-title"><em>Intention</em></h2>
+          <p class="arb-p">Arboretum is about more than building a house. It is about creating a place where
+            architecture, nature and lifestyle work together to create long-term emotional and financial value.</p>
+        </div>
+        <div class="arb-final">
+          <p class="arb-final-tag">Final Thoughts</p>
+          <h3 class="arb-final-title">Arboretum ultimately became more than<br>a residential <em>pilot project.</em>
+          </h3>
+          <p class="arb-final-p">It became a reflection of the type of work I want to continue creating — spaces where
+            architecture, experience and strategy coexist with clarity and purpose.</p>
+          <p class="arb-final-p">Because the future of residential development is not about building more. It is about
+            building spaces people genuinely connect with.</p>
+        </div>
+        <div class="arb-tags"><span class="arb-tag-pill">Development</span><span
+            class="arb-tag-pill">Residential</span><span class="arb-tag-pill">Georgia</span><span
+            class="arb-tag-pill">Visualization</span><span class="arb-tag-pill">Architecture</span></div>
+        <div class="arb-nav-row">
+          <button class="pill-btn btn-outline" onclick="showPage('journal')">← Back to Journal</button>
+          <button class="pill-btn btn-olive" onclick="showPage('contact')">Start a Project →</button>
+        </div>
+        <div style="text-align:center;padding-top:8px;">
+          <button class="back-top" onclick="backToTop()">↑ Back to top</button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ══════════════ PAGE: CONTACT ══════════════ -->
+  <div id="page-contact" class="page">
+    <div class="ct-hero">
+      <div class="ct-hero-bg"><img src="images/home/img-mana.jpg" alt="Contact"></div>
+      <div class="ct-hero-body">
+        <p class="eyebrow" style="color:rgba(245,240,232,.55)">Get In Touch</p>
+        <h1 class="ct-hero-title">Let's create<br>something<br><em>meaningful.</em></h1>
+        <p class="ct-hero-sub">I'm always open to discussing new projects, collaborations or ideas. Let's bring your vision to life.</p>
+        <button class="pill pill-ghost">Schedule a Call <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+      </div>
+    </div>
+    <div class="ct-body">
+      <div class="ct-form-card reveal">
+        <p class="eyebrow" style="margin-bottom:22px">Send a Message</p>
+        <div class="form-row">
+          <div class="fg"><label class="flabel">First Name</label><input class="finput" type="text" placeholder="Your first name"></div>
+          <div class="fg"><label class="flabel">Last Name</label><input class="finput" type="text" placeholder="Your last name"></div>
+        </div>
+        <div class="form-row full">
+          <div class="fg"><label class="flabel">Email</label><input class="finput" type="email" placeholder="your@email.com"></div>
+        </div>
+        <div class="form-row full">
+          <div class="fg">
+            <label class="flabel">Project Type</label>
+            <select class="fselect finput">
+              <option value="" disabled selected>Select project type</option>
+              <option>Residential Architecture</option>
+              <option>Commercial Architecture</option>
+              <option>Interior Design</option>
+              <option>3D Visualization</option>
+              <option>BIM Consultation</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="fg"><label class="flabel">Message</label><textarea class="ftextarea" placeholder="Tell me about your project..."></textarea></div>
+        </div>
+        <button class="fsend" onclick="handleForm(event)">Send Message <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+      </div>
+      <div class="ct-info reveal d1">
+        <p class="ct-info-title">Contact Information</p>
+        <div class="ct-info-item">
+          <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="ct-lbl">Email</div><div class="ct-val">valenarboledab@gmail.com</div></div>
+        </div>
+        <div class="ct-info-item">
+          <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div><div class="ct-lbl">Phone</div><div class="ct-val">+1 (678) 490-5574</div></div>
+        </div>
+        <div class="ct-info-item">
+          <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="ct-lbl">Location</div><div class="ct-val">Georgia, United States</div></div>
+        </div>
+        <div class="ct-info-item">
+          <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+          <div><div class="ct-lbl">Instagram</div><div class="ct-val">@valenarboledab</div></div>
+        </div>
+        <div class="ct-info-item" style="border:none">
+          <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+          <div><div class="ct-lbl">LinkedIn</div><div class="ct-val">linkedin.com/in/valenarboledab</div></div>
+        </div>
+        <div class="ct-hrs">
+          <div class="ct-hrs-title">Office Hours</div>
+          <div class="ct-hrs-body">Monday – Friday<br>8:00 AM – 5:00 PM (GMT-5)</div>
+        </div>
+      </div>
+    </div>
+    <div class="ct-map">
+      <div class="ct-map-grid"></div>
+      <div class="ct-map-tag">
+        <div class="ct-map-tag-ey">BASED IN GEORGIA,<br>WORKING WORLWIDE</div>
+        <div class="ct-map-tag-title">GEORGIA, UNITED STATES</div>
+        <div class="ct-map-tag-body">While based in Georgia, USA I collaborate with clients and partners around the world</div>
+      </div>
+      <div class="ct-map-pin">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <span>Georgia, United States</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════ SHARED FOOTER ══════════════ -->
+  <footer class="footer" id="site-footer">
+    <div class="footer-in"><div class="footer-badge">VA</div>
+      <div class="footer-l">
+         <div class="footer-title">Great projects start<br>with a <em>conversation.</em></div>
+        <div class="footer-links-col">
+          <a href="mailto:valenarboledab@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg>valenarboledab@gmail.com</a>
+          <a href="https://linkedin.com/in/valenarboledab" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-6a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="1.5"/></svg>linkedin.com/in/valenarboledab</a>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.97.34 1.93.62 2.86a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.22-1.22a2 2 0 0 1 2.11-.45c.93.28 1.89.49 2.86.62A2 2 0 0 1 22 16.92z"/></svg>+1 (678) 490-5574</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Georgia, United States</span>
+        </div>
+      </div>
+      <div class="footer-r">
+        <button class="footer-cta" onclick="showPage('contact')">Let's Start a Project <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <div>
+          <nav class="footer-nav">
+            <a onclick="showPage('projects')">Work</a>
+            <a onclick="showPage('about')">About</a>
+            <a onclick="showPage('process')">Process</a>
+            <a onclick="showPage('journal')">Journal</a>
+            <a onclick="showPage('contact')">Contact</a>
+          </nav>
+          <div class="footer-copy">© 2026 Valentina Arboleda · Architect</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
