@@ -58,14 +58,6 @@ function showPage(id) {
   if (navEl) navEl.classList.add('active');
 }
 
-function filterProj(cat, btn) {
-  document.querySelectorAll('#page-projects .ftab').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  document.querySelectorAll('#projGrid .wcard').forEach(c => {
-    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
-  });
-}
-
 function filterArt(cat, btn) {
   document.querySelectorAll('.journal-filters .filter-pill').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
@@ -87,6 +79,27 @@ function handleForm(e) {
   btn.textContent = 'Message Sent ✓';
   btn.style.background = 'var(--olive)';
   setTimeout(() => { btn.textContent = 'Send Message ↗'; btn.style.background = ''; }, 3000);
+}
+
+function handleJournalSubscribe(e) {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const input = form.querySelector('.jo-sub-input');
+  const status = form.parentElement.querySelector('.jo-sub-status');
+  const email = input.value.trim();
+
+  if (!input.checkValidity()) {
+    status.textContent = 'Please enter a valid email address.';
+    status.classList.add('is-error');
+    input.focus();
+    return;
+  }
+
+  status.classList.remove('is-error');
+  status.textContent = 'Opening your email app to confirm your subscription…';
+  const subject = encodeURIComponent('Journal subscription request');
+  const body = encodeURIComponent('Please add ' + email + ' to the Journal mailing list.');
+  window.location.href = 'mailto:valenarboledab@gmail.com?subject=' + subject + '&body=' + body;
 }
 
 function initTilt() {
@@ -111,4 +124,475 @@ initRevealObserver();
   if (home && home.classList.contains('active')) {
     requestAnimationFrame(function() { observePageReveals(home); });
   }
+})();
+
+/* Integrated portfolio enhancements from the approved preview. */
+(function () {
+  'use strict';
+
+  document.body.classList.add('preview-mode');
+
+  const CAROUSEL_INTERVAL = 4000;
+
+  const svgArrow = (direction) => direction === 'prev'
+    ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m7 7-7-7 7-7"/></svg>'
+    : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>';
+
+  const arboretumImages = [
+    '20260316_230149000_iOS.png','Front_facade_02.png','Front_facade_03.png','Front_facade_05.png',
+    'Living_room_03.png','Kitchen_01.png','Dinning_room_01.png','Foyer_01.png','Bedroom_01.png',
+    'Master_bathroom_05.png','Office_01.png','Indoor-Outdoor Living.png'
+  ].map(name => 'RESIDENTIAL/Residential + Interior Design/Single Family Arboretum - United States/' + name);
+
+  const serenaImages = [
+    '20260526_160809000_iOS 1.jpg','20260526_160809000_iOS 2.jpg',
+    '20260526_160809000_iOS.jpg','20260526_160810000_iOS.jpg'
+  ].map(name => 'RESIDENTIAL/Residential + Interior Design/Serena Hills - United States/' + name);
+
+  const residentialBuildingImages = [
+    '20260302_153940000_iOS.jpg','20260327_224626000_iOS.jpg','20260327_224759000_iOS.jpg',
+    '20260327_224921000_iOS.jpg','20260327_225014000_iOS.jpg','20260327_225210000_iOS.jpg',
+    '20260528_232804000_iOS.jpg','20260528_232804000_iOS.png'
+  ].map(name => 'COMMERCIAL/Residential Building  5 Floors - Spain/' + name);
+
+  const publicSpaceImages = [
+    '1.png','2.png','3.png','4.png','5.png','6.png',
+    '9. Imagen EP Salento.png','Image Jan 29, 2026, 09_07_28 PM.png'
+  ].map(name => 'COMMERCIAL/PUBLIC SPACE/Public Space AND Viewpoint - Colombia/' + name);
+
+  const ecoHotelImages = [
+    'ECO HOTEL.png','ECO HOTEL 2.png','ECO HOTEL 3.png',
+    'ECO HOTEL 4.png','ECO HOTEL 5.png','ECO HOTEL 6.png'
+  ].map(name => 'COMMERCIAL/COMMERCIAL + PUBLIC INTERIOR DESIGN/Eco-Hotel - Colombia/' + name);
+
+  const manaImages = [
+    'images/home/img-mana.jpg',
+    ...[
+      '20260528_232806000_iOS.jpg','20260529_223048000_iOS.jpg','20260721_170357649_iOS.jpg',
+      '20260721_170529166_iOS.jpg','20260721_170600650_iOS.jpg','20260721_170747765_iOS.jpg',
+      '20260721_171727896_iOS.jpg'
+    ].map(name => 'COMMERCIAL/COMMERCIAL + PUBLIC INTERIOR DESIGN/Maná - Colombia/' + name)
+  ];
+
+  const architecturalDesignImages = [
+    'Image Jan 29, 2026, 09_27_25 PM.png','2.png','3.png','4.png'
+  ].map(name => 'RESIDENTIAL/Residential + Interior Design/Single Family House - Colombia/' + name);
+
+  const residentialHouseImages = [
+    'RESIDENTIAL/United States - House - Lot 1 - PTC/Image Jan 29, 2026, 10_16_00 PM.png',
+    'RESIDENTIAL/United States - House - Lot 1 - PTC/20260316_155040000_iOS.jpg'
+  ];
+
+  const projectData = [
+    {name:'Cable Car',country:'Colombia',cat:'commercial',category:'Commercial · Infrastructure',images:['images/teleferico.jpeg']},
+    {name:'Residential Building 5 Floors',country:'Spain',cat:'commercial',category:'Commercial · Residential',images:residentialBuildingImages},
+    {name:'G-Metria',country:'Colombia',cat:'commercial',category:'Commercial · Public Interior',images:['COMMERCIAL/PUBLIC SPACE/G-Metria - Colombia/20260527_125716831_iOS.png']},
+    {name:'Public Space & View Point',country:'Colombia',cat:'masterplan',category:'Public Space',images:publicSpaceImages},
+    {name:'Medical Building',country:'Colombia',cat:'commercial',category:'Commercial · Superintendent',images:['COMMERCIAL/SUPERINTENDANT/Medical Building - Colombia/marquez y fajardo.png']},
+    {name:'Marawi',country:'Colombia',cat:'commercial',category:'Commercial · Superintendent',images:['COMMERCIAL/SUPERINTENDANT/Marawi - Colombia/WhatsApp Image 2026-01-31 at 9.44.29 PM.jpeg']},
+    {name:'Zonata Apartments',country:'Colombia',cat:'commercial',category:'Commercial · Superintendent',images:['COMMERCIAL/SUPERINTENDANT/Zonata Apartments - Colombia/Screenshot-2025-05-28-at-3.26.47 PM.jpg']},
+    {name:'Residential BBQ',country:'USA',cat:'residential',category:'Residential',images:['RESIDENTIAL/BBQ - United States/BBQ.png']},
+    {name:'3D Visualization',country:'USA',cat:'residential',category:'Residential · Visualization',images:['RESIDENTIAL/Facade - United States/FACADE.png']},
+    {name:'Residential Pool Design',country:'USA',cat:'residential',category:'Residential',images:['RESIDENTIAL/Pool - United States/PISCINA.png']},
+    {name:'La Pradera – Residential Design',country:'Colombia',cat:'residential',category:'Residential',images:['RESIDENTIAL/Rooftop Single Family House - Colombia/TERRACE.png']},
+    {name:'Residential House',country:'USA',cat:'residential',category:'Residential',images:residentialHouseImages},
+    {name:'Serena Hills',country:'USA',cat:'interior',category:'Residential + Interior Design',images:serenaImages},
+    {name:'Architectural Design',country:'Colombia',cat:'interior',category:'Residential + Interior Design',images:architecturalDesignImages}
+  ];
+
+  const featuredData = [
+    {name:'Single Family Arboretum',country:'USA',images:arboretumImages,url:'https://arangoconstructions.com/arboretum-project/'},
+    {name:'Arboretum 2',country:'Colombia',images:['images/home/img-hero.jpg'],award:true,url:'https://sites.google.com/miugca.edu.co/arboretum/inicio'},
+    {name:'Cultural & Convention Center',country:'Colombia',images:['images/home/img-cultural.jpg'],award:true,url:'https://sites.google.com/miugca.edu.co/centro-cultural-de-eventos/p%C3%A1gina-principal'},
+    {name:'Eco Hotel',country:'Colombia',images:ecoHotelImages,url:'https://sites.google.com/miugca.edu.co/tebaidaquindio/inicio'},
+    {name:'Maná',country:'Colombia',images:manaImages,note:'8 of 9 assets found',award:true,url:'https://sites.google.com/miugca.edu.co/mana/inicio'},
+    {name:'Coworking Building',country:'Spain',images:['images/COWORKING.png'],page:'projects'}
+  ];
+
+  function carouselMarkup(images, alt, note) {
+    const safeImages = images || [];
+    if (!safeImages.length) return '';
+    return '<div class="preview-carousel" data-count="' + safeImages.length + '" aria-label="Image carousel for ' + alt + '">' +
+      '<div class="preview-carousel-track">' + safeImages.map((src, i) =>
+        '<div class="preview-carousel-slide"><img src="' + encodeURI(src) + '" alt="' + alt + ' — image ' + (i + 1) + '" loading="lazy"></div>'
+      ).join('') + '</div>' +
+      (note ? '<span class="preview-asset-note">' + note + '</span>' : '') +
+      (safeImages.length > 1 ? '<span class="preview-carousel-label">Carousel · ' + safeImages.length + ' photos</span>' : '') +
+      '<button class="preview-carousel-arrow prev" type="button" aria-label="Previous image">' + svgArrow('prev') + '</button>' +
+      '<button class="preview-carousel-arrow next" type="button" aria-label="Next image">' + svgArrow('next') + '</button>' +
+      (safeImages.length > 1 ? '<div class="preview-carousel-dots" aria-label="Choose image">' + safeImages.map((_, i) => '<button class="preview-carousel-dot' + (i === 0 ? ' is-active' : '') + '" type="button" aria-label="Go to image ' + (i + 1) + '" data-index="' + i + '"></button>').join('') + '</div>' : '') +
+      '<span class="preview-carousel-count" aria-live="polite">1 / ' + safeImages.length + '</span>' +
+    '</div>';
+  }
+
+  function initCarousels(root) {
+    (root || document).querySelectorAll('.preview-carousel').forEach(carousel => {
+      if (carousel.dataset.carouselReady === 'true') return;
+      carousel.dataset.carouselReady = 'true';
+      const track = carousel.querySelector('.preview-carousel-track');
+      const slides = carousel.querySelectorAll('.preview-carousel-slide');
+      const count = carousel.querySelector('.preview-carousel-count');
+      const dots = carousel.querySelectorAll('.preview-carousel-dot');
+      let index = 0;
+      let startX = 0;
+      let startY = 0;
+      let autoTimer = 0;
+      const render = () => {
+        track.style.transform = 'translateX(-' + (index * 100) + '%)';
+        if (count) count.textContent = (index + 1) + ' / ' + slides.length;
+        dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === index));
+      };
+      const move = delta => { index = (index + delta + slides.length) % slides.length; render(); };
+      const scheduleAutoMove = () => {
+        clearTimeout(autoTimer);
+        if (slides.length < 2) return;
+        autoTimer = window.setTimeout(() => {
+          if (!carousel.isConnected) return;
+          if (!document.hidden) move(1);
+          scheduleAutoMove();
+        }, CAROUSEL_INTERVAL);
+      };
+      const manualMove = delta => {
+        move(delta);
+        scheduleAutoMove();
+      };
+      carousel.querySelector('.prev')?.addEventListener('click', e => { e.stopPropagation(); manualMove(-1); });
+      carousel.querySelector('.next')?.addEventListener('click', e => { e.stopPropagation(); manualMove(1); });
+      dots.forEach(dot => dot.addEventListener('click', e => {
+        e.stopPropagation();
+        index = Number(dot.dataset.index);
+        render();
+        scheduleAutoMove();
+      }));
+      track.addEventListener('touchstart', e => {
+        if (slides.length > 1) e.stopPropagation();
+        startX = e.changedTouches[0].clientX;
+        startY = e.changedTouches[0].clientY;
+      }, {passive:true});
+      track.addEventListener('touchend', e => {
+        if (slides.length > 1) e.stopPropagation();
+        const dx = e.changedTouches[0].clientX - startX;
+        const dy = e.changedTouches[0].clientY - startY;
+        if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.25) manualMove(dx < 0 ? 1 : -1);
+      }, {passive:true});
+      scheduleAutoMove();
+    });
+  }
+
+  function goToFeatured() {
+    window.showPage('home');
+    setTimeout(() => document.querySelector('.h-feat')?.scrollIntoView({behavior:'smooth',block:'start'}), 30);
+  }
+  window.previewGoToFeatured = goToFeatured;
+
+  function updateNavigation() {
+    document.getElementById('nav-process')?.closest('li')?.remove();
+    document.querySelectorAll('.footer-nav a').forEach(link => {
+      if (link.textContent.trim().toLowerCase() === 'process') link.remove();
+    });
+    const navList = document.querySelector('.nav-links');
+    const toggle = document.createElement('button');
+    toggle.className = 'preview-menu-toggle';
+    toggle.type = 'button';
+    toggle.setAttribute('aria-label','Open navigation');
+    toggle.setAttribute('aria-expanded','false');
+    toggle.innerHTML = '<span></span>';
+    document.querySelector('.nav-in')?.appendChild(toggle);
+    toggle.addEventListener('click', () => {
+      const open = !navList.classList.contains('is-open');
+      navList.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    });
+    navList?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navList.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded','false');
+    }));
+  }
+
+  function updateHome() {
+    const intro = document.querySelector('.h-about-text-l');
+    if (intro) {
+      intro.querySelectorAll(':scope > p:not(.eyebrow)').forEach(p => p.remove());
+      const link = intro.querySelector('.link-arrow');
+      link?.insertAdjacentHTML('beforebegin',
+        '<p>I am passionate about intentional architecture, development strategy, and technology innovation.</p>' +
+        '<p>I believe great design doesn\'t just look beautiful, it transforms the way you live.</p>');
+    }
+    const grid = document.querySelector('.h-feat-grid');
+    if (grid) {
+      grid.innerHTML = featuredData.map((p, i) =>
+        '<article class="fproj preview-feature" tabindex="0" role="link">' +
+          '<span class="fproj-num">' + String(i + 1).padStart(2,'0') + '</span>' +
+          (p.award ? '<span class="fproj-badge">🥇 Winning</span>' : '') +
+          carouselMarkup(p.images,p.name,p.note) +
+          '<div class="fproj-info"><div class="fproj-info-loc">' + p.country + '</div><div class="fproj-info-name">' + p.name + '</div></div>' +
+          '<div class="fproj-arrow">' + svgArrow('next') + '</div>' +
+        '</article>'
+      ).join('');
+      grid.querySelectorAll('.preview-feature').forEach((card, i) => {
+        const openProject = () => {
+          const project = featuredData[i];
+          if (project.url) window.open(project.url,'_blank','noopener');
+          else if (project.page) window.showPage(project.page);
+        };
+        card.addEventListener('click', event => {
+          if (!event.target.closest('.preview-carousel-arrow,.preview-carousel-dot')) openProject();
+        });
+        card.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openProject();
+          }
+        });
+      });
+    }
+    const featuredLink = document.querySelector('.h-feat-link');
+    if (featuredLink) { featuredLink.textContent = 'View Work →'; featuredLink.onclick = () => window.showPage('projects'); }
+  }
+
+  function workCard(p) {
+    const missing = !p.images.length;
+    return '<article class="wcard' + (missing ? ' is-missing' : '') + '" data-cat="' + p.cat + '" data-project="' + p.name + '" tabindex="0">' +
+      (missing ? '' : carouselMarkup(p.images,p.name,p.note)) +
+      '<div class="wcard-label"><div class="wcard-lname">' + p.name + '</div><div class="wcard-lsub">' + p.category + ' · ' + p.country + '</div></div>' +
+    '</article>';
+  }
+
+  const workCarouselState = {
+    category: 'all',
+    projects: projectData.slice(),
+    index: 0,
+    changeTimer: 0,
+    autoTimer: 0,
+    generation: 0
+  };
+
+  function workProjectsFor(category) {
+    if (category === 'all') return projectData.slice();
+    return projectData.filter(project => project.cat === category);
+  }
+
+  function workVisibleCount() {
+    if (window.innerWidth <= 640) return 1;
+    if (window.innerWidth <= 960) return 2;
+    return 3;
+  }
+
+  function updateWorkCarouselPosition() {
+    const root = document.getElementById('projGrid');
+    const track = root?.querySelector('.work-project-track');
+    const firstCard = track?.querySelector('.wcard');
+    if (!root || !track || !firstCard) return;
+    const visible = Math.min(workVisibleCount(), workCarouselState.projects.length);
+    const maxIndex = Math.max(0, workCarouselState.projects.length - visible);
+    workCarouselState.index = Math.min(workCarouselState.index, maxIndex);
+    const gap = parseFloat(getComputedStyle(track).gap) || 18;
+    const step = firstCard.getBoundingClientRect().width + gap;
+    track.style.transform = 'translate3d(-' + (workCarouselState.index * step) + 'px,0,0)';
+
+    const previous = root.querySelector('.work-project-arrow.prev');
+    const next = root.querySelector('.work-project-arrow.next');
+    const controls = root.querySelector('.work-project-controls');
+    const status = root.querySelector('.work-project-status');
+    const hasOverflow = workCarouselState.projects.length > visible;
+    controls?.classList.toggle('is-hidden', !hasOverflow);
+    if (previous) previous.disabled = workCarouselState.index === 0;
+    if (next) next.disabled = workCarouselState.index >= maxIndex;
+    if (status) {
+      const first = workCarouselState.projects.length ? workCarouselState.index + 1 : 0;
+      const last = Math.min(workCarouselState.index + visible, workCarouselState.projects.length);
+      status.textContent = first + '–' + last + ' / ' + workCarouselState.projects.length;
+    }
+  }
+
+  function bindWorkCarousel(root) {
+    const viewport = root.querySelector('.work-project-viewport');
+    const previous = root.querySelector('.work-project-arrow.prev');
+    const next = root.querySelector('.work-project-arrow.next');
+    let startX = 0;
+    let startY = 0;
+    let ignoreSwipe = false;
+
+    const scheduleAutoMove = () => {
+      clearTimeout(workCarouselState.autoTimer);
+      const visible = Math.min(workVisibleCount(), workCarouselState.projects.length);
+      if (workCarouselState.projects.length <= visible) return;
+      workCarouselState.autoTimer = window.setTimeout(() => {
+        if (!root.isConnected) return;
+        if (!document.hidden && document.getElementById('page-projects')?.classList.contains('active')) {
+          const maxIndex = Math.max(0, workCarouselState.projects.length - workVisibleCount());
+          workCarouselState.index = workCarouselState.index >= maxIndex ? 0 : workCarouselState.index + 1;
+          updateWorkCarouselPosition();
+        }
+        scheduleAutoMove();
+      }, CAROUSEL_INTERVAL);
+    };
+
+    previous?.addEventListener('click', () => {
+      workCarouselState.index = Math.max(0, workCarouselState.index - 1);
+      updateWorkCarouselPosition();
+      scheduleAutoMove();
+    });
+    next?.addEventListener('click', () => {
+      const maxIndex = Math.max(0, workCarouselState.projects.length - workVisibleCount());
+      workCarouselState.index = Math.min(maxIndex, workCarouselState.index + 1);
+      updateWorkCarouselPosition();
+      scheduleAutoMove();
+    });
+    viewport?.addEventListener('pointerdown', event => {
+      const inner = event.target.closest('.preview-carousel');
+      ignoreSwipe = !!inner && Number(inner.dataset.count) > 1;
+      startX = event.clientX;
+      startY = event.clientY;
+    }, {passive:true});
+    viewport?.addEventListener('pointerup', event => {
+      if (ignoreSwipe) return;
+      const dx = event.clientX - startX;
+      const dy = event.clientY - startY;
+      if (Math.abs(dx) < 46 || Math.abs(dx) <= Math.abs(dy) * 1.25) return;
+      const maxIndex = Math.max(0, workCarouselState.projects.length - workVisibleCount());
+      workCarouselState.index = Math.max(0, Math.min(maxIndex, workCarouselState.index + (dx < 0 ? 1 : -1)));
+      updateWorkCarouselPosition();
+      scheduleAutoMove();
+    }, {passive:true});
+    scheduleAutoMove();
+  }
+
+  function renderWorkCollection(immediate) {
+    const root = document.getElementById('projGrid');
+    if (!root) return;
+    clearTimeout(workCarouselState.autoTimer);
+    const generation = ++workCarouselState.generation;
+    const render = () => {
+      if (generation !== workCarouselState.generation) return;
+      root.innerHTML =
+        '<div class="work-project-viewport">' +
+          '<div class="work-project-track">' + workCarouselState.projects.map(workCard).join('') + '</div>' +
+        '</div>' +
+        '<div class="work-project-controls" aria-label="Project carousel controls">' +
+          '<button class="work-project-arrow prev" type="button" aria-label="Previous projects">' + svgArrow('prev') + '</button>' +
+          '<span class="work-project-status" aria-live="polite"></span>' +
+          '<button class="work-project-arrow next" type="button" aria-label="Next projects">' + svgArrow('next') + '</button>' +
+        '</div>';
+      bindWorkCarousel(root);
+      initCarousels(root);
+      requestAnimationFrame(() => {
+        updateWorkCarouselPosition();
+        root.classList.remove('is-switching');
+      });
+    };
+    clearTimeout(workCarouselState.changeTimer);
+    if (immediate) render();
+    else {
+      root.classList.add('is-switching');
+      workCarouselState.changeTimer = window.setTimeout(render, 180);
+    }
+  }
+
+  function selectWorkCategory(category, button, immediate) {
+    const buttons = document.querySelectorAll('#page-projects .ftab');
+    buttons.forEach(item => item.classList.toggle('on', item === button));
+    workCarouselState.category = category;
+    workCarouselState.projects = workProjectsFor(category);
+    workCarouselState.index = 0;
+    renderWorkCollection(immediate);
+  }
+
+  function updateWork() {
+    const grid = document.getElementById('projGrid');
+    if (grid) {
+      grid.classList.add('work-project-carousel');
+      renderWorkCollection(true);
+    }
+    const featuredButton = document.querySelector('#page-projects .wk-cta');
+    if (featuredButton) featuredButton.onclick = goToFeatured;
+  }
+
+  function updateAbout() {
+    const story = document.querySelector('#page-about .ab-text');
+    if (story) story.innerHTML =
+      '<p class="eyebrow">My Story</p>' +
+      '<p>Hello, I\'m Valentina Arboleda, a licensed architect in Colombia, a Construction Project Management Specialist, and an NCARB International Architect Path candidate currently completing AXP &amp; ARE.</p>' +
+      '<p>With international experience across Colombia, Spain, and the United States, my background spans residential architecture, interior design, space planning, BIM coordination, visualization, and construction processes. I approach every project from both a creative and technical perspective, with a focus on residential design, development strategy, and design-build solutions where the architect stays close to the making.</p>';
+  }
+
+  function updateJournal() {
+    document.querySelector('#page-journal .jo-hero-r')?.setAttribute('aria-hidden','true');
+    const linkedinUrls = {
+      0: 'https://www.linkedin.com/posts/valenarboledab_man%C3%A1-biophilic-architecture-activity-7485449792312049664-3tje?utm_source=share&utm_medium=member_ios&rcm=ACoAADQ4oBEBlJbH-kZb1h8A32waERRiUXdgqu4',
+      3: 'https://www.linkedin.com/posts/valenarboledab_what-if-the-problem-became-the-best-part-activity-7494158417423568897-gGGj?utm_source=share&utm_medium=member_ios&rcm=ACoAADQ4oBEBlJbH-kZb1h8A32waERRiUXdgqu4'
+    };
+    const cards = document.querySelectorAll('#page-journal .jcard');
+    cards.forEach((card, i) => {
+      const link = card.querySelector('.jcard-read');
+      if (i === 0) {
+        card.querySelector('.jcard-title').textContent = 'Maná: Biophilic Architecture';
+        card.querySelector('.jcard-img img').src = 'images/home/img-mana.jpg';
+      }
+      if (linkedinUrls[i]) {
+        link.href = linkedinUrls[i];
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.classList.remove('is-pending');
+        link.innerHTML = 'Read on LinkedIn ' + svgArrow('next');
+      } else {
+        link.removeAttribute('href');
+        link.classList.add('is-pending');
+        link.textContent = 'LinkedIn link pending';
+      }
+    });
+  }
+
+  function updateFooter() {
+    document.querySelector('.footer-title').innerHTML = 'Great projects start<br>with a <em>conversation.</em>';
+  }
+
+  function isolateRemovedPages() {
+    document.querySelectorAll('#page-process img[src^="http"]').forEach(img => {
+      img.src = 'images/process.jpg';
+    });
+    document.querySelectorAll('#page-arboretum img[src^="http"]').forEach(img => {
+      img.src = 'images/home/img-arboretum-georgia.jpg';
+    });
+  }
+
+  function initPreviewCursor() {
+    const cursor = document.querySelector('.c-cursor');
+    if (!cursor || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    window.addEventListener('pointermove', event => {
+      cursor.style.transform = 'translate(' + event.clientX + 'px,' + event.clientY + 'px)';
+    }, {passive:true});
+    document.addEventListener('pointerover', event => {
+      cursor.classList.toggle('expanded', !!event.target.closest('a,button,[onclick],.preview-carousel'));
+    });
+  }
+
+  updateNavigation();
+  updateHome();
+  updateWork();
+  updateAbout();
+  updateJournal();
+  updateFooter();
+  isolateRemovedPages();
+  initCarousels();
+  initPreviewCursor();
+
+  window.filterProj = function(cat, btn) {
+    selectWorkCategory(cat, btn, false);
+  };
+
+  let workResizeTimer = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(workResizeTimer);
+    workResizeTimer = window.setTimeout(updateWorkCarouselPosition, 120);
+  });
+
+  const originalShowPage = window.showPage;
+  window.showPage = function(id) {
+    if (id === 'process') id = 'home';
+    originalShowPage(id);
+    document.querySelector('.nav-links')?.classList.remove('is-open');
+    document.querySelector('.preview-menu-toggle')?.setAttribute('aria-expanded','false');
+  };
 })();

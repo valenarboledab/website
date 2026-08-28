@@ -59,11 +59,11 @@
       <div class="h-hero-content">
         <div class="h-hero-tag">Architecture · Visualization · Design</div>
         <div>
-          <h1 class="h-hero-title">Spaces<br>with <em>purpose.</em></h1>
+          <h1 class="h-hero-title">My <em>Portfolio</em></h1>
           <p class="h-hero-sub">Architecture, visualization and design that connects people to place — rooted in
             emotion, strategy and clarity.</p>
           <div class="h-hero-actions">
-            <span class="pill pill-dark" onclick="showPage('projects')">View Projects →</span>
+            <span class="pill pill-dark" onclick="showPage('projects')">MY PROJECTS →</span>
             <div class="h-hero-ncarb"><span class="h-hero-ncarb-pill">NCARB</span> International Architect Path</div>
           </div>
         </div>
@@ -78,15 +78,13 @@
 
     <!-- ABOUT -->
     <section class="h-about">
-      <div class="h-about-img"><img src="images/home/img-portrait.jpg" alt="Valentina Arboleda"></div>
+      <div class="h-about-img"><img src="images/home/img-portrait.png" alt="Valentina Arboleda"></div>
       <div class="h-about-text">
         <div class="h-about-text-l">
           <p class="eyebrow">About Me</p>
-          <h2>I design with <em>emotion,</em><br>strategy and clarity.</h2>
-          <p>Architect and designer focused on creating meaningful spaces through intentional design, visualization and
-            development strategy.</p>
-          <p>My work is inspired by nature, human behavior, and the connection between space psychology and
-            architecture.</p>
+          <h2>Who Am I?</h2>
+          <p>I am passionate about intentional architecture, development strategy, and technology innovation.</p>
+          <p>I believe great design doesn't just look beautiful, it transforms the way you live.</p>
           <span class="link-arrow" onclick="showPage('about')">More About Me →</span>
         </div>
         <div class="h-about-text-r">
@@ -316,7 +314,7 @@
           </svg></a>
       </div>
       <div class="ab-hero-r">
-        <img src="images/home/img-portrait.jpg" alt="Valentina Arboleda">
+        <img src="images/home/img-portrait.png" alt="Valentina Arboleda">
       </div>
     </div>
 
@@ -364,9 +362,9 @@
               <path d="M12 8v4l3 3" />
             </svg></div>Cost Estimation &amp; PlanSwift Takeoffs
         </div>
-        <div class="ab-svc-row">
+        <div class="ab-svc-row highlight">
           <div class="ab-svc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M9 11l3 3L22 4" />
+              <polyline points="20 6 9 17 4 12" />
             </svg></div>Development Strategy
         </div>
       </div>
@@ -437,13 +435,13 @@
     <div class="ab-creds">
       <div class="cred-ab reveal">
         <div class="cred-ey">Education</div>
-        <h3 class="cred-title">Architect<br>Universidad La Gran Colombia</h3>
+        <h3 class="cred-title">Colombian Licensed Architect</h3>
         <p class="cred-body-txt">May 2023 · GPA 3.46/4.00<br>Architecture degree with international validation through
           the NCARB IAP.</p>
       </div>
       <div class="cred-ab reveal d1">
         <div class="cred-ey">Specialization</div>
-        <h3 class="cred-title">Building Construction Management<br>Universidad La Gran Colombia</h3>
+        <h3 class="cred-title">Building Construction Management</h3>
         <p class="cred-body-txt">Dec 2023 · GPA 4.00/4.00<br>Top score in the program. Focused on construction
           management, cost control and project delivery.</p>
       </div>
@@ -1057,11 +1055,11 @@
       <div class="jo-hero-l">
         <div>
           <p class="eyebrow">Journal</p>
-          <h1 class="serif" style="font-size:clamp(34px,5vw,62px)">Ideas that shape<br><em style="font-style:italic">meaningful</em> spaces.</h1>
+          <h1 class="serif" style="font-size:clamp(34px,5vw,62px)">READ ME ON<br>LINKEDIN</h1>
         </div>
         <div>
-          <p style="font-size:13.5px;color:var(--mid);line-height:1.8;font-weight:300;max-width:340px;margin-bottom:24px">Thoughts on architecture, design, development and the details that make a difference.</p>
-          <button class="pill">Explore Articles <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+          <p style="font-size:13.5px;color:var(--mid);line-height:1.8;font-weight:300;max-width:520px;margin-bottom:24px">Here, I share ideas, lessons, and reflections from my journey in architecture, construction, real estate development, and entrepreneurship. I write about design, project strategy, technology, and the process of building projects and businesses in the United States.</p>
+          <a class="pill" href="https://www.linkedin.com/in/valenarboledab/" target="_blank" rel="noopener">READ MY POSTS <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
         </div>
       </div>
       <div class="jo-hero-r"><img src="images/process.jpg" alt="Journal hero"></div>
@@ -1140,10 +1138,12 @@
         <p class="jo-sub-body">Thoughtful insights on design, architecture and more — straight to your inbox.</p>
       </div>
       <div>
-        <div class="jo-sub-form">
-          <input class="jo-sub-input" type="email" placeholder="Your email address">
-          <button class="jo-sub-btn">Subscribe <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
-        </div>
+        <form class="jo-sub-form" onsubmit="handleJournalSubscribe(event)" novalidate>
+          <label class="sr-only" for="journal-email">Email address</label>
+          <input class="jo-sub-input" id="journal-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required>
+          <button class="jo-sub-btn" type="submit">Subscribe <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+        </form>
+        <p class="jo-sub-status" role="status" aria-live="polite"></p>
       </div>
     </div>
   </div>
