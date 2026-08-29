@@ -81,27 +81,6 @@ function handleForm(e) {
   setTimeout(() => { btn.textContent = 'Send Message ↗'; btn.style.background = ''; }, 3000);
 }
 
-function handleJournalSubscribe(e) {
-  e.preventDefault();
-  const form = e.currentTarget;
-  const input = form.querySelector('.jo-sub-input');
-  const status = form.parentElement.querySelector('.jo-sub-status');
-  const email = input.value.trim();
-
-  if (!input.checkValidity()) {
-    status.textContent = 'Please enter a valid email address.';
-    status.classList.add('is-error');
-    input.focus();
-    return;
-  }
-
-  status.classList.remove('is-error');
-  status.textContent = 'Opening your email app to confirm your subscription…';
-  const subject = encodeURIComponent('Journal subscription request');
-  const body = encodeURIComponent('Please add ' + email + ' to the Journal mailing list.');
-  window.location.href = 'mailto:valenarboledab@gmail.com?subject=' + subject + '&body=' + body;
-}
-
 function initTilt() {
   document.querySelectorAll('#page-projects .wcard').forEach(card => {
     card.addEventListener('mousemove', e => {
@@ -201,12 +180,12 @@ initRevealObserver();
   ];
 
   const featuredData = [
-    {name:'Single Family Arboretum',country:'USA',images:arboretumImages,url:'https://arangoconstructions.com/arboretum-project/'},
-    {name:'Arboretum 2',country:'Colombia',images:['images/home/img-hero.jpg'],award:true,url:'https://sites.google.com/miugca.edu.co/arboretum/inicio'},
-    {name:'Cultural & Convention Center',country:'Colombia',images:['images/home/img-cultural.jpg'],award:true,url:'https://sites.google.com/miugca.edu.co/centro-cultural-de-eventos/p%C3%A1gina-principal'},
-    {name:'Eco Hotel',country:'Colombia',images:ecoHotelImages,url:'https://sites.google.com/miugca.edu.co/tebaidaquindio/inicio'},
-    {name:'Maná',country:'Colombia',images:manaImages,note:'8 of 9 assets found',award:true,url:'https://sites.google.com/miugca.edu.co/mana/inicio'},
-    {name:'Coworking Building',country:'Spain',images:['images/COWORKING.png'],page:'projects'}
+    {name:'Single Family Arboretum',country:'USA',images:arboretumImages},
+    {name:'Arboretum 2',country:'Colombia',images:['images/home/img-hero.jpg'],award:true},
+    {name:'Cultural & Convention Center',country:'Colombia',images:['images/home/img-cultural.jpg'],award:true},
+    {name:'Eco Hotel',country:'Colombia',images:ecoHotelImages},
+    {name:'Maná',country:'Colombia',images:manaImages,note:'8 of 9 assets found',award:true},
+    {name:'Coworking Building',country:'Spain',images:['images/COWORKING.png']}
   ];
 
   function carouselMarkup(images, alt, note) {
@@ -225,6 +204,114 @@ initRevealObserver();
     '</div>';
   }
 
+  let galleryModal = null;
+  let galleryImages = [];
+  let galleryIndex = 0;
+  let galleryOrigin = null;
+  let galleryCloseTimer = 0;
+
+  function renderGallery() {
+    if (!galleryModal || !galleryImages.length) return;
+    const current = galleryImages[galleryIndex];
+    const image = galleryModal.querySelector('.gallery-lightbox-image');
+    image.src = current.src;
+    image.alt = current.alt;
+    galleryModal.querySelector('.gallery-lightbox-count').textContent = (galleryIndex + 1) + ' / ' + galleryImages.length;
+    galleryModal.querySelectorAll('.gallery-lightbox-thumb').forEach((thumb, index) => {
+      thumb.classList.toggle('is-active', index === galleryIndex);
+      thumb.setAttribute('aria-current', index === galleryIndex ? 'true' : 'false');
+    });
+    galleryModal.classList.toggle('has-single-image', galleryImages.length === 1);
+  }
+
+  function moveGallery(delta) {
+    galleryIndex = (galleryIndex + delta + galleryImages.length) % galleryImages.length;
+    renderGallery();
+  }
+
+  function closeGallery() {
+    if (!galleryModal || galleryModal.hidden) return;
+    galleryModal.classList.remove('is-open');
+    document.body.classList.remove('gallery-open');
+    clearTimeout(galleryCloseTimer);
+    galleryCloseTimer = window.setTimeout(() => {
+      galleryModal.hidden = true;
+      galleryOrigin?.focus({preventScroll:true});
+    }, 240);
+  }
+
+  function ensureGalleryModal() {
+    if (galleryModal) return galleryModal;
+    galleryModal = document.createElement('div');
+    galleryModal.className = 'gallery-lightbox';
+    galleryModal.hidden = true;
+    galleryModal.setAttribute('role','dialog');
+    galleryModal.setAttribute('aria-modal','true');
+    galleryModal.setAttribute('aria-labelledby','gallery-lightbox-title');
+    galleryModal.innerHTML =
+      '<div class="gallery-lightbox-backdrop" data-gallery-close></div>' +
+      '<div class="gallery-lightbox-panel">' +
+        '<header class="gallery-lightbox-header">' +
+          '<div><span class="gallery-lightbox-eyebrow">Project gallery</span><h2 id="gallery-lightbox-title"></h2></div>' +
+          '<button class="gallery-lightbox-close" type="button" aria-label="Close gallery">×</button>' +
+        '</header>' +
+        '<div class="gallery-lightbox-stage">' +
+          '<img class="gallery-lightbox-image" alt="">' +
+          '<button class="gallery-lightbox-arrow prev" type="button" aria-label="Previous photo">' + svgArrow('prev') + '</button>' +
+          '<button class="gallery-lightbox-arrow next" type="button" aria-label="Next photo">' + svgArrow('next') + '</button>' +
+          '<span class="gallery-lightbox-count" aria-live="polite"></span>' +
+        '</div>' +
+        '<div class="gallery-lightbox-thumbs" aria-label="Gallery photos"></div>' +
+      '</div>';
+    document.body.appendChild(galleryModal);
+    galleryModal.querySelector('.gallery-lightbox-close').addEventListener('click', closeGallery);
+    galleryModal.querySelector('[data-gallery-close]').addEventListener('click', closeGallery);
+    galleryModal.querySelector('.gallery-lightbox-arrow.prev').addEventListener('click', () => moveGallery(-1));
+    galleryModal.querySelector('.gallery-lightbox-arrow.next').addEventListener('click', () => moveGallery(1));
+    document.addEventListener('keydown', event => {
+      if (!galleryModal || galleryModal.hidden) return;
+      if (event.key === 'Escape') closeGallery();
+      if (event.key === 'ArrowLeft') moveGallery(-1);
+      if (event.key === 'ArrowRight') moveGallery(1);
+    });
+    return galleryModal;
+  }
+
+  function openGallery(carousel) {
+    const modal = ensureGalleryModal();
+    clearTimeout(galleryCloseTimer);
+    galleryImages = Array.from(carousel.querySelectorAll('.preview-carousel-slide img')).map(image => ({
+      src: image.getAttribute('src'),
+      alt: image.alt
+    }));
+    if (!galleryImages.length) return;
+    galleryIndex = Math.max(0, Math.min(Number(carousel.dataset.currentIndex) || 0, galleryImages.length - 1));
+    galleryOrigin = document.activeElement;
+    const card = carousel.closest('.preview-feature,.wcard');
+    const title = card?.querySelector('.fproj-info-name,.wcard-lname')?.textContent.trim() || 'Project';
+    modal.querySelector('#gallery-lightbox-title').textContent = title;
+    const thumbs = modal.querySelector('.gallery-lightbox-thumbs');
+    thumbs.innerHTML = '';
+    galleryImages.forEach((item, index) => {
+      const button = document.createElement('button');
+      button.className = 'gallery-lightbox-thumb';
+      button.type = 'button';
+      button.setAttribute('aria-label','View photo ' + (index + 1));
+      const image = document.createElement('img');
+      image.src = item.src;
+      image.alt = '';
+      image.loading = 'lazy';
+      button.appendChild(image);
+      button.addEventListener('click', () => { galleryIndex = index; renderGallery(); });
+      thumbs.appendChild(button);
+    });
+    renderGallery();
+    modal.hidden = false;
+    document.body.classList.add('gallery-open');
+    requestAnimationFrame(() => modal.classList.add('is-open'));
+    modal.querySelector('.gallery-lightbox-close').focus({preventScroll:true});
+  }
+
   function initCarousels(root) {
     (root || document).querySelectorAll('.preview-carousel').forEach(carousel => {
       if (carousel.dataset.carouselReady === 'true') return;
@@ -237,8 +324,10 @@ initRevealObserver();
       let startX = 0;
       let startY = 0;
       let autoTimer = 0;
+      let suppressGalleryClick = false;
       const render = () => {
         track.style.transform = 'translateX(-' + (index * 100) + '%)';
+        carousel.dataset.currentIndex = String(index);
         if (count) count.textContent = (index + 1) + ' / ' + slides.length;
         dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === index));
       };
@@ -266,6 +355,7 @@ initRevealObserver();
       }));
       track.addEventListener('touchstart', e => {
         if (slides.length > 1) e.stopPropagation();
+        suppressGalleryClick = false;
         startX = e.changedTouches[0].clientX;
         startY = e.changedTouches[0].clientY;
       }, {passive:true});
@@ -273,8 +363,16 @@ initRevealObserver();
         if (slides.length > 1) e.stopPropagation();
         const dx = e.changedTouches[0].clientX - startX;
         const dy = e.changedTouches[0].clientY - startY;
-        if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.25) manualMove(dx < 0 ? 1 : -1);
+        if (Math.abs(dx) > 42 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+          suppressGalleryClick = true;
+          manualMove(dx < 0 ? 1 : -1);
+          window.setTimeout(() => { suppressGalleryClick = false; }, 350);
+        }
       }, {passive:true});
+      carousel.addEventListener('click', event => {
+        if (suppressGalleryClick || event.target.closest('.preview-carousel-arrow,.preview-carousel-dot')) return;
+        openGallery(carousel);
+      });
       scheduleAutoMove();
     });
   }
@@ -322,28 +420,18 @@ initRevealObserver();
     const grid = document.querySelector('.h-feat-grid');
     if (grid) {
       grid.innerHTML = featuredData.map((p, i) =>
-        '<article class="fproj preview-feature" tabindex="0" role="link">' +
+        '<article class="fproj preview-feature">' +
           '<span class="fproj-num">' + String(i + 1).padStart(2,'0') + '</span>' +
           (p.award ? '<span class="fproj-badge">🥇 Winning</span>' : '') +
           carouselMarkup(p.images,p.name,p.note) +
           '<div class="fproj-info"><div class="fproj-info-loc">' + p.country + '</div><div class="fproj-info-name">' + p.name + '</div></div>' +
-          '<div class="fproj-arrow">' + svgArrow('next') + '</div>' +
+          '<button class="fproj-arrow gallery-open-button" type="button" aria-label="View ' + p.name + ' photos">' + svgArrow('next') + '</button>' +
         '</article>'
       ).join('');
-      grid.querySelectorAll('.preview-feature').forEach((card, i) => {
-        const openProject = () => {
-          const project = featuredData[i];
-          if (project.url) window.open(project.url,'_blank','noopener');
-          else if (project.page) window.showPage(project.page);
-        };
-        card.addEventListener('click', event => {
-          if (!event.target.closest('.preview-carousel-arrow,.preview-carousel-dot')) openProject();
-        });
-        card.addEventListener('keydown', event => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            openProject();
-          }
+      grid.querySelectorAll('.preview-feature').forEach(card => {
+        card.querySelector('.gallery-open-button')?.addEventListener('click', event => {
+          event.stopPropagation();
+          openGallery(card.querySelector('.preview-carousel'));
         });
       });
     }

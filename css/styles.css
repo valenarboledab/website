@@ -1246,6 +1246,35 @@ body.preview-mode{background:#f5f0e8;color:#27231f}
 .preview-carousel-help{grid-column:1/-1;display:flex;align-items:center;gap:9px;margin:-2px 0 4px;color:#72604e;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
 .preview-carousel-help::before{content:"↔";display:grid;place-items:center;width:28px;height:28px;border:1px solid rgba(114,96,78,.22);border-radius:50%;font-size:13px}
 
+/* Large floating gallery opened from project carousels. */
+body.gallery-open{overflow:hidden}
+.gallery-open .c-cursor{z-index:10002}
+.gallery-lightbox[hidden]{display:none!important}
+.gallery-lightbox{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:20px;opacity:0;transition:opacity .24s ease}
+.gallery-lightbox.is-open{opacity:1}
+.gallery-lightbox-backdrop{position:absolute;inset:0;background:rgba(20,17,14,.78);backdrop-filter:blur(12px)}
+.gallery-lightbox-panel{position:relative;width:min(1180px,calc(100vw - 40px));height:min(820px,calc(100dvh - 40px));display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;border:1px solid rgba(255,255,255,.14);border-radius:24px;background:#f5f0e8;box-shadow:0 30px 90px rgba(0,0,0,.42);transform:translateY(14px) scale(.985);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.gallery-lightbox.is-open .gallery-lightbox-panel{transform:translateY(0) scale(1)}
+.gallery-lightbox-header{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:15px 18px 15px 24px;border-bottom:1px solid rgba(39,35,31,.1)}
+.gallery-lightbox-eyebrow{display:block;margin-bottom:2px;color:#72604e;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+.gallery-lightbox-header h2{font-family:'Cormorant Garamond',serif;font-size:clamp(23px,3vw,34px);font-weight:400;line-height:1}
+.gallery-lightbox-close{width:44px;height:44px;flex:0 0 auto;border:1px solid rgba(39,35,31,.16);border-radius:50%;display:grid;place-items:center;background:#fff;color:#27231f;font:300 29px/1 'DM Sans',sans-serif;transition:transform .2s,background .2s,color .2s}
+.gallery-lightbox-close:hover{transform:rotate(6deg);background:#27231f;color:#fff}
+.gallery-lightbox-stage{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;background:#1d1a17}
+.gallery-lightbox-image{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
+.gallery-lightbox-arrow{position:absolute;top:50%;z-index:2;width:48px;height:48px;margin-top:-24px;border:1px solid rgba(39,35,31,.18);border-radius:50%;display:grid;place-items:center;background:rgba(245,240,232,.94);color:#27231f;box-shadow:0 8px 30px rgba(0,0,0,.24);transition:transform .2s,background .2s}
+.gallery-lightbox-arrow:hover{transform:scale(1.06);background:#fff}
+.gallery-lightbox-arrow.prev{left:18px}.gallery-lightbox-arrow.next{right:18px}
+.gallery-lightbox-arrow svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5}
+.gallery-lightbox-count{position:absolute;right:18px;bottom:16px;padding:7px 11px;border-radius:100px;background:rgba(18,16,14,.68);color:#fff;font-size:10px;letter-spacing:.1em}
+.gallery-lightbox.has-single-image .gallery-lightbox-arrow,.gallery-lightbox.has-single-image .gallery-lightbox-count{display:none}
+.gallery-lightbox-thumbs{min-height:92px;display:flex;align-items:center;gap:8px;overflow-x:auto;padding:10px 18px;background:#eee7dc;scrollbar-width:thin;scrollbar-color:#9a8875 transparent}
+.gallery-lightbox-thumb{width:92px;height:66px;flex:0 0 auto;padding:0;overflow:hidden;border:2px solid transparent;border-radius:9px;background:#d8d0c5;opacity:.58;transition:opacity .2s,border-color .2s,transform .2s}
+.gallery-lightbox-thumb:hover{opacity:.85;transform:translateY(-1px)}
+.gallery-lightbox-thumb.is-active{border-color:#72604e;opacity:1}
+.gallery-lightbox-thumb img{width:100%;height:100%;display:block;object-fit:cover}
+.gallery-lightbox button:focus-visible{outline:2px solid #896bad;outline-offset:3px}
+
 /* Work category carousel: one reusable track fed by the selected collection. */
 .preview-mode #page-projects #projGrid.work-project-carousel{display:block;min-width:0}
 .work-project-viewport{overflow:hidden;min-width:0;touch-action:pan-y;user-select:none;transition:opacity .2s ease,transform .2s ease}
@@ -1295,7 +1324,7 @@ body.preview-mode{background:#f5f0e8;color:#27231f}
   .preview-mode #page-projects .work-project-track>.wcard{flex-basis:calc((100% - 18px)/2)}
   .preview-mode #page-journal .jo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-@media(max-width:720px){
+@media(max-width:720px), (min-width:721px) and (max-width:960px) and (max-height:600px){
   .preview-mode .c-cursor{display:none!important}
   .preview-menu-toggle{display:flex;position:relative;z-index:1001}
   .preview-mode .nav-in{padding:0 16px}
@@ -1308,7 +1337,11 @@ body.preview-mode{background:#f5f0e8;color:#27231f}
   .preview-mode .h-about{grid-template-columns:1fr;margin:12px}
   .preview-mode .h-about-img{min-height:0;height:auto;aspect-ratio:4/5}
   .preview-mode .h-about-img img{object-position:center 18%}
-  .preview-mode .h-about-text{grid-template-columns:1fr;padding:36px 24px}
+  .preview-mode .h-about-text{grid-template-columns:1fr;padding:36px 24px;gap:32px}
+  .preview-mode #page-home .h-about-text-r{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .preview-mode #page-home .h-svc-row{min-width:0;min-height:108px;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:10px;padding:14px 12px;border:1px solid rgba(26,24,20,.07);border-radius:12px;font-size:12px;line-height:1.35}
+  .preview-mode #page-home .h-svc-row:last-child{border:1px solid rgba(26,24,20,.07)}
+  .preview-mode #page-home .h-svc-row.highlight{width:auto;margin:0;padding:14px 12px}
   .preview-mode .h-feat-grid{grid-template-columns:1fr}
   #page-home .preview-feature{min-height:0;aspect-ratio:4/5}
   .preview-feature .preview-carousel-arrow,.preview-mode #page-projects .wcard .preview-carousel-arrow{opacity:1}
@@ -1326,9 +1359,25 @@ body.preview-mode{background:#f5f0e8;color:#27231f}
   .preview-mode #page-journal .jo-grid{grid-template-columns:1fr;padding:12px}
   .preview-mode #page-journal .jcard{display:grid;grid-template-columns:1fr}
   .preview-carousel-track{transition-duration:.65s}
-  .footer-in{grid-template-columns:1fr!important;padding:40px 24px!important}
-  .footer-r{align-items:flex-start!important}
-  .footer-nav{flex-wrap:wrap}
+  .gallery-lightbox{padding:0}
+  .gallery-lightbox-panel{width:100vw;height:100dvh;border:0;border-radius:0}
+  .gallery-lightbox-header{min-height:68px;padding:12px 12px 12px 18px}
+  .gallery-lightbox-close{width:42px;height:42px}
+  .gallery-lightbox-arrow{width:42px;height:42px;margin-top:-21px}
+  .gallery-lightbox-arrow.prev{left:10px}.gallery-lightbox-arrow.next{right:10px}
+  .gallery-lightbox-count{right:12px;bottom:12px}
+  .gallery-lightbox-thumbs{min-height:80px;padding:8px 10px}
+  .gallery-lightbox-thumb{width:76px;height:56px}
+  .footer{padding:12px}
+  .footer-in{display:flex;flex-direction:column;padding:0!important;border-radius:20px}
+  .footer-l{order:1;min-width:0;padding:32px 24px 22px}
+  .footer-badge{position:static;order:2;align-self:flex-end;width:62px;height:62px;margin:0 24px 0 0;transform:none;border-radius:16px;font-size:28px}
+  .footer-r{order:3;min-width:0;align-items:stretch!important;gap:28px;padding:24px;background:rgba(255,255,255,.04)}
+  .footer-cta{width:100%;min-height:48px;justify-content:center;margin:0;padding:13px 18px;text-align:center}
+  .footer-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 18px;width:100%;margin-bottom:18px}
+  .footer-nav a{min-width:0}
+  .footer-copy{font-size:10px;line-height:1.5}
+  .footer-links-col a,.footer-links-col span{min-width:0;overflow-wrap:anywhere;line-height:1.45}
 }
 @media(hover:hover) and (pointer:fine){
   .preview-mode,.preview-mode a,.preview-mode button,.preview-mode [onclick]{cursor:none!important}
@@ -1336,4 +1385,10 @@ body.preview-mode{background:#f5f0e8;color:#27231f}
 @media(max-width:400px){
   .preview-mode .nav-name{font-size:9px}.preview-mode .nav-sub{font-size:7px}
   .preview-mode .h-feat{padding-left:12px;padding-right:12px}
+  .preview-mode .h-about-text{padding:32px 18px}
+  .preview-mode #page-home .h-about-text-r{gap:8px}
+  .preview-mode #page-home .h-svc-row,.preview-mode #page-home .h-svc-row.highlight{min-height:104px;padding:12px 10px;font-size:11px}
+  .preview-mode .h-svc-ico{width:32px;height:32px}
+  .footer-l,.footer-r{padding-left:20px;padding-right:20px}
+  .footer-badge{margin-right:20px}
 }

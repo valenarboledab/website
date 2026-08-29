@@ -10,7 +10,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=20260829-1">
 </head>
 
 <body>
@@ -33,13 +33,10 @@
   <nav class="nav">
     <div class="nav-in">
       <div class="nav-logo" onclick="showPage('home')">
-        <div class="nav-badge">VA</div>
-        <div>
-          <div class="nav-name">Valentina Arboleda</div>
-          <div class="nav-sub">Architect</div>
-        </div>
+        <div class="nav-name">Studio Valentina</div>
       </div>
       <ul class="nav-links">
+        <li><a id="nav-home" class="active" onclick="showPage('home')">Home</a></li>
         <li><a id="nav-projects" onclick="showPage('projects')">Work</a></li>
         <li><a id="nav-about" onclick="showPage('about')">About</a></li>
         <li><a id="nav-process" onclick="showPage('process')">Process</a></li>
@@ -155,7 +152,7 @@
         <span class="h-feat-link" onclick="showPage('projects')">View All Projects →</span>
       </div>
       <div class="h-feat-grid">
-        <div class="fproj" onclick="window.open('https://sites.google.com/miugca.edu.co/arboretum/inicio','_blank')">
+        <div class="fproj">
           <span class="fproj-num">01</span>
           <span class="fproj-badge">🥇 Winning</span>
           <img src="images/home/img-hero.jpg" alt="Arboretum 2">
@@ -167,7 +164,7 @@
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg></div>
         </div>
-        <div class="fproj" onclick="window.open('https://sites.google.com/miugca.edu.co/mana/inicio','_blank')">
+        <div class="fproj">
           <span class="fproj-num">02</span>
           <span class="fproj-badge">🥇 Winning</span>
           <img src="images/home/img-mana.jpg" alt="Maná">
@@ -179,8 +176,7 @@
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg></div>
         </div>
-        <div class="fproj"
-          onclick="window.open('https://sites.google.com/miugca.edu.co/centro-cultural-de-eventos/p%C3%A1gina-principal','_blank')">
+        <div class="fproj">
           <span class="fproj-num">03</span>
           <span class="fproj-badge">🥇 Winning</span>
           <img src="images/home/img-cultural.jpg" alt="Cultural &amp; Convention Center">
@@ -192,7 +188,7 @@
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg></div>
         </div>
-        <div class="fproj" onclick="window.open('https://arangoconstructions.com/arboretum-project/','_blank')">
+        <div class="fproj">
           <span class="fproj-num">04</span>
           <img src="images/home/img-arboretum-georgia.jpg" alt="Arboretum">
           <div class="fproj-info">
@@ -203,8 +199,7 @@
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg></div>
         </div>
-        <div class="fproj"
-          onclick="showPage('process');setTimeout(()=>switchProc('interior',document.querySelector('.proc-tab[onclick*=interior]')),50)">
+        <div class="fproj">
           <span class="fproj-num">05</span>
           <img src="images/home/img-burgos.jpg" alt="Burgos">
           <div class="fproj-info">
@@ -215,8 +210,7 @@
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg></div>
         </div>
-        <div class="fproj"
-          onclick="window.open('https://sites.google.com/miugca.edu.co/tebaidaquindio/inicio','_blank')">
+        <div class="fproj">
           <span class="fproj-num">06</span>
           <img src="images/home/img-ecohotel.jpg" alt="Eco Hotel">
           <div class="fproj-info">
@@ -1132,20 +1126,6 @@
         </div>
       </div>
     </div>
-    <div class="jo-sub reveal">
-      <div>
-        <h2 class="jo-sub-title">Stay inspired.</h2>
-        <p class="jo-sub-body">Thoughtful insights on design, architecture and more — straight to your inbox.</p>
-      </div>
-      <div>
-        <form class="jo-sub-form" onsubmit="handleJournalSubscribe(event)" novalidate>
-          <label class="sr-only" for="journal-email">Email address</label>
-          <input class="jo-sub-input" id="journal-email" name="email" type="email" autocomplete="email" placeholder="Your email address" required>
-          <button class="jo-sub-btn" type="submit">Subscribe <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
-        </form>
-        <p class="jo-sub-status" role="status" aria-live="polite"></p>
-      </div>
-    </div>
   </div>
   <!-- ══════════════ PAGE: ARBORETUM ══════════════ -->
   <div id="page-arboretum" class="page">
@@ -1316,7 +1296,7 @@
         <p class="ct-info-title">Contact Information</p>
         <div class="ct-info-item">
           <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <div><div class="ct-lbl">Email</div><div class="ct-val">valenarboledab@gmail.com</div></div>
+          <div><div class="ct-lbl">Email</div><a class="ct-val" href="mailto:Officestudiovalentina@gmail.com">Officestudiovalentina@gmail.com</a></div>
         </div>
         <div class="ct-info-item">
           <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
@@ -1325,10 +1305,6 @@
         <div class="ct-info-item">
           <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
           <div><div class="ct-lbl">Location</div><div class="ct-val">Georgia, United States</div></div>
-        </div>
-        <div class="ct-info-item">
-          <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
-          <div><div class="ct-lbl">Instagram</div><div class="ct-val">@valenarboledab</div></div>
         </div>
         <div class="ct-info-item" style="border:none">
           <div class="ct-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
@@ -1361,7 +1337,7 @@
       <div class="footer-l">
          <div class="footer-title">Great projects start<br>with a <em>conversation.</em></div>
         <div class="footer-links-col">
-          <a href="mailto:valenarboledab@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg>valenarboledab@gmail.com</a>
+          <a href="mailto:Officestudiovalentina@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg>Officestudiovalentina@gmail.com</a>
           <a href="https://linkedin.com/in/valenarboledab" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-6a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="1.5"/></svg>linkedin.com/in/valenarboledab</a>
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.97.34 1.93.62 2.86a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.22-1.22a2 2 0 0 1 2.11-.45c.93.28 1.89.49 2.86.62A2 2 0 0 1 22 16.92z"/></svg>+1 (678) 490-5574</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Georgia, United States</span>
@@ -1377,12 +1353,12 @@
             <a onclick="showPage('journal')">Journal</a>
             <a onclick="showPage('contact')">Contact</a>
           </nav>
-          <div class="footer-copy">© 2026 Valentina Arboleda · Architect</div>
+          <div class="footer-copy">© 2026 Valentina Arboleda · Architectural Designer</div>
         </div>
       </div>
     </div>
   </footer>
-  <script src="js/main.js"></script>
+  <script src="js/main.js?v=20260829-1"></script>
 </body>
 
 </html>
