@@ -1,0 +1,86 @@
+/* ══ Extras: WhatsApp helper, FAQ, legal pages, cookie notice, client portal ══ */
+
+/* WhatsApp helper (bottom-left, so it never covers "Let's Talk") */
+.wa-fab{position:fixed;left:24px;bottom:24px;z-index:998;display:flex;align-items:flex-end;gap:8px;background:none;border:0;padding:0;cursor:pointer}
+.wa-fab-mascot{width:58px;height:auto;filter:drop-shadow(0 6px 14px rgba(74,69,64,.25));transition:transform .3s}
+.wa-fab:hover .wa-fab-mascot{transform:translateY(-4px) rotate(-4deg)}
+.wa-fab-btn{width:52px;height:52px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(37,211,102,.35)}
+.wa-fab-btn svg{width:28px;height:28px;fill:#fff}
+.wa-panel{position:fixed;left:24px;bottom:96px;z-index:999;width:min(340px,calc(100vw - 32px));background:var(--white);border:1px solid var(--sand);border-radius:18px;box-shadow:0 20px 60px rgba(74,69,64,.22);overflow:hidden;opacity:0;transform:translateY(12px);pointer-events:none;transition:.25s}
+.wa-panel.open{opacity:1;transform:none;pointer-events:auto}
+.wa-head{display:flex;gap:12px;align-items:center;padding:16px 18px;background:var(--bg-card);border-bottom:1px solid var(--sand)}
+.wa-head img{width:44px}
+.wa-head p{margin:0;font-size:13px;color:var(--text);line-height:1.4}
+.wa-head strong{display:block;font-size:14px}
+.wa-close{margin-left:auto;background:none;border:0;font-size:20px;color:var(--text-mid);cursor:pointer;line-height:1}
+.wa-body{padding:14px 18px 18px;max-height:52vh;overflow:auto}
+.wa-q{display:block;width:100%;text-align:left;background:var(--bg);border:1px solid var(--sand);border-radius:12px;padding:10px 12px;margin-bottom:8px;font:inherit;font-size:13px;color:var(--text);cursor:pointer}
+.wa-q:hover{border-color:var(--olive)}
+.wa-a{display:none;font-size:13px;color:var(--text-mid);padding:0 4px 10px;line-height:1.5}
+.wa-a.show{display:block}
+.wa-go{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;padding:12px;border-radius:999px;background:#25D366;color:#fff;font-size:14px;font-weight:600;text-decoration:none}
+.wa-go svg{width:18px;height:18px;fill:#fff}
+.wa-more{display:block;text-align:center;margin-top:10px;font-size:12px;color:var(--text-mid);text-decoration:underline;cursor:pointer}
+
+/* Shared simple page layout (FAQ, legal, portal) */
+.sp-wrap{max-width:860px;margin:0 auto;padding:140px 24px 100px}
+.sp-ey{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-light);margin-bottom:12px}
+.sp-title{font-family:var(--serif);font-size:clamp(34px,5vw,56px);font-weight:400;color:var(--text);margin:0 0 16px;line-height:1.1}
+.sp-lead{font-size:16px;color:var(--text-mid);line-height:1.7;margin-bottom:40px}
+.sp-wrap h2{font-family:var(--serif);font-weight:400;font-size:24px;color:var(--text);margin:36px 0 10px}
+.sp-wrap p,.sp-wrap li{font-size:15px;color:var(--text-mid);line-height:1.75}
+.sp-wrap ul{padding-left:20px}
+.sp-wrap a{color:var(--accent)}
+.sp-note{margin-top:48px;padding:16px 18px;border-radius:12px;background:var(--bg-card);font-size:13px!important}
+
+/* FAQ */
+.faq-hero{display:flex;gap:24px;align-items:center;margin-bottom:32px}
+.faq-hero img{width:110px;flex:none}
+.faq-item{border-bottom:1px solid var(--sand)}
+.faq-item summary{list-style:none;cursor:pointer;padding:20px 32px 20px 0;position:relative;font-size:17px;color:var(--text)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";position:absolute;right:4px;top:18px;font-size:22px;color:var(--olive);transition:transform .2s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{margin:0 0 20px}
+.faq-cta{margin-top:40px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+/* Legal links in footer */
+.footer-legal{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:12px}
+.footer-legal a{cursor:pointer;opacity:.75}
+.footer-legal a:hover{opacity:1}
+
+/* Cookie notice */
+.ck-bar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:997;width:min(560px,calc(100vw - 32px));background:var(--text);color:var(--white);border-radius:16px;padding:16px 18px;display:none;gap:14px;align-items:center;box-shadow:0 16px 50px rgba(0,0,0,.25);font-size:13px;line-height:1.5}
+.ck-bar.show{display:flex}
+.ck-bar a{color:var(--sand);text-decoration:underline;cursor:pointer}
+.ck-bar button{flex:none;background:var(--white);color:var(--text);border:0;border-radius:999px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer}
+
+/* Client portal */
+.pt-card{background:var(--white);border:1px solid var(--sand);border-radius:18px;padding:28px}
+.pt-form label{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-light);margin:14px 0 6px}
+.pt-form input{width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid var(--sand);border-radius:10px;background:var(--bg);font:inherit;color:var(--text)}
+.pt-btn{margin-top:20px;padding:12px 22px;border:0;border-radius:999px;background:var(--accent);color:#fff;font:inherit;font-weight:600;cursor:pointer}
+.pt-btn.ghost{background:none;color:var(--text);border:1px solid var(--sand)}
+.pt-link{background:none;border:0;padding:0;margin-top:12px;color:var(--text-mid);text-decoration:underline;font:inherit;font-size:13px;cursor:pointer}
+.pt-msg{min-height:20px;margin-top:12px;font-size:13px;color:#a24b3c}
+.pt-msg.ok{color:var(--accent)}
+.pt-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:24px}
+.pt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:16px}
+.pt-grid h3{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin:0 0 10px;font-weight:500}
+.pt-status{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--bg-card);font-size:13px;color:var(--text)}
+.pt-steps{display:flex;gap:6px;margin:14px 0 6px}
+.pt-steps span{flex:1;height:6px;border-radius:3px;background:var(--sand)}
+.pt-steps span.on{background:var(--accent)}
+.pt-phase{font-size:13px;color:var(--text-mid)}
+.pt-list{list-style:none;padding:0;margin:0}
+.pt-list li{padding:8px 0;border-bottom:1px solid var(--sand);font-size:14px}
+.pt-list li:last-child{border:0}
+.pt-list small{display:block;color:var(--text-light);font-size:12px}
+
+@media (max-width:600px){
+  .wa-fab{left:14px;bottom:14px}
+  .wa-fab-mascot{width:46px}
+  .wa-panel{left:16px;bottom:82px}
+  .faq-hero{flex-direction:column;align-items:flex-start}
+  .ck-bar{flex-direction:column;align-items:stretch;bottom:84px}
+}
