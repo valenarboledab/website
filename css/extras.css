@@ -107,3 +107,10 @@ body #page-projects .work-project-track{display:flex;flex-direction:column;gap:2
 body #page-projects .work-project-track .wcard{flex:none!important;width:100%!important;min-width:0}
 body #page-projects .work-project-controls{display:none!important}
 @media (max-width:700px){body #page-projects .work-project-track{gap:18px}}
+
+/* Resources */
+.rs-card{display:grid;grid-template-columns:260px 1fr;gap:28px;background:var(--white);border:1px solid var(--sand);border-radius:20px;padding:24px;align-items:start}
+.rs-cover img{width:100%;border-radius:12px;box-shadow:0 10px 30px rgba(74,69,64,.18)}
+.rs-consent{display:flex!important;gap:8px;align-items:flex-start;text-transform:none!important;letter-spacing:0!important;font-size:13px!important;color:var(--text-mid)!important}
+.rs-consent input{width:auto!important;margin-top:3px}
+@media (max-width:700px){.rs-card{grid-template-columns:1fr}.rs-cover{max-width:220px}}
