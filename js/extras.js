@@ -93,7 +93,7 @@
   });
 
   /* Resources: choose which freebie the form delivers */
-  var RS_COVERS = { 'before-you-build-georgia': 'images/checklist-cover.png', 'budget-planner': 'images/budget-cover.png', 'moodboard-canva': 'images/moodboard-cover.png', 'nala-stickers': 'images/stickers-cover.png' };
+  var RS_COVERS = { 'before-you-build-georgia': 'images/checklist-cover.png', 'budget-planner': 'images/budget-cover.png', 'moodboard-template': 'images/moodboard-cover.png', 'nala-stickers': 'images/stickers-cover.png' };
   window.pickResource = function (id, file, title) {
     var f = document.getElementById('leadForm'); if (!f) return;
     f.dataset.resource = id; f.dataset.file = file;
