@@ -31,7 +31,7 @@
 
   /* Cookie consent + Google Analytics (loaded ONLY after the visitor accepts).
      SETUP: paste your GA4 Measurement ID (looks like G-XXXXXXXXXX). */
-  var GA_ID = 'G-PASTE_ID';
+  var GA_ID = 'G-RS0NQF4ZP7';
 
   function choice() { try { return localStorage.getItem('sv_cookie_choice'); } catch (e) { return null; } }
   function loadGA() {

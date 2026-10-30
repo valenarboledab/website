@@ -3,10 +3,12 @@
    Project settings → Your apps → Web app). Until then the portal shows a
    "coming soon" message and no login is attempted. */
 const firebaseConfig = {
-  apiKey: "PASTE_API_KEY",
-  authDomain: "PASTE_PROJECT.firebaseapp.com",
-  projectId: "PASTE_PROJECT_ID",
-  appId: "PASTE_APP_ID"
+  apiKey: "AIzaSyDD3Ez_i7z0iyeBfixSRTVdhzdrzyMuqek",
+  authDomain: "studio-valentina-portal.firebaseapp.com",
+  projectId: "studio-valentina-portal",
+  storageBucket: "studio-valentina-portal.firebasestorage.app",
+  messagingSenderId: "290715834538",
+  appId: "1:290715834538:web:b2e1b40130fa8256b358d3"
 };
 
 const PHASES = ['Vision', 'Strategy', 'Design', 'Documentation', 'Execution'];
@@ -46,19 +48,60 @@ function render(user, data) {
     </div>`;
 }
 
+/* Free-resource download form: saves the lead (if Firebase is set up), then downloads the file. */
+function setupLeadForm(saveLead) {
+  const form = $('leadForm');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const m = $('leadMsg');
+    const name = $('leadName').value.trim().slice(0, 80);
+    const email = $('leadEmail').value.trim().slice(0, 120);
+    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { m.textContent = 'Please enter your name and a valid email.'; m.classList.remove('ok'); return; }
+    const btn = form.querySelector('button'); btn.disabled = true;
+    try {
+      if (saveLead) await saveLead({ name, email, optIn: $('leadConsent').checked, resource: form.dataset.resource });
+    } catch (err) { /* still deliver the file */ }
+    if (window.gtag) gtag('event', 'generate_lead', { resource: form.dataset.resource });
+    const a = document.createElement('a'); a.href = form.dataset.file; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
+    m.textContent = 'Thanks, ' + name + '! Your download has started.'; m.classList.add('ok');
+    btn.disabled = false; form.reset();
+  });
+}
+
+let resolveLeadSaver;
+const leadSaver = new Promise((r) => { resolveLeadSaver = r; });
+// Attach the form right away; saving the lead waits (max 4s) for Firebase, and the file is delivered either way.
+setupLeadForm((lead) => Promise.race([
+  leadSaver.then((save) => save && save(lead)),
+  new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 4000))
+]));
+
 async function start() {
-  if (!$('page-portal')) return;
-  if (firebaseConfig.apiKey.startsWith('PASTE')) { show('ptSetup'); return; }
+  const configured = !firebaseConfig.apiKey.startsWith('PASTE');
+  if (!configured) { resolveLeadSaver(null); if ($('page-portal')) show('ptSetup'); return; }
 
   const v = '10.12.2';
-  const { initializeApp } = await import(`https://www.gstatic.com/firebasejs/${v}/firebase-app.js`);
-  const { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } =
-    await import(`https://www.gstatic.com/firebasejs/${v}/firebase-auth.js`);
-  const { getFirestore, doc, getDoc } = await import(`https://www.gstatic.com/firebasejs/${v}/firebase-firestore.js`);
+  let initializeApp, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail,
+      getFirestore, doc, getDoc, collection, addDoc, serverTimestamp;
+  try {
+    ({ initializeApp } = await import(`https://www.gstatic.com/firebasejs/${v}/firebase-app.js`));
+    ({ getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } =
+      await import(`https://www.gstatic.com/firebasejs/${v}/firebase-auth.js`));
+    ({ getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } =
+      await import(`https://www.gstatic.com/firebasejs/${v}/firebase-firestore.js`));
+  } catch (e) {
+    resolveLeadSaver(null);
+    if ($('page-portal')) { show('ptLogin'); msg('The portal could not load. Please disable ad-blockers or try again later.'); }
+    return;
+  }
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+
+  resolveLeadSaver((lead) => addDoc(collection(db, 'leads'), { ...lead, createdAt: serverTimestamp() }));
+  if (!$('page-portal')) return;
 
   $('ptForm').addEventListener('submit', async (e) => {
     e.preventDefault();
