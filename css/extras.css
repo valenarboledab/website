@@ -2,7 +2,7 @@
 
 /* WhatsApp helper (bottom-left, so it never covers "Let's Talk") */
 .wa-fab{position:fixed;left:24px;bottom:24px;z-index:998;display:flex;align-items:flex-end;gap:8px;background:none;border:0;padding:0;cursor:pointer}
-.wa-fab-mascot{width:58px;height:auto;filter:drop-shadow(0 6px 14px rgba(74,69,64,.25));transition:transform .3s}
+.wa-fab-mascot{width:66px;height:auto;filter:drop-shadow(0 6px 14px rgba(74,69,64,.25));transition:transform .3s}
 .wa-fab:hover .wa-fab-mascot{transform:translateY(-4px) rotate(-4deg)}
 .wa-fab-btn{width:52px;height:52px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 8px 24px rgba(37,211,102,.35)}
 .wa-fab-btn svg{width:28px;height:28px;fill:#fff}
@@ -35,7 +35,7 @@
 
 /* FAQ */
 .faq-hero{display:flex;gap:24px;align-items:center;margin-bottom:32px}
-.faq-hero img{width:110px;flex:none}
+.faq-hero img{width:140px;flex:none}
 .faq-item{border-bottom:1px solid var(--sand)}
 .faq-item summary{list-style:none;cursor:pointer;padding:20px 32px 20px 0;position:relative;font-size:17px;color:var(--text)}
 .faq-item summary::-webkit-details-marker{display:none}
