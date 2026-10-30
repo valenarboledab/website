@@ -11,6 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css?v=20260829-3">
+  <link rel="stylesheet" href="css/extras.css?v=20261030">
 </head>
 
 <body>
@@ -25,6 +26,38 @@
   <button class="float-cta" onclick="showPage('contact')">
     <span class="float-dot"></span>Let's Talk
   </button>
+
+
+  <!-- ══ WHATSAPP HELPER (Ollie) ══ -->
+  <button class="wa-fab" id="waFab" onclick="toggleWaPanel()" aria-controls="waPanel" aria-expanded="false" aria-label="Chat with Valentina on WhatsApp">
+    <img class="wa-fab-mascot" src="images/mascot.svg" alt="">
+    <span class="wa-fab-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.02c-.24.68-1.42 1.3-1.96 1.35-.5.05-1.13.07-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3s.75-2.13 1.02-2.42c.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.14.31-.29.48-.14.17-.3.37-.43.5-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.28 2.3 1.42.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.65-.14.26.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"/></svg></span>
+  </button>
+  <div class="wa-panel" id="waPanel" role="dialog" aria-label="Quick questions">
+    <div class="wa-head">
+      <img src="images/mascot.svg" alt="">
+      <p><strong>Hi, I'm Ollie!</strong>Quick answers below, or talk to Valentina directly.</p>
+      <button class="wa-close" onclick="toggleWaPanel(false)" aria-label="Close">×</button>
+    </div>
+    <div class="wa-body">
+      <button class="wa-q">What services do you offer?</button>
+      <div class="wa-a">Architectural and interior design, BIM documentation, 3D renders, cost estimation and development strategy.</div>
+      <button class="wa-q">Do you work outside Georgia?</button>
+      <div class="wa-a">Yes — projects across the U.S., Colombia and Spain, mostly coordinated remotely.</div>
+      <button class="wa-q">How does a project start?</button>
+      <div class="wa-a">A short call about your goals, then a proposal with scope, timeline and fees.</div>
+      <button class="wa-q">¿Hablas español?</button>
+      <div class="wa-a">¡Sí! Valentina trabaja en inglés y español.</div>
+      <a class="wa-go" href="https://wa.me/16784905574?text=Hi%20Valentina!%20I%20found%20your%20portfolio%20and%20I%27d%20like%20to%20talk%20about%20a%20project." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.8 14.02c-.24.68-1.42 1.3-1.96 1.35-.5.05-1.13.07-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3s.75-2.13 1.02-2.42c.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.14.31-.29.48-.14.17-.3.37-.43.5-.14.14-.29.3-.13.59.17.29.74 1.22 1.59 1.98 1.09.97 2.01 1.28 2.3 1.42.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.38-.24.65-.14.26.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"/></svg>Chat on WhatsApp</a>
+      <a class="wa-more" onclick="toggleWaPanel(false);showPage('faq')">See all FAQs</a>
+    </div>
+  </div>
+
+  <!-- ══ COOKIE NOTICE ══ -->
+  <div class="ck-bar" id="ckBar" role="region" aria-label="Cookie notice">
+    <span>This site uses only essential storage — no tracking or ads. <a onclick="showPage('cookies')">Cookie Policy</a></span>
+    <button onclick="dismissCookies()">Got it</button>
+  </div>
 
   <!-- ══ SCROLL PROGRESS ══ -->
   <div class="scroll-progress" id="scrollProgress"></div>
@@ -43,6 +76,7 @@
         <li><a id="nav-process" onclick="showPage('process')">Process</a></li>
         <li><a id="nav-journal" onclick="showPage('journal')">Journal</a></li>
         <li><a id="nav-contact" onclick="showPage('contact')">Contact</a></li>
+        <li><a id="nav-portal" onclick="showPage('portal')">Clients</a></li>
         <li><a class="nav-cta" onclick="showPage('contact')">Let's Build ↗</a></li>
       </ul>
     </div>
@@ -1298,6 +1332,141 @@
 
 
   <!-- ══════════════ SHARED FOOTER ══════════════ -->
+  <!-- ══════════════ PAGE: FAQ ══════════════ -->
+  <div id="page-faq" class="page">
+    <div class="sp-wrap">
+      <div class="faq-hero">
+        <img src="images/mascot.svg" alt="Ollie, the Studio Valentina owl">
+        <div>
+          <p class="sp-ey">Frequently Asked Questions</p>
+          <h1 class="sp-title">Hi, I'm <em>Ollie.</em></h1>
+          <p class="sp-lead" style="margin:0">I help answer the questions Valentina hears most. Don't see yours? Message her directly on WhatsApp.</p>
+        </div>
+      </div>
+      <details class="faq-item"><summary>What services do you offer?</summary><p>Architectural design, interior design, BIM documentation (Revit and AutoCAD), 3D visualization and renders, cost estimation, and development strategy for residential and commercial projects.</p></details>
+      <details class="faq-item"><summary>Do you work with clients outside Georgia?</summary><p>Yes. Studio Valentina is based in Georgia and collaborates with clients in the United States, Colombia and Spain. Most work can be coordinated remotely.</p></details>
+      <details class="faq-item"><summary>Are you a licensed architect in the U.S.?</summary><p>Valentina is a licensed architect in Colombia and is pursuing U.S. licensure through the NCARB International Architect Path. In the U.S. she works as an architectural designer; where a stamped set is required by the jurisdiction, the project is coordinated with a licensed professional of record.</p></details>
+      <details class="faq-item"><summary>How does a project start?</summary><p>With a short call to understand your goals, site, budget and timeline. From there you receive a proposal with scope, deliverables and fees before any work begins.</p></details>
+      <details class="faq-item"><summary>How long does a design take?</summary><p>It depends on scope. An interior design package usually takes a few weeks; a full residential design with documentation takes longer. Your proposal includes a timeline for your specific project.</p></details>
+      <details class="faq-item"><summary>Do you speak Spanish?</summary><p>Yes — Valentina works in both English and Spanish.</p></details>
+      <details class="faq-item"><summary>How do I see my project's progress?</summary><p>Active clients receive access to the Client Portal, where they can see the current phase, next steps, documents and updates.</p></details>
+      <div class="faq-cta">
+        <button class="pt-btn" onclick="openWhatsApp()">Ask on WhatsApp</button>
+        <button class="pt-btn ghost" onclick="showPage('contact')">Send a message</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ PAGE: TERMS ══════════════ -->
+  <div id="page-terms" class="page">
+    <div class="sp-wrap">
+      <p class="sp-ey">Legal</p>
+      <h1 class="sp-title">Terms &amp; <em>Conditions</em></h1>
+      <p class="sp-lead">Last updated: October 30, 2026. These terms apply to your use of studio-valentina.com (the "Site"), operated by Valentina Arboleda, doing business as Studio Valentina, in Georgia, United States.</p>
+      <h2>Use of the Site</h2>
+      <p>You may browse the Site for personal, informational purposes. You agree not to misuse the Site, attempt to access areas you are not authorized to use, or interfere with its operation.</p>
+      <h2>Portfolio content and intellectual property</h2>
+      <p>All designs, drawings, renders, text and images on the Site belong to Valentina Arboleda or are used with permission. You may not copy, reproduce, or use them for commercial purposes without written consent.</p>
+      <h2>No professional advice or offer</h2>
+      <p>Content on the Site is for general information. It is not a proposal, a binding offer, or professional advice for your specific project. Services are provided only under a separate written agreement that defines scope, fees and responsibilities.</p>
+      <h2>Professional status</h2>
+      <p>Valentina Arboleda is a licensed architect in Colombia and an NCARB candidate. She is not a licensed architect in any U.S. state and does not offer services that require U.S. architectural licensure except through a licensed professional of record where the jurisdiction requires one.</p>
+      <h2>Client Portal</h2>
+      <p>Access to the Client Portal is limited to invited clients. You are responsible for keeping your login confidential. Information in the portal is a convenience summary; your written agreement and official project documents control.</p>
+      <h2>Third-party links</h2>
+      <p>The Site links to services such as LinkedIn and WhatsApp. Their own terms and privacy policies apply when you use them.</p>
+      <h2>Limitation of liability</h2>
+      <p>The Site is provided "as is." To the fullest extent permitted by law, Studio Valentina is not liable for damages arising from your use of the Site.</p>
+      <h2>Governing law</h2>
+      <p>These terms are governed by the laws of the State of Georgia, United States.</p>
+      <h2>Contact</h2>
+      <p>Questions about these terms: <a href="mailto:officestudiovalentina@gmail.com">officestudiovalentina@gmail.com</a>.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════ PAGE: PRIVACY ══════════════ -->
+  <div id="page-privacy" class="page">
+    <div class="sp-wrap">
+      <p class="sp-ey">Legal</p>
+      <h1 class="sp-title">Privacy <em>Policy</em></h1>
+      <p class="sp-lead">Last updated: October 30, 2026. This policy explains what information Studio Valentina collects through studio-valentina.com and how it is used.</p>
+      <h2>Information you give us</h2>
+      <p>When you contact Studio Valentina by email, WhatsApp or the contact form, we receive the details you choose to share, such as your name, email, phone number and project information. Client Portal users also have an email address and the project information Studio Valentina adds for them.</p>
+      <h2>How we use it</h2>
+      <ul>
+        <li>To respond to your inquiry and prepare proposals.</li>
+        <li>To deliver services and share project progress with clients.</li>
+        <li>To keep records required for business and legal purposes.</li>
+      </ul>
+      <p>We do not sell your personal information and do not use it for advertising.</p>
+      <h2>Service providers</h2>
+      <p>The Site is hosted on GitHub Pages and loads fonts from Google Fonts. The Client Portal uses Google Firebase for secure login and data storage. WhatsApp conversations are handled by WhatsApp (Meta). These providers process data under their own privacy policies.</p>
+      <h2>Retention</h2>
+      <p>We keep inquiry and project information only as long as needed for the purposes above or as required by law.</p>
+      <h2>Your choices</h2>
+      <p>You can ask to access, correct or delete your personal information by writing to <a href="mailto:officestudiovalentina@gmail.com">officestudiovalentina@gmail.com</a>.</p>
+      <h2>Children</h2>
+      <p>The Site is not directed to children under 13, and we do not knowingly collect their information.</p>
+      <h2>Changes</h2>
+      <p>We may update this policy. The date at the top shows the latest version.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════ PAGE: COOKIES ══════════════ -->
+  <div id="page-cookies" class="page">
+    <div class="sp-wrap">
+      <p class="sp-ey">Legal</p>
+      <h1 class="sp-title">Cookie <em>Policy</em></h1>
+      <p class="sp-lead">Last updated: October 30, 2026. Studio Valentina keeps this simple: the Site does not use advertising or tracking cookies.</p>
+      <h2>What we use</h2>
+      <ul>
+        <li><strong>Essential browser storage</strong> — remembers that you have seen the cookie notice.</li>
+        <li><strong>Client Portal login</strong> — Google Firebase stores a secure session in your browser so you stay signed in. It is used only if you log in.</li>
+      </ul>
+      <h2>Third parties</h2>
+      <p>Fonts are loaded from Google Fonts, which receives your IP address to deliver them. Opening WhatsApp or LinkedIn takes you to those services, which apply their own cookie policies.</p>
+      <h2>Managing storage</h2>
+      <p>You can clear or block cookies and site data in your browser settings. Blocking them may sign you out of the Client Portal.</p>
+      <h2>Contact</h2>
+      <p><a href="mailto:officestudiovalentina@gmail.com">officestudiovalentina@gmail.com</a></p>
+    </div>
+  </div>
+
+  <!-- ══════════════ PAGE: CLIENT PORTAL ══════════════ -->
+  <div id="page-portal" class="page">
+    <div class="sp-wrap">
+      <p class="sp-ey">Client Portal</p>
+      <div id="ptSetup" hidden>
+        <h1 class="sp-title">Client <em>Portal</em></h1>
+        <div class="pt-card"><p>The client portal is coming soon. In the meantime, contact Valentina for project updates.</p>
+          <button class="pt-btn" onclick="openWhatsApp()">Message on WhatsApp</button></div>
+      </div>
+      <div id="ptLogin" hidden>
+        <h1 class="sp-title">Welcome <em>back.</em></h1>
+        <p class="sp-lead">Sign in to see your project's progress, documents and updates.</p>
+        <div class="pt-card" style="max-width:420px">
+          <form class="pt-form" id="ptForm">
+            <label for="ptEmail">Email</label>
+            <input id="ptEmail" type="email" autocomplete="email" required>
+            <label for="ptPass">Password</label>
+            <input id="ptPass" type="password" autocomplete="current-password" required>
+            <button class="pt-btn" type="submit">Sign in</button>
+          </form>
+          <button class="pt-link" id="ptReset" type="button">Forgot password?</button>
+          <p class="pt-msg" id="ptMsg" role="status"></p>
+          <p style="font-size:13px;margin-top:16px">Accounts are created by Studio Valentina for active clients.</p>
+        </div>
+      </div>
+      <div id="ptDash" hidden>
+        <div class="pt-top">
+          <h1 class="sp-title" id="ptHello" style="margin:0">Hello</h1>
+          <button class="pt-btn ghost" id="ptOut" type="button" style="margin:0">Sign out</button>
+        </div>
+        <div id="ptBody"></div>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer" id="site-footer">
     <div class="footer-in">
       <div class="footer-l">
@@ -1318,14 +1487,19 @@
             <a onclick="showPage('process')">Process</a>
             <a onclick="showPage('journal')">Journal</a>
             <a onclick="showPage('contact')">Contact</a>
+            <a onclick="showPage('faq')">FAQ</a>
+            <a onclick="showPage('portal')">Client Portal</a>
           </nav>
           <div class="footer-badge">VA</div>
           <div class="footer-copy">© 2026 Valentina Arboleda · Architectural Designer</div>
+          <div class="footer-legal"><a onclick="showPage('terms')">Terms &amp; Conditions</a><a onclick="showPage('privacy')">Privacy Policy</a><a onclick="showPage('cookies')">Cookie Policy</a></div>
         </div>
       </div>
     </div>
   </footer>
   <script src="js/main.js?v=20260829-1"></script>
+  <script src="js/extras.js?v=20261030"></script>
+  <script type="module" src="js/portal.js?v=20261030"></script>
 </body>
 
 </html>
