@@ -46,7 +46,7 @@
 
 /* Legal links in footer */
 .footer-legal{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:12px}
-.footer-legal a{cursor:pointer;opacity:.75}
+.footer-legal a{cursor:pointer;color:rgba(240,238,237,.7)}
 .footer-legal a:hover{opacity:1}
 
 /* Cookie notice */
@@ -114,3 +114,7 @@ body #page-projects .work-project-controls{display:none!important}
 .rs-consent{display:flex!important;gap:8px;align-items:flex-start;text-transform:none!important;letter-spacing:0!important;font-size:13px!important;color:var(--text-mid)!important}
 .rs-consent input{width:auto!important;margin-top:3px}
 @media (max-width:700px){.rs-card{grid-template-columns:1fr}.rs-cover{max-width:220px}}
+
+/* MOVA tie-in in footer */
+.footer-mova{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,238,237,.7)}
+.footer-mova img{height:34px;width:auto}
