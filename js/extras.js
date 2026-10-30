@@ -92,6 +92,52 @@
     }
   });
 
+  /* Nala speech bubble: a short line that changes with the page */
+  var NALA_LINES = {
+    home: "Hi! I'm Nala 🐾 Welcome to Studio Valentina.",
+    projects: "These are some of Valentina's favorite projects!",
+    about: "Meet Valentina: architect from Colombia, designing in Georgia.",
+    process: "Curious how we work? From vision to execution, step by step.",
+    journal: "Ideas and lessons from real projects. Grab a read!",
+    arboretum: "Arboretum was designed around how a home should feel.",
+    contact: "Say hi! Valentina usually answers within a day.",
+    resources: "Free checklist inside! Build smarter in Georgia.",
+    faq: "Got questions? I've got answers. Or ask on WhatsApp!",
+    portal: "Clients only! Sign in to see your project.",
+    terms: "The fine print, in plain English.",
+    privacy: "Your info is safe with us. Here's how.",
+    cookies: "No ads, no tracking without your OK. Promise!"
+  };
+  var sayTimer;
+  function nalaSay(id) {
+    var el = document.getElementById('nalaSay');
+    if (!el) return;
+    var txt = NALA_LINES[id] || NALA_LINES.home;
+    el.classList.remove('show');
+    clearTimeout(sayTimer);
+    sayTimer = setTimeout(function () {
+      el.textContent = txt; el.classList.add('show');
+      sayTimer = setTimeout(function () { el.classList.remove('show'); }, 9000);
+    }, 700);
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    var orig = window.showPage;
+    if (typeof orig === 'function') {
+      window.showPage = function (id) { var r = orig.apply(this, arguments); nalaSay(id); return r; };
+    }
+    setTimeout(function () { nalaSay('home'); }, 1500);
+    /* Work page: "All" = big list; a category = 3 per row */
+    var of = window.filterProj;
+    if (typeof of === 'function') {
+      window.filterProj = function (cat) {
+        var r = of.apply(this, arguments);
+        var page = document.getElementById('page-projects');
+        if (page) page.classList.toggle('is-filtered', cat !== 'all');
+        return r;
+      };
+    }
+  });
+
   /* Nala comes to life: swap to the animated version after the page has loaded (keeps first load fast) */
   window.addEventListener('load', function () {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
