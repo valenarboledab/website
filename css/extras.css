@@ -118,3 +118,21 @@ body #page-projects .work-project-controls{display:none!important}
 /* MOVA tie-in in footer */
 .footer-mova{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,238,237,.7)}
 .footer-mova img{height:34px;width:auto}
+
+/* Nala poses */
+.nala-pose{filter:drop-shadow(0 10px 18px rgba(74,69,64,.18))}
+.ct-hero{position:relative}
+.nala-wave{position:absolute;right:5%;bottom:0;width:min(150px,20vw);z-index:3;animation:nalaBob 3.2s ease-in-out infinite;transform-origin:bottom center}
+@keyframes nalaBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-1.5deg)}}
+.faq-hero img.nala-pose{animation:nalaBob 3.6s ease-in-out infinite;transform-origin:bottom center}
+@media (prefers-reduced-motion:reduce){.nala-wave,.faq-hero img.nala-pose{animation:none}}
+@media (max-width:700px){.nala-wave{width:120px;right:2%}}
+
+/* Language switcher */
+.lang-sel{appearance:none;-webkit-appearance:none;background:transparent;border:1px solid var(--sand);border-radius:999px;padding:5px 12px;font:inherit;font-size:11px;letter-spacing:.08em;color:var(--text);cursor:pointer}
+.lang-foot{margin-top:10px;color:rgba(240,238,237,.8);border-color:rgba(240,238,237,.3)}
+.lang-foot option,.lang-sel option{color:#2a211c}
+/* hide Google Translate chrome */
+.goog-te-banner-frame,.skiptranslate iframe,#goog-gt-tt,.goog-te-balloon-frame{display:none!important}
+body{top:0!important}
+.goog-text-highlight{background:none!important;box-shadow:none!important}
