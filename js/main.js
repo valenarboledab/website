@@ -462,9 +462,8 @@ initRevealObserver();
   }
 
   function workVisibleCount() {
-    if (window.innerWidth <= 640) return 1;
-    if (window.innerWidth <= 960) return 2;
-    return 3;
+    // All projects are shown as one large vertical list (no sliding).
+    return Infinity;
   }
 
   function updateWorkCarouselPosition() {
