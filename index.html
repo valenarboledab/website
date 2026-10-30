@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css?v=20260829-3">
-  <link rel="stylesheet" href="css/extras.css?v=20261030">
+  <link rel="stylesheet" href="css/extras.css?v=20261030c">
 </head>
 
 <body>
@@ -55,8 +55,8 @@
 
   <!-- ══ COOKIE NOTICE ══ -->
   <div class="ck-bar" id="ckBar" role="region" aria-label="Cookie notice">
-    <span>This site uses only essential storage — no tracking or ads. <a onclick="showPage('cookies')">Cookie Policy</a></span>
-    <button onclick="dismissCookies()">Got it</button>
+    <span>We use analytics cookies to understand how visitors use this site — only if you accept. No ads. <a onclick="showPage('cookies')">Cookie Policy</a></span>
+    <span class="ck-btns"><button class="ck-no" onclick="setCookieChoice('essential')">Decline</button><button onclick="setCookieChoice('all')">Accept</button></span>
   </div>
 
   <!-- ══ SCROLL PROGRESS ══ -->
@@ -1119,10 +1119,55 @@
       <div class="jcard reveal">
         <div class="jcard-img"><img src="images/home/img-arboretum-georgia.jpg" alt=""></div>
         <div class="jcard-body">
-          <div class="jcard-meta"><span class="jcard-date">Case Study</span><div class="jcard-dot"></div><span class="jcard-cat">Development</span></div>
+          <div class="jcard-meta"><span class="jcard-date">May 12, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">Architecture</span></div>
+          <h3 class="jcard-title">Designing for Connection: People, Nature & Place</h3>
+          <p class="jcard-exc">Exploring how architecture can foster connection and create spaces that enhance well-being.</p>
+          <a class="jcard-read" href="https://www.google.com">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="jcard reveal d1">
+        <div class="jcard-img"><img src="images/home/img-burgos.jpg" alt=""></div>
+        <div class="jcard-body">
+          <div class="jcard-meta"><span class="jcard-date">Apr 28, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">Development</span></div>
           <h3 class="jcard-title">From Vision to Reality: The Arboretum Journey</h3>
           <p class="jcard-exc">A behind-the-scenes look at the process, challenges and decisions that brought Arboretum to life.</p>
-          <a class="jcard-read" href="#" onclick="showPage('arboretum');return false;">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          <a class="jcard-read" href="#">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="jcard reveal d2">
+        <div class="jcard-img"><img src="images/home/img-cultural.jpg" alt=""></div>
+        <div class="jcard-body">
+          <div class="jcard-meta"><span class="jcard-date">Apr 10, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">Design</span></div>
+          <h3 class="jcard-title">The Power of Materiality in Interior Spaces</h3>
+          <p class="jcard-exc">How textures, natural materials and light work together to create calm, timeless interiors.</p>
+          <a class="jcard-read" href="#">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="jcard reveal">
+        <div class="jcard-img"><img src="images/home/img-ecohotel.jpg" alt=""></div>
+        <div class="jcard-body">
+          <div class="jcard-meta"><span class="jcard-date">Mar 22, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">BIM & Tech</span></div>
+          <h3 class="jcard-title">BIM as a Design Tool, Not Just Documentation</h3>
+          <p class="jcard-exc">Leveraging BIM from concept to construction to improve coordination and decision-making.</p>
+          <a class="jcard-read" href="#">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="jcard reveal d1">
+        <div class="jcard-img"><img src="images/home/img-mana.jpg" alt=""></div>
+        <div class="jcard-body">
+          <div class="jcard-meta"><span class="jcard-date">Mar 05, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">Lifestyle</span></div>
+          <h3 class="jcard-title">Lessons from Travel That Inspire My Designs</h3>
+          <p class="jcard-exc">Moments, textures and cultures that influence the way I see and design for spaces.</p>
+          <a class="jcard-read" href="#">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+      <div class="jcard reveal d2">
+        <div class="jcard-img"><img src="images/home/img-hero.jpg" alt=""></div>
+        <div class="jcard-body">
+          <div class="jcard-meta"><span class="jcard-date">Feb 18, 2024</span><div class="jcard-dot"></div><span class="jcard-cat">Architecture</span></div>
+          <h3 class="jcard-title">Outdoor Living: More Than a Trend</h3>
+          <p class="jcard-exc">Designing outdoor spaces that are functional, beautiful and built to last over time.</p>
+          <a class="jcard-read" href="#">Read More <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
         </div>
       </div>
     </div>
@@ -1400,7 +1445,7 @@
       </ul>
       <p>We do not sell your personal information and do not use it for advertising.</p>
       <h2>Service providers</h2>
-      <p>The Site is hosted on GitHub Pages and loads fonts from Google Fonts. The Client Portal uses Google Firebase for secure login and data storage. WhatsApp conversations are handled by WhatsApp (Meta). These providers process data under their own privacy policies.</p>
+      <p>The Site is hosted on GitHub Pages and loads fonts from Google Fonts. If you accept analytics cookies, Google Analytics collects usage data such as pages visited, device type and approximate location. The Client Portal uses Google Firebase for secure login and data storage. WhatsApp conversations are handled by WhatsApp (Meta). These providers process data under their own privacy policies.</p>
       <h2>Retention</h2>
       <p>We keep inquiry and project information only as long as needed for the purposes above or as required by law.</p>
       <h2>Your choices</h2>
@@ -1417,18 +1462,60 @@
     <div class="sp-wrap">
       <p class="sp-ey">Legal</p>
       <h1 class="sp-title">Cookie <em>Policy</em></h1>
-      <p class="sp-lead">Last updated: October 30, 2026. Studio Valentina keeps this simple: the Site does not use advertising or tracking cookies.</p>
-      <h2>What we use</h2>
+      <p class="sp-lead">Effective date: October 30, 2026. This Cookie Policy explains how studio-valentina.com (the "Site"), operated by Valentina Arboleda, doing business as Studio Valentina, in the State of Georgia, United States ("Studio Valentina," "we," "us"), uses cookies and similar technologies. It forms part of, and should be read together with, our <a onclick="showPage('terms')">Terms &amp; Conditions</a> and <a onclick="showPage('privacy')">Privacy Policy</a>.</p>
+
+      <h2>1. Acceptance</h2>
+      <p>By continuing to use the Site after this notice is shown, you acknowledge this Cookie Policy. Optional cookies are placed only if you click "Accept." Strictly necessary storage does not require consent and is used on every visit. If you do not agree with this Policy, please stop using the Site.</p>
+
+      <h2>2. What cookies and similar technologies are</h2>
+      <p>Cookies are small text files stored on your device by your browser. "Similar technologies" include local storage, session storage and script tags. In this Policy, "cookies" refers to all of them.</p>
+
+      <h2>3. Categories we use</h2>
       <ul>
-        <li><strong>Essential browser storage</strong> — remembers that you have seen the cookie notice.</li>
-        <li><strong>Client Portal login</strong> — Google Firebase stores a secure session in your browser so you stay signed in. It is used only if you log in.</li>
+        <li><strong>Strictly necessary.</strong> Stores your cookie choice and, if you sign in to the Client Portal, keeps your secure session. The Site and Portal cannot function properly without these. They cannot be switched off through the Site, but you can block them in your browser.</li>
+        <li><strong>Analytics (optional).</strong> If you click "Accept," Google Analytics sets cookies (such as <code>_ga</code> and <code>_ga_*</code>, which can last up to 2 years) to measure visits, pages viewed, clicks (including WhatsApp button clicks), referring sites, device and browser type, and approximate location derived from your IP address. We use this only in aggregate to improve the Site.</li>
       </ul>
-      <h2>Third parties</h2>
-      <p>Fonts are loaded from Google Fonts, which receives your IP address to deliver them. Opening WhatsApp or LinkedIn takes you to those services, which apply their own cookie policies.</p>
-      <h2>Managing storage</h2>
-      <p>You can clear or block cookies and site data in your browser settings. Blocking them may sign you out of the Client Portal.</p>
-      <h2>Contact</h2>
-      <p><a href="mailto:officestudiovalentina@gmail.com">officestudiovalentina@gmail.com</a></p>
+      <p>We do not use advertising, retargeting or social-media tracking cookies, and we do not sell or share your personal information for cross-context behavioral advertising.</p>
+
+      <h2>4. Third-party services</h2>
+      <p>Some technologies are provided by independent third parties, including Google LLC (Google Analytics, Google Fonts, Firebase), GitHub, Inc. (hosting), Meta Platforms, Inc. (WhatsApp) and LinkedIn Corporation. These parties may collect information, including your IP address, under their own terms and privacy policies, which we do not control. Studio Valentina is not responsible for the content, practices, availability or security of third-party services, and your use of them is at your own risk. Links to third-party sites are provided for convenience only and do not constitute endorsement.</p>
+
+      <h2>5. Your choices</h2>
+      <ul>
+        <li>Change your decision at any time in <a onclick="openCookieSettings()">Cookie Settings</a>. Withdrawing consent stops future analytics collection but does not affect data collected before.</li>
+        <li>If your browser sends a <strong>Global Privacy Control</strong> signal, we treat it as a refusal of optional cookies.</li>
+        <li>You can block or delete cookies in your browser settings, or install Google's Analytics opt-out browser add-on. Blocking strictly necessary storage may prevent you from signing in to the Client Portal.</li>
+      </ul>
+
+      <h2>6. No warranty</h2>
+      <p>The Site and any cookie-based features are provided "as is" and "as available," without warranties of any kind, express or implied, including accuracy, availability, merchantability, fitness for a particular purpose or non-infringement. Analytics figures are estimates and are not guaranteed to be complete or accurate.</p>
+
+      <h2>7. Limitation of liability</h2>
+      <p>To the fullest extent permitted by applicable law, Studio Valentina and Valentina Arboleda shall not be liable for any indirect, incidental, special, consequential or punitive damages, or for any loss of data, profits or goodwill, arising out of or related to cookies, similar technologies, third-party services, or your use of or inability to use the Site, even if advised of the possibility of such damages. Where liability cannot be excluded, it is limited to the greatest extent permitted by law.</p>
+
+      <h2>8. Indemnity</h2>
+      <p>You agree to indemnify and hold harmless Studio Valentina and Valentina Arboleda from any claims, losses or expenses, including reasonable attorneys' fees, arising from your misuse of the Site, your violation of this Policy, or any attempt to tamper with, circumvent or interfere with the Site's cookies, security or Client Portal.</p>
+
+      <h2>9. Data security</h2>
+      <p>We use reasonable measures provided by our hosting and service providers to protect information. However, no method of transmission or storage over the internet is completely secure, and we cannot guarantee absolute security.</p>
+
+      <h2>10. Children</h2>
+      <p>The Site is intended for adults and is not directed to children under 13. We do not knowingly collect information from children.</p>
+
+      <h2>11. International visitors</h2>
+      <p>The Site is operated from the United States. If you access it from another country, you understand that information may be processed in the United States, where data protection laws may differ from those of your country.</p>
+
+      <h2>12. Changes to this Policy</h2>
+      <p>We may update this Policy at any time by posting a revised version on this page with a new effective date. Your continued use of the Site after changes are posted constitutes acceptance of the revised Policy.</p>
+
+      <h2>13. Governing law</h2>
+      <p>This Policy is governed by the laws of the State of Georgia, United States, without regard to conflict-of-law rules. Any dispute relating to it shall be brought exclusively in the state or federal courts located in Georgia, and you consent to their jurisdiction.</p>
+
+      <h2>14. Severability</h2>
+      <p>If any provision of this Policy is found unenforceable, the remaining provisions remain in full force and effect.</p>
+
+      <h2>15. Contact</h2>
+      <p>Questions or requests: <a href="mailto:officestudiovalentina@gmail.com">officestudiovalentina@gmail.com</a>.</p>
     </div>
   </div>
 
@@ -1492,13 +1579,13 @@
           </nav>
           <div class="footer-badge">VA</div>
           <div class="footer-copy">© 2026 Valentina Arboleda · Architectural Designer</div>
-          <div class="footer-legal"><a onclick="showPage('terms')">Terms &amp; Conditions</a><a onclick="showPage('privacy')">Privacy Policy</a><a onclick="showPage('cookies')">Cookie Policy</a></div>
+          <div class="footer-legal"><a onclick="showPage('terms')">Terms &amp; Conditions</a><a onclick="showPage('privacy')">Privacy Policy</a><a onclick="showPage('cookies')">Cookie Policy</a><a onclick="openCookieSettings()">Cookie Settings</a></div>
         </div>
       </div>
     </div>
   </footer>
-  <script src="js/main.js?v=20260829-1"></script>
-  <script src="js/extras.js?v=20261030"></script>
+  <script src="js/main.js?v=20261030"></script>
+  <script src="js/extras.js?v=20261030c"></script>
   <script type="module" src="js/portal.js?v=20261030"></script>
 </body>
 
