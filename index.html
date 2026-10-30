@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css?v=20260829-3">
-  <link rel="stylesheet" href="css/extras.css?v=20261030d">
+  <link rel="stylesheet" href="css/extras.css?v=20261030e">
 </head>
 
 <body>
@@ -72,6 +72,7 @@
         <li><a id="nav-process" onclick="showPage('process')">Process</a></li>
         <li><a id="nav-journal" onclick="showPage('journal')">Journal</a></li>
         <li><a id="nav-contact" onclick="showPage('contact')">Contact</a></li>
+        <li><a id="nav-resources" onclick="showPage('resources')">Resources</a></li>
         <li><a id="nav-portal" onclick="showPage('portal')">Clients</a></li>
         <li><a class="nav-cta" onclick="showPage('contact')">Let's Build ↗</a></li>
       </ul>
@@ -1398,6 +1399,39 @@
     </div>
   </div>
 
+  <!-- ══════════════ PAGE: RESOURCES ══════════════ -->
+  <div id="page-resources" class="page">
+    <div class="sp-wrap">
+      <div class="faq-hero">
+        <img src="images/nala.webp" alt="Nala, the Studio Valentina mascot">
+        <div>
+          <p class="sp-ey">Free Resources</p>
+          <h1 class="sp-title">Tools to plan your <em>home.</em></h1>
+          <p class="sp-lead" style="margin:0">Practical guides and templates from Studio Valentina. Free to download.</p>
+        </div>
+      </div>
+      <div class="rs-card">
+        <div class="rs-cover"><img src="images/checklist-cover.png" alt="Before You Build in Georgia checklist preview" loading="lazy"></div>
+        <div class="rs-body">
+          <p class="sp-ey" style="margin-bottom:6px">Free PDF · 2 pages</p>
+          <h2 style="margin-top:0">Before You Build in Georgia</h2>
+          <p>A step-by-step checklist for planning your custom home: land, budget, design, permits, construction and move-in.</p>
+          <form class="pt-form rs-form" id="leadForm" data-file="downloads/before-you-build-in-georgia.pdf" data-resource="before-you-build-georgia">
+            <label for="leadName">First name</label>
+            <input id="leadName" name="name" autocomplete="given-name" required maxlength="80">
+            <label for="leadEmail">Email</label>
+            <input id="leadEmail" name="email" type="email" autocomplete="email" required maxlength="120">
+            <label class="rs-consent"><input type="checkbox" id="leadConsent"> Send me occasional design tips and new resources. Unsubscribe anytime.</label>
+            <button class="pt-btn" type="submit">Get the free checklist</button>
+            <p class="pt-msg" id="leadMsg" role="status"></p>
+            <p style="font-size:12px;margin:8px 0 0">We respect your privacy. See our <a onclick="showPage('privacy')">Privacy Policy</a>.</p>
+          </form>
+        </div>
+      </div>
+      <p class="sp-note">More resources coming soon: Canva moodboard templates, budget planner and architecture stickers.</p>
+    </div>
+  </div>
+
   <!-- ══════════════ PAGE: TERMS ══════════════ -->
   <div id="page-terms" class="page">
     <div class="sp-wrap">
@@ -1432,7 +1466,7 @@
       <h1 class="sp-title">Privacy <em>Policy</em></h1>
       <p class="sp-lead">Last updated: October 30, 2026. This policy explains what information Studio Valentina collects through studio-valentina.com and how it is used.</p>
       <h2>Information you give us</h2>
-      <p>When you contact Studio Valentina by email, WhatsApp or the contact form, we receive the details you choose to share, such as your name, email, phone number and project information. Client Portal users also have an email address and the project information Studio Valentina adds for them.</p>
+      <p>When you contact Studio Valentina by email, WhatsApp or the contact form, we receive the details you choose to share, such as your name, email, phone number and project information. Client Portal users also have an email address and the project information Studio Valentina adds for them. When you download a free resource, we store your first name, email, the resource requested and whether you agreed to receive emails.</p>
       <h2>How we use it</h2>
       <ul>
         <li>To respond to your inquiry and prepare proposals.</li>
@@ -1570,6 +1604,7 @@
             <a onclick="showPage('process')">Process</a>
             <a onclick="showPage('journal')">Journal</a>
             <a onclick="showPage('contact')">Contact</a>
+            <a onclick="showPage('resources')">Free Resources</a>
             <a onclick="showPage('faq')">FAQ</a>
             <a onclick="showPage('portal')">Client Portal</a>
           </nav>
@@ -1581,8 +1616,8 @@
     </div>
   </footer>
   <script src="js/main.js?v=20261030"></script>
-  <script src="js/extras.js?v=20261030c"></script>
-  <script type="module" src="js/portal.js?v=20261030"></script>
+  <script src="js/extras.js?v=20261030d"></script>
+  <script type="module" src="js/portal.js?v=20261030b"></script>
 </body>
 
 </html>
