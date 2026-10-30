@@ -66,4 +66,41 @@
   document.addEventListener('click', function (e) {
     if (e.target.closest('a[href*="wa.me"], .wa-go') && window.gtag) gtag('event', 'whatsapp_click');
   });
+
+  /* Languages: EN (original), ES, PT, FR, ZH via Google Translate (loaded only when a non-English language is chosen) */
+  function getLang() {
+    var m = document.cookie.match(/(?:^|; )googtrans=\/en\/([^;]+)/);
+    return m ? decodeURIComponent(m[1]) : 'en';
+  }
+  window.setLang = function (l) {
+    var host = location.hostname, exp = l === 'en' ? '; expires=Thu, 01 Jan 1970 00:00:00 GMT' : '';
+    var v = l === 'en' ? '' : '/en/' + l;
+    document.cookie = 'googtrans=' + v + '; path=/' + exp;
+    if (host.indexOf('.') > 0) document.cookie = 'googtrans=' + v + '; path=/; domain=.' + host.replace(/^www\./, '') + exp;
+    location.reload();
+  };
+  window.gtInit = function () {
+    new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'es,pt,fr,zh-CN', autoDisplay: false }, 'gt_el');
+  };
+  document.addEventListener('DOMContentLoaded', function () {
+    var l = getLang();
+    document.querySelectorAll('.lang-sel').forEach(function (s) { s.value = l; });
+    if (l !== 'en') {
+      var sc = document.createElement('script');
+      sc.src = 'https://translate.google.com/translate_a/element.js?cb=gtInit';
+      document.body.appendChild(sc);
+    }
+  });
+
+  /* Nala comes to life: swap to the animated version after the page has loaded (keeps first load fast) */
+  window.addEventListener('load', function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    setTimeout(function () {
+      var anim = new Image();
+      anim.onload = function () {
+        document.querySelectorAll('img.nala-live[data-anim]').forEach(function (img) { img.src = anim.src; });
+      };
+      anim.src = 'images/nala-anim.webp';
+    }, 1200);
+  });
 })();
