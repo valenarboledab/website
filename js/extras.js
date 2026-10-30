@@ -92,6 +92,18 @@
     }
   });
 
+  /* Resources: choose which freebie the form delivers */
+  var RS_COVERS = { 'before-you-build-georgia': 'images/checklist-cover.png', 'budget-planner': 'images/budget-cover.png', 'moodboard-canva': 'images/moodboard-cover.png', 'nala-stickers': 'images/stickers-cover.png' };
+  window.pickResource = function (id, file, title) {
+    var f = document.getElementById('leadForm'); if (!f) return;
+    f.dataset.resource = id; f.dataset.file = file;
+    document.getElementById('rsFormTitle').textContent = title;
+    document.getElementById('rsFormCover').src = RS_COVERS[id] || '';
+    document.getElementById('leadMsg').textContent = '';
+    document.getElementById('rsFormCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(function () { document.getElementById('leadName').focus(); }, 500);
+  };
+
   /* Nala speech bubble: a short line that changes with the page */
   var NALA_LINES = {
     home: "Hi! I'm Nala 🐾 Welcome to Studio Valentina.",
@@ -142,11 +154,11 @@
   window.addEventListener('load', function () {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     setTimeout(function () {
-      var anim = new Image();
-      anim.onload = function () {
-        document.querySelectorAll('img.nala-live[data-anim]').forEach(function (img) { img.src = anim.src; });
-      };
-      anim.src = 'images/nala-anim.webp';
+      document.querySelectorAll('img.nala-live[data-anim]').forEach(function (img) {
+        var anim = new Image();
+        anim.onload = function () { img.src = anim.src; };
+        anim.src = img.getAttribute('data-anim');
+      });
     }, 1200);
   });
 })();

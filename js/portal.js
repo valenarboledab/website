@@ -63,8 +63,14 @@ function setupLeadForm(saveLead) {
       if (saveLead) await saveLead({ name, email, optIn: $('leadConsent').checked, resource: form.dataset.resource });
     } catch (err) { /* still deliver the file */ }
     if (window.gtag) gtag('event', 'generate_lead', { resource: form.dataset.resource });
-    const a = document.createElement('a'); a.href = form.dataset.file; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
-    m.textContent = 'Thanks, ' + name + '! Your download has started.'; m.classList.add('ok');
+    const file = form.dataset.file;
+    if (/^https?:\/\//.test(file)) {
+      window.open(file, '_blank', 'noopener');
+      m.textContent = 'Thanks, ' + name + '! The template opened in a new tab. Click "Use template" to copy it to your Canva.'; m.classList.add('ok');
+    } else {
+      const a = document.createElement('a'); a.href = file; a.download = ''; document.body.appendChild(a); a.click(); a.remove();
+      m.textContent = 'Thanks, ' + name + '! Your download has started.'; m.classList.add('ok');
+    }
     btn.disabled = false; form.reset();
   });
 }
