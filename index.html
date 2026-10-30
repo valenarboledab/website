@@ -11,7 +11,7 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css?v=20260829-3">
-  <link rel="stylesheet" href="css/extras.css?v=20261030j">
+  <link rel="stylesheet" href="css/extras.css?v=20261030l">
 </head>
 
 <body>
@@ -1303,7 +1303,11 @@
   <div id="page-contact" class="page">
     <div class="ct-hero">
       <div class="ct-hero-bg"><img src="images/home/img-mana.jpg" alt="Contact"></div>
-      <img class="nala-pose nala-wave" src="images/nala-wave.webp" alt="Nala waving hello" loading="lazy">
+      <div class="nala-stage" aria-hidden="true">
+        <div class="nala-stage-say">Hi! Valentina usually answers within a day. Want to chat on WhatsApp?</div>
+        <img class="nala-wave nala-live" src="images/nala-wave.webp" data-anim="images/nala-wave-anim.webp" alt="">
+        <div class="nala-shadow"></div>
+      </div>
       <div class="ct-hero-body">
         <p class="eyebrow" style="color:rgba(245,240,232,.55)">Get In Touch</p>
         <h1 class="ct-hero-title">Let's create<br>something<br><em>meaningful.</em></h1>
@@ -1416,25 +1420,50 @@
           <p class="sp-lead" style="margin:0">Practical guides and templates from Studio Valentina. Free to download.</p>
         </div>
       </div>
-      <div class="rs-card">
-        <div class="rs-cover"><img src="images/checklist-cover.png" alt="Before You Build in Georgia checklist preview" loading="lazy"></div>
+      <div class="rs-grid">
+        <div class="rs-item">
+          <img src="images/checklist-cover.png" alt="Before You Build in Georgia checklist" loading="lazy">
+          <p class="sp-ey">Free PDF · 5 pages</p><h2>Before You Build in Georgia</h2>
+          <p>Step-by-step checklist: land, budget, design, permits, construction and move-in.</p>
+          <button class="pt-btn" onclick="pickResource('before-you-build-georgia','downloads/before-you-build-in-georgia.pdf','Before You Build in Georgia (PDF)')">Get it free</button>
+        </div>
+        <div class="rs-item">
+          <img src="images/budget-cover.png" alt="Home budget planner spreadsheet" loading="lazy">
+          <p class="sp-ey">Free Excel · 2 sheets</p><h2>Home Budget Planner</h2>
+          <p>Estimated vs. actual by category, contingency, cost per sq ft and a loan draw schedule. Formulas included.</p>
+          <button class="pt-btn" onclick="pickResource('budget-planner','downloads/home-budget-planner.xlsx','Home Budget Planner (Excel)')">Get it free</button>
+        </div>
+        <div class="rs-item">
+          <img src="images/moodboard-cover.png" alt="Canva moodboard template" loading="lazy">
+          <p class="sp-ey">Free Canva template · 6 pages</p><h2>Moodboard Template</h2>
+          <p>Living, kitchen, bedroom and bath moodboards with palette, materials and a shopping list. Duplicate and edit in Canva.</p>
+          <button class="pt-btn" onclick="pickResource('moodboard-canva','https://canva.link/pp46p67guq2sne6','Moodboard Template (Canva)')">Get it free</button>
+        </div>
+        <div class="rs-item">
+          <img src="images/stickers-cover.png" alt="Nala sticker pack" loading="lazy">
+          <p class="sp-ey">Free sticker pack · 6 PNG</p><h2>Nala Stickers</h2>
+          <p>Transparent stickers for WhatsApp, Instagram stories, Procreate, GoodNotes and Notion.</p>
+          <button class="pt-btn" onclick="pickResource('nala-stickers','downloads/nala-architecture-stickers.zip','Nala Stickers (ZIP)')">Get it free</button>
+        </div>
+      </div>
+
+      <div class="rs-card" id="rsFormCard">
+        <div class="rs-cover"><img id="rsFormCover" src="images/checklist-cover.png" alt="" loading="lazy"></div>
         <div class="rs-body">
-          <p class="sp-ey" style="margin-bottom:6px">Free PDF · 5 pages</p>
-          <h2 style="margin-top:0">Before You Build in Georgia</h2>
-          <p>A step-by-step checklist for planning your custom home: land, budget, design, permits, construction and move-in.</p>
+          <p class="sp-ey" style="margin-bottom:6px">You're downloading</p>
+          <h2 id="rsFormTitle" style="margin-top:0">Before You Build in Georgia (PDF)</h2>
           <form class="pt-form rs-form" id="leadForm" data-file="downloads/before-you-build-in-georgia.pdf" data-resource="before-you-build-georgia">
             <label for="leadName">First name</label>
             <input id="leadName" name="name" autocomplete="given-name" required maxlength="80">
             <label for="leadEmail">Email</label>
             <input id="leadEmail" name="email" type="email" autocomplete="email" required maxlength="120">
             <label class="rs-consent"><input type="checkbox" id="leadConsent"> Send me occasional design tips and new resources. Unsubscribe anytime.</label>
-            <button class="pt-btn" type="submit">Get the free checklist</button>
+            <button class="pt-btn" type="submit">Download now</button>
             <p class="pt-msg" id="leadMsg" role="status"></p>
             <p style="font-size:12px;margin:8px 0 0">We respect your privacy. See our <a onclick="showPage('privacy')">Privacy Policy</a>.</p>
           </form>
         </div>
       </div>
-      <p class="sp-note">More resources coming soon: Canva moodboard templates, budget planner and architecture stickers.</p>
     </div>
   </div>
 
@@ -1628,8 +1657,8 @@
     </div>
   </footer>
   <script src="js/main.js?v=20261030"></script>
-  <script src="js/extras.js?v=20261030h"></script>
-  <script type="module" src="js/portal.js?v=20261030b"></script>
+  <script src="js/extras.js?v=20261030j"></script>
+  <script type="module" src="js/portal.js?v=20261030c"></script>
 </body>
 
 </html>
