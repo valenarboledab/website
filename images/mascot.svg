@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 130" role="img" aria-labelledby="t">
+  <title id="t">Ollie, the Studio Valentina owl</title>
+  <!-- feet -->
+  <path d="M46 118c0 4 3 6 6 6M52 118c0 4 2 6 4 6M68 118c0 4-2 6-4 6M74 118c0 4-3 6-6 6" stroke="#9a7f61" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- body -->
+  <path d="M60 34c-26 0-40 20-40 46 0 24 16 40 40 40s40-16 40-40c0-26-14-46-40-46z" fill="#9a7f61"/>
+  <!-- ear tufts -->
+  <path d="M28 46l-6-16 16 10zM92 46l6-16-16 10z" fill="#7a776f"/>
+  <!-- belly -->
+  <path d="M60 66c-15 0-24 12-24 28 0 14 10 22 24 22s24-8 24-22c0-16-9-28-24-28z" fill="#e6ded7"/>
+  <path d="M50 86q5 4 10 0q5 4 10 0M50 98q5 4 10 0q5 4 10 0" stroke="#c9bba9" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- left wing holding pencil -->
+  <path d="M22 76c-6 10-4 24 6 30 4-10 6-20 4-30z" fill="#7a776f"/>
+  <g transform="rotate(-35 20 96)">
+    <rect x="14" y="80" width="7" height="30" rx="1.5" fill="#d9a441"/>
+    <rect x="14" y="80" width="7" height="5" fill="#c97b6b"/>
+    <path d="M14 110l3.5 8 3.5-8z" fill="#f0eeed"/>
+    <path d="M16.2 115l1.3 3 1.3-3z" fill="#4a4540"/>
+  </g>
+  <!-- right wing waving -->
+  <path d="M98 76c8 2 14-6 14-16-8 2-14 8-16 14z" fill="#7a776f"/>
+  <!-- face disc -->
+  <ellipse cx="46" cy="60" rx="15" ry="14" fill="#f0eeed"/>
+  <ellipse cx="74" cy="60" rx="15" ry="14" fill="#f0eeed"/>
+  <!-- round architect glasses -->
+  <circle cx="46" cy="60" r="12" fill="none" stroke="#4a4540" stroke-width="2.5"/>
+  <circle cx="74" cy="60" r="12" fill="none" stroke="#4a4540" stroke-width="2.5"/>
+  <path d="M58 59q2-3 4 0" stroke="#4a4540" stroke-width="2.5" fill="none"/>
+  <!-- eyes -->
+  <circle cx="47" cy="61" r="5.5" fill="#4a4540"/>
+  <circle cx="73" cy="61" r="5.5" fill="#4a4540"/>
+  <circle cx="49" cy="59" r="1.8" fill="#fff"/>
+  <circle cx="75" cy="59" r="1.8" fill="#fff"/>
+  <!-- beak -->
+  <path d="M56 70l4 7 4-7z" fill="#d9a441"/>
+  <!-- cheeks -->
+  <circle cx="38" cy="74" r="3" fill="#c97b6b" opacity=".35"/>
+  <circle cx="82" cy="74" r="3" fill="#c97b6b" opacity=".35"/>
+  <!-- hard hat -->
+  <path d="M34 40c0-14 12-24 26-24s26 10 26 24z" fill="#5a6b3f"/>
+  <rect x="28" y="38" width="64" height="7" rx="3.5" fill="#4a5833"/>
+  <rect x="57" y="14" width="6" height="26" rx="3" fill="#6f8150"/>
+</svg>
