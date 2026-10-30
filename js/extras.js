@@ -93,7 +93,7 @@
   });
 
   /* Resources: choose which freebie the form delivers */
-  var RS_COVERS = { 'before-you-build-georgia': 'images/checklist-cover.png', 'budget-planner': 'images/budget-cover.png', 'moodboard-template': 'images/moodboard-cover.png', 'nala-stickers': 'images/stickers-cover.png' };
+  var RS_COVERS = { 'before-you-build-georgia': 'images/checklist-cover.png', 'budget-planner': 'images/budget-cover.png', 'moodboard-template': 'images/moodboard-cover.png', 'nala-stickers': 'images/stickers-cover.png', 'ai-playbook': 'images/ai-playbook-cover.png', 'prompt-pack': 'images/prompt-pack-cover.png', 'software-stack': 'images/software-stack-cover.png' };
   window.pickResource = function (id, file, title) {
     var f = document.getElementById('leadForm'); if (!f) return;
     f.dataset.resource = id; f.dataset.file = file;
@@ -113,7 +113,7 @@
     journal: "Ideas and lessons from real projects. Grab a read!",
     arboretum: "Arboretum was designed around how a home should feel.",
     contact: "Say hi! Valentina usually answers within a day.",
-    resources: "Free checklist inside! Build smarter in Georgia.",
+    resources: "Free guides inside \u2014 AI, software and building smart.",
     faq: "Got questions? I've got answers. Or ask on WhatsApp!",
     portal: "Clients only! Sign in to see your project.",
     terms: "The fine print, in plain English.",
