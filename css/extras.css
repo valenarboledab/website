@@ -86,3 +86,24 @@
   .faq-hero{flex-direction:column;align-items:flex-start}
   .ck-bar{flex-direction:column;align-items:stretch;bottom:84px}
 }
+
+/* All Projects: large stacked list instead of small 3-column grid */
+body #page-projects .wk-grid{grid-template-columns:1fr;gap:28px;max-width:1200px;margin:0 auto 60px;padding:0 24px}
+body #page-projects .wcard{aspect-ratio:16/9;max-height:78vh;width:100%;border-radius:24px}
+body #page-projects .wcard-label{padding:32px 36px}
+body #page-projects .wcard-lname{font-size:clamp(28px,4vw,48px)}
+body #page-projects .wcard-lsub{font-size:12px}
+body #page-projects .wcard-info{padding:36px}
+body #page-projects .wcard-name{font-size:clamp(30px,4.5vw,54px)}
+body #page-projects .wcard-cat,body #page-projects .wcard-loc{font-size:13px}
+body #page-projects .wcard-arr{width:52px;height:52px;top:24px;right:24px}
+@media (max-width:700px){
+  body #page-projects .wk-grid{padding:0 14px;gap:18px}
+  body #page-projects .wcard{aspect-ratio:4/5;border-radius:18px}
+  body #page-projects .wcard-label{padding:20px}
+}
+body #page-projects .work-project-viewport{overflow:visible}
+body #page-projects .work-project-track{display:flex;flex-direction:column;gap:28px;transform:none!important}
+body #page-projects .work-project-track .wcard{flex:none!important;width:100%!important;min-width:0}
+body #page-projects .work-project-controls{display:none!important}
+@media (max-width:700px){body #page-projects .work-project-track{gap:18px}}
