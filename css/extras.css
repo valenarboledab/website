@@ -151,14 +151,14 @@ body #page-projects.is-filtered .wcard-label{padding:22px}
 @media (max-width:600px){body #page-projects.is-filtered .work-project-track{grid-template-columns:1fr}}
 
 /* Contact hero: Nala on stage with shadow + speech */
-.nala-stage{position:absolute;right:clamp(16px,6%,90px);bottom:0;z-index:3;width:clamp(150px,20vw,230px);display:flex;flex-direction:column;align-items:center}
+.nala-stage{position:absolute;right:clamp(16px,6%,90px);bottom:0;z-index:3;width:clamp(104px,13vw,160px);display:flex;flex-direction:column;align-items:center}
 .nala-stage img.nala-wave{position:relative;width:100%;height:auto;display:block;filter:drop-shadow(0 14px 18px rgba(0,0,0,.45)) drop-shadow(0 2px 4px rgba(0,0,0,.35));animation:none;transform:none;z-index:2}
 .nala-shadow{position:absolute;bottom:4px;left:12%;width:76%;height:16px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(0,0,0,.5),rgba(0,0,0,0) 70%);z-index:1;filter:blur(3px)}
-.nala-stage-say{position:absolute;right:calc(100% + 6px);bottom:62%;width:200px;background:#fffdf9;color:#2a211c;border-radius:16px 16px 4px 16px;padding:10px 14px;font-size:13px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);animation:sayIn .5s 1.6s ease forwards}
+.nala-stage-say{position:absolute;right:calc(100% + 6px);bottom:68%;width:196px;background:#fffdf9;color:#2a211c;border-radius:16px 16px 4px 16px;padding:10px 14px;font-size:13px;line-height:1.4;box-shadow:0 10px 30px rgba(0,0,0,.25);opacity:0;transform:translateY(8px);animation:sayIn .5s 1.6s ease forwards}
 .nala-stage-say::after{content:"";position:absolute;right:-7px;bottom:10px;border:7px solid transparent;border-left-color:#fffdf9;border-bottom:0}
 @keyframes sayIn{to{opacity:1;transform:none}}
-@media (max-width:900px){.nala-stage{width:140px;right:8px}.nala-stage-say{width:160px;font-size:12px}}
-@media (max-width:600px){.ct-hero{padding-bottom:150px}.nala-stage{right:50%;transform:translateX(50%);width:150px}.nala-stage-say{right:auto;left:calc(100% + 6px);bottom:62%;width:150px;border-radius:16px 16px 16px 4px}.nala-stage-say::after{right:auto;left:-7px;border-left-color:transparent;border-right-color:#fffdf9}}
+@media (max-width:900px){.nala-stage{width:106px;right:8px}.nala-stage-say{width:160px;font-size:12px}}
+@media (max-width:600px){.ct-hero{padding-bottom:150px}.nala-stage{right:50%;transform:translateX(50%);width:112px}.nala-stage-say{right:auto;left:calc(100% + 6px);bottom:62%;width:150px;border-radius:16px 16px 16px 4px}.nala-stage-say::after{right:auto;left:-7px;border-left-color:transparent;border-right-color:#fffdf9}}
 
 /* Resources grid */
 .rs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:28px}
@@ -184,3 +184,9 @@ body #page-projects.is-filtered .wcard-label{padding:22px}
 .rs-news-go{color:#fffdf9;font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;
   border:1px solid rgba(255,253,249,.5);border-radius:999px;padding:12px 22px}
 @media (max-width:640px){.rs-news{padding:24px}.rs-news h2{font-size:22px}}
+
+/* ── Nala on Resources & Clients: gesture pose with ground shadow ── */
+.nala-pose-wrap{position:relative;flex:0 0 auto;align-self:flex-end}
+.nala-pose-wrap .nala-pose{position:relative;z-index:2;display:block}
+.nala-pose-wrap .nala-pose-shadow{position:absolute;bottom:2px;left:14%;width:72%;height:13px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(74,69,64,.42),rgba(74,69,64,0) 70%);filter:blur(3px);z-index:1}
