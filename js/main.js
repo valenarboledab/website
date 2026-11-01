@@ -188,12 +188,17 @@ initRevealObserver();
     {name:'Coworking Building',country:'Spain',images:['/images/COWORKING.webp']}
   ];
 
+  const PROJECT_VIDEOS = {"Single Family Arboretum": "arboretum-greatroom", "Arboretum 2": "arboretum-col", "Cultural & Convention Center": "cultural", "Eco Hotel": "ecohotel", "Maná": "mana", "Coworking Building": "coworking", "Cable Car": "teleferico", "Residential Building 5 Floors": "burgos", "G-Metria": "gmetria", "Public Space & View Point": "viewpoint", "Medical Building": "medical", "Marawi": "marawi", "Zonata Apartments": "zonata", "Residential BBQ": "bbq", "3D Visualization": "facade", "Residential Pool Design": "pool", "La Pradera – Residential Design": "rooftop", "Residential House": "lot1", "Serena Hills": "serena", "Architectural Design": "bimhouse"};
+  const VIDEO_ICON_REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   function carouselMarkup(images, alt, note) {
     const safeImages = images || [];
     if (!safeImages.length) return '';
+    const vid = PROJECT_VIDEOS[alt];
+    const videoTag = vid ? '<video class="slide-video" muted loop playsinline preload="none" aria-hidden="true" poster="/videos/posters/proj-' + vid + '.webp" data-src="/videos/proj-' + vid + '.mp4"></video>' : '';
     return '<div class="preview-carousel" data-count="' + safeImages.length + '" aria-label="Image carousel for ' + alt + '">' +
       '<div class="preview-carousel-track">' + safeImages.map((src, i) =>
-        '<div class="preview-carousel-slide"><img src="' + encodeURI(src) + '" alt="' + alt + ' — image ' + (i + 1) + '" loading="lazy"></div>'
+        '<div class="preview-carousel-slide"><img src="' + encodeURI(src) + '" alt="' + alt + ' — image ' + (i + 1) + '" loading="lazy">' + (i === 0 ? videoTag : '') + '</div>'
       ).join('') + '</div>' +
       (note ? '<span class="preview-asset-note">' + note + '</span>' : '') +
       (safeImages.length > 1 ? '<span class="preview-carousel-label">Carousel · ' + safeImages.length + ' photos</span>' : '') +
@@ -312,10 +317,28 @@ initRevealObserver();
     modal.querySelector('.gallery-lightbox-close').focus({preventScroll:true});
   }
 
+
+  /* Animated first render: load + play only while visible (saves data on mobile) */
+  const slideVideoObserver = ('IntersectionObserver' in window) ? new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        if (!v.src) v.src = v.dataset.src;
+        const pr = v.play(); if (pr && pr.catch) pr.catch(() => {});
+      } else if (!v.paused) v.pause();
+    });
+  }, { threshold: 0.35 }) : null;
+  function watchSlideVideo(v) {
+    if (VIDEO_ICON_REDUCED) return;
+    if (slideVideoObserver) slideVideoObserver.observe(v);
+    else { v.src = v.dataset.src; v.play().catch(() => {}); }
+  }
+
   function initCarousels(root) {
     (root || document).querySelectorAll('.preview-carousel').forEach(carousel => {
       if (carousel.dataset.carouselReady === 'true') return;
       carousel.dataset.carouselReady = 'true';
+      const sv = carousel.querySelector('.slide-video'); if (sv) watchSlideVideo(sv);
       const track = carousel.querySelector('.preview-carousel-track');
       const slides = carousel.querySelectorAll('.preview-carousel-slide');
       const count = carousel.querySelector('.preview-carousel-count');
@@ -339,7 +362,7 @@ initRevealObserver();
           if (!carousel.isConnected) return;
           if (!document.hidden) move(1);
           scheduleAutoMove();
-        }, CAROUSEL_INTERVAL);
+        }, (index === 0 && carousel.querySelector('.slide-video')) ? 8000 : CAROUSEL_INTERVAL);
       };
       const manualMove = delta => {
         move(delta);
