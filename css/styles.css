@@ -541,6 +541,7 @@ h1,h2,h3,h4,h5,h6{font-family:var(--font-display);font-weight:300;letter-spacing
 .arb-intro-big{font-family:var(--serif);font-size:clamp(16px,2vw,24px);font-weight:400;line-height:1.45;color:var(--text-mid);margin-bottom:18px;}
 .arb-intro-big em{font-style:italic;color:var(--accent);}
 .arb-p{font-size:13px;font-weight:300;line-height:1.95;color:var(--text-mid);margin-bottom:14px;}
+.arb-p a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;}
 .arb-divider-line{height:1px;background:var(--sand);margin:28px 0;}
 .arb-sec-num{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);margin-bottom:7px;}
 .arb-sec-title{font-family:var(--serif);font-size:clamp(20px,2.5vw,30px);font-weight:400;color:var(--text);line-height:1.15;margin-bottom:14px;}
