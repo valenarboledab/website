@@ -18,4 +18,36 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/"/>
   </url>
+  <url>
+    <loc>https://studio-valentina.com/projects/arboretum-lake-oconee-georgia/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/arboretum-lake-oconee-georgia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/arboretum-lake-oconee-georgia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/arboretum-lake-oconee-georgia/"/>
+    <image:image><image:loc>https://studio-valentina.com/RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Welcome%20to%20Arboretum.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/es/proyectos/arboretum-lake-oconee-georgia/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/arboretum-lake-oconee-georgia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/arboretum-lake-oconee-georgia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/arboretum-lake-oconee-georgia/"/>
+    <image:image><image:loc>https://studio-valentina.com/RESIDENTIAL/Residential%20+%20Interior%20Design/Single%20Family%20Arboretum%20-%20United%20States/Welcome%20to%20Arboretum.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/projects/edificio-burgos-interior-design-spain/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/edificio-burgos-interior-design-spain/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/edificio-burgos-diseno-interiores-espana/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/edificio-burgos-interior-design-spain/"/>
+    <image:image><image:loc>https://studio-valentina.com/images/home/img-burgos.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/es/proyectos/edificio-burgos-diseno-interiores-espana/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/edificio-burgos-interior-design-spain/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/edificio-burgos-diseno-interiores-espana/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/edificio-burgos-interior-design-spain/"/>
+    <image:image><image:loc>https://studio-valentina.com/images/home/img-burgos.webp</image:loc></image:image>
+  </url>
 </urlset>

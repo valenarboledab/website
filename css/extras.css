@@ -190,3 +190,8 @@ body #page-projects.is-filtered .wcard-label{padding:22px}
 .nala-pose-wrap .nala-pose{position:relative;z-index:2;display:block}
 .nala-pose-wrap .nala-pose-shadow{position:absolute;bottom:2px;left:14%;width:72%;height:13px;border-radius:50%;
   background:radial-gradient(ellipse at center,rgba(74,69,64,.42),rgba(74,69,64,0) 70%);filter:blur(3px);z-index:1}
+
+/* Case-study links (SEO) */
+.wk-cases{font-size:13px;letter-spacing:.02em;color:var(--text-mid,#7a776f);margin:-6px 0 22px}
+.wk-cases a{color:inherit;text-decoration:underline;text-underline-offset:3px}
+.wk-cases a:hover{color:#27231f}

@@ -169,3 +169,13 @@
     }, 1200);
   });
 })();
+
+/* Deep links: /#projects, /es/#contact, etc. open that section (used by the case-study pages) */
+(function () {
+  function openFromHash() {
+    var id = (location.hash || '').replace('#', '');
+    if (id && document.getElementById('page-' + id) && window.showPage) window.showPage(id);
+  }
+  window.addEventListener('load', openFromHash);
+  window.addEventListener('hashchange', openFromHash);
+})();
