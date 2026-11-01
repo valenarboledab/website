@@ -1,7 +1,7 @@
 /* WhatsApp helper, FAQ quick answers and cookie notice */
 (function () {
   var WA_NUMBER = '16784905574';
-  var WA_TEXT = "Hi Valentina! I found your portfolio and I'd like to talk about a project.";
+  var WA_TEXT = (window.T ? T("Hi Valentina! I found your portfolio and I'd like to talk about a project.") : "Hi Valentina! I found your portfolio and I'd like to talk about a project.");
 
   window.openWhatsApp = function (text) {
     var url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text || WA_TEXT);
@@ -68,16 +68,23 @@
   });
 
   /* Languages: EN (original), ES, PT, FR, ZH via Google Translate (loaded only when a non-English language is chosen) */
+  /* EN = / and ES = /es/ are real, indexable pages (good for SEO). PT, FR, ZH use Google Translate on the English page. */
+  var IS_ES = /^\/es(\/|$)/.test(location.pathname);
   function getLang() {
+    if (IS_ES) return 'es';
     var m = document.cookie.match(/(?:^|; )googtrans=\/en\/([^;]+)/);
-    return m ? decodeURIComponent(m[1]) : 'en';
+    var l = m ? decodeURIComponent(m[1]) : 'en';
+    return l === 'es' ? 'en' : l;
   }
   window.setLang = function (l) {
     var host = location.hostname, exp = l === 'en' ? '; expires=Thu, 01 Jan 1970 00:00:00 GMT' : '';
     var v = l === 'en' ? '' : '/en/' + l;
+    if (l === 'es') { exp = '; expires=Thu, 01 Jan 1970 00:00:00 GMT'; v = ''; }
     document.cookie = 'googtrans=' + v + '; path=/' + exp;
     if (host.indexOf('.') > 0) document.cookie = 'googtrans=' + v + '; path=/; domain=.' + host.replace(/^www\./, '') + exp;
-    location.reload();
+    var target = l === 'es' ? '/es/' : '/';
+    var hash = location.hash || '';
+    if (location.pathname !== target) location.href = target + hash; else location.reload();
   };
   window.gtInit = function () {
     new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'es,pt,fr,zh-CN', autoDisplay: false }, 'gt_el');
@@ -85,7 +92,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     var l = getLang();
     document.querySelectorAll('.lang-sel').forEach(function (s) { s.value = l; });
-    if (l !== 'en') {
+    if (l !== 'en' && !IS_ES) {
       var sc = document.createElement('script');
       sc.src = 'https://translate.google.com/translate_a/element.js?cb=gtInit';
       document.body.appendChild(sc);
@@ -93,7 +100,7 @@
   });
 
   /* Resources: choose which freebie the form delivers */
-  var RS_COVERS = { 'before-you-build-georgia': 'images/checklist-cover.png', 'budget-planner': 'images/budget-cover.png', 'moodboard-template': 'images/moodboard-cover.png', 'nala-stickers': 'images/stickers-cover.png', 'ai-playbook': 'images/ai-playbook-cover.png', 'prompt-pack': 'images/prompt-pack-cover.png', 'software-stack': 'images/software-stack-cover.png' };
+  var RS_COVERS = { 'before-you-build-georgia': '/images/checklist-cover.png', 'budget-planner': '/images/budget-cover.png', 'moodboard-template': '/images/moodboard-cover.png', 'nala-stickers': '/images/stickers-cover.png', 'ai-playbook': '/images/ai-playbook-cover.png', 'prompt-pack': '/images/prompt-pack-cover.png', 'software-stack': '/images/software-stack-cover.png' };
   window.pickResource = function (id, file, title) {
     var f = document.getElementById('leadForm'); if (!f) return;
     f.dataset.resource = id; f.dataset.file = file;

@@ -50,7 +50,7 @@ function showPage(id) {
     page.classList.add('active');
     window.scrollTo(0, 0);
     if (id === 'about') {
-      buildBlurText(document.getElementById('blur-about'), 'I design with emotion, strategy and clarity.', 0.2);
+      buildBlurText(document.getElementById('blur-about'), (window.T ? T('I design with emotion, strategy and clarity.') : 'I design with emotion, strategy and clarity.'), 0.2);
     }
     requestAnimationFrame(function() { observePageReveals(page); });
   }
@@ -118,62 +118,62 @@ initRevealObserver();
     : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>';
 
   const arboretumImages = [
-    '20260316_230149000_iOS.png','Front_facade_02.png','Front_facade_03.png','Front_facade_05.png',
-    'Living_room_03.png','Kitchen_01.png','Dinning_room_01.png','Foyer_01.png','Bedroom_01.png',
-    'Master_bathroom_05.png','Office_01.png','Indoor-Outdoor Living.png'
-  ].map(name => 'RESIDENTIAL/Residential + Interior Design/Single Family Arboretum - United States/' + name);
+    '20260316_230149000_iOS.webp','Front_facade_02.webp','Front_facade_03.webp','Front_facade_05.webp',
+    'Living_room_03.webp','Kitchen_01.webp','Dinning_room_01.webp','Foyer_01.webp','Bedroom_01.webp',
+    'Master_bathroom_05.webp','Office_01.webp','Indoor-Outdoor Living.webp'
+  ].map(name => '/RESIDENTIAL/Residential + Interior Design/Single Family Arboretum - United States/' + name);
 
   const serenaImages = [
-    '20260526_160809000_iOS 1.jpg','20260526_160809000_iOS 2.jpg',
-    '20260526_160809000_iOS.jpg','20260526_160810000_iOS.jpg'
-  ].map(name => 'RESIDENTIAL/Residential + Interior Design/Serena Hills - United States/' + name);
+    '20260526_160809000_iOS 1.webp','20260526_160809000_iOS 2.webp',
+    '20260526_160809000_iOS.webp','20260526_160810000_iOS.webp'
+  ].map(name => '/RESIDENTIAL/Residential + Interior Design/Serena Hills - United States/' + name);
 
   const residentialBuildingImages = [
-    '20260302_153940000_iOS.jpg','20260327_224626000_iOS.jpg','20260327_224759000_iOS.jpg',
-    '20260327_224921000_iOS.jpg','20260327_225014000_iOS.jpg','20260327_225210000_iOS.jpg',
-    '20260528_232804000_iOS.jpg','20260528_232804000_iOS.png'
-  ].map(name => 'COMMERCIAL/Residential Building  5 Floors - Spain/' + name);
+    '20260302_153940000_iOS.webp','20260327_224626000_iOS.webp','20260327_224759000_iOS.webp',
+    '20260327_224921000_iOS.webp','20260327_225014000_iOS.webp','20260327_225210000_iOS.webp',
+    '20260528_232804000_iOS.webp','20260528_232804000_iOS.webp'
+  ].map(name => '/COMMERCIAL/Residential Building  5 Floors - Spain/' + name);
 
   const publicSpaceImages = [
-    '1.png','2.png','3.png','4.png','5.png','6.png',
-    '9. Imagen EP Salento.png','Image Jan 29, 2026, 09_07_28 PM.png'
-  ].map(name => 'COMMERCIAL/PUBLIC SPACE/Public Space AND Viewpoint - Colombia/' + name);
+    '1.webp','2.webp','3.webp','4.webp','5.webp','6.webp',
+    '9. Imagen EP Salento.webp','Image Jan 29, 2026, 09_07_28 PM.webp'
+  ].map(name => '/COMMERCIAL/PUBLIC SPACE/Public Space AND Viewpoint - Colombia/' + name);
 
   const ecoHotelImages = [
-    'ECO HOTEL.png','ECO HOTEL 2.png','ECO HOTEL 3.png',
-    'ECO HOTEL 4.png','ECO HOTEL 5.png','ECO HOTEL 6.png'
-  ].map(name => 'COMMERCIAL/COMMERCIAL + PUBLIC INTERIOR DESIGN/Eco-Hotel - Colombia/' + name);
+    'ECO HOTEL.webp','ECO HOTEL 2.webp','ECO HOTEL 3.webp',
+    'ECO HOTEL 4.webp','ECO HOTEL 5.webp','ECO HOTEL 6.webp'
+  ].map(name => '/COMMERCIAL/COMMERCIAL + PUBLIC INTERIOR DESIGN/Eco-Hotel - Colombia/' + name);
 
   const manaImages = [
-    'images/home/img-mana.jpg',
+    '/images/home/img-mana.webp',
     ...[
-      '20260528_232806000_iOS.jpg','20260529_223048000_iOS.jpg','20260721_170357649_iOS.jpg',
-      '20260721_170529166_iOS.jpg','20260721_170600650_iOS.jpg','20260721_170747765_iOS.jpg',
-      '20260721_171727896_iOS.jpg'
-    ].map(name => 'COMMERCIAL/COMMERCIAL + PUBLIC INTERIOR DESIGN/Maná - Colombia/' + name)
+      '20260528_232806000_iOS.webp','20260529_223048000_iOS.webp','20260721_170357649_iOS.webp',
+      '20260721_170529166_iOS.webp','20260721_170600650_iOS.webp','20260721_170747765_iOS.webp',
+      '20260721_171727896_iOS.webp'
+    ].map(name => '/COMMERCIAL/COMMERCIAL + PUBLIC INTERIOR DESIGN/Maná - Colombia/' + name)
   ];
 
   const architecturalDesignImages = [
-    'Image Jan 29, 2026, 09_27_25 PM.png','2.png','3.png','4.png'
-  ].map(name => 'RESIDENTIAL/Residential + Interior Design/Single Family House - Colombia/' + name);
+    'Image Jan 29, 2026, 09_27_25 PM.webp','2.webp','3.webp','4.webp'
+  ].map(name => '/RESIDENTIAL/Residential + Interior Design/Single Family House - Colombia/' + name);
 
   const residentialHouseImages = [
-    'RESIDENTIAL/United States - House - Lot 1 - PTC/Image Jan 29, 2026, 10_16_00 PM.png',
-    'RESIDENTIAL/United States - House - Lot 1 - PTC/20260316_155040000_iOS.jpg'
+    '/RESIDENTIAL/United States - House - Lot 1 - PTC/Image Jan 29, 2026, 10_16_00 PM.webp',
+    '/RESIDENTIAL/United States - House - Lot 1 - PTC/20260316_155040000_iOS.webp'
   ];
 
   const projectData = [
-    {name:'Cable Car',country:'Colombia',cat:'commercial',category:'Commercial · Infrastructure',images:['images/teleferico.jpeg']},
+    {name:'Cable Car',country:'Colombia',cat:'commercial',category:'Commercial · Infrastructure',images:['/images/teleferico.webp']},
     {name:'Residential Building 5 Floors',country:'Spain',cat:'commercial',category:'Commercial · Residential',images:residentialBuildingImages},
-    {name:'G-Metria',country:'Colombia',cat:'commercial',category:'Commercial · Public Interior',images:['COMMERCIAL/PUBLIC SPACE/G-Metria - Colombia/20260527_125716831_iOS.png']},
+    {name:'G-Metria',country:'Colombia',cat:'commercial',category:'Commercial · Public Interior',images:['/COMMERCIAL/PUBLIC SPACE/G-Metria - Colombia/20260527_125716831_iOS.webp']},
     {name:'Public Space & View Point',country:'Colombia',cat:'masterplan',category:'Public Space',images:publicSpaceImages},
-    {name:'Medical Building',country:'Colombia',cat:'commercial',category:'Commercial · Superintendent',images:['COMMERCIAL/SUPERINTENDANT/Medical Building - Colombia/marquez y fajardo.png']},
-    {name:'Marawi',country:'Colombia',cat:'commercial',category:'Commercial · Superintendent',images:['COMMERCIAL/SUPERINTENDANT/Marawi - Colombia/WhatsApp Image 2026-01-31 at 9.44.29 PM.jpeg']},
-    {name:'Zonata Apartments',country:'Colombia',cat:'commercial',category:'Commercial · Superintendent',images:['COMMERCIAL/SUPERINTENDANT/Zonata Apartments - Colombia/Screenshot-2025-05-28-at-3.26.47 PM.jpg']},
-    {name:'Residential BBQ',country:'USA',cat:'residential',category:'Residential',images:['RESIDENTIAL/BBQ - United States/BBQ.png']},
-    {name:'3D Visualization',country:'USA',cat:'residential',category:'Residential · Visualization',images:['RESIDENTIAL/Facade - United States/FACADE.png']},
-    {name:'Residential Pool Design',country:'USA',cat:'residential',category:'Residential',images:['RESIDENTIAL/Pool - United States/PISCINA.png']},
-    {name:'La Pradera – Residential Design',country:'Colombia',cat:'residential',category:'Residential',images:['RESIDENTIAL/Rooftop Single Family House - Colombia/TERRACE.png']},
+    {name:'Medical Building',country:'Colombia',cat:'commercial',category:'Commercial · Superintendent',images:['/COMMERCIAL/SUPERINTENDANT/Medical Building - Colombia/marquez y fajardo.webp']},
+    {name:'Marawi',country:'Colombia',cat:'commercial',category:'Commercial · Superintendent',images:['/COMMERCIAL/SUPERINTENDANT/Marawi - Colombia/WhatsApp Image 2026-01-31 at 9.44.29 PM.webp']},
+    {name:'Zonata Apartments',country:'Colombia',cat:'commercial',category:'Commercial · Superintendent',images:['/COMMERCIAL/SUPERINTENDANT/Zonata Apartments - Colombia/Screenshot-2025-05-28-at-3.26.47 PM.webp']},
+    {name:'Residential BBQ',country:'USA',cat:'residential',category:'Residential',images:['/RESIDENTIAL/BBQ - United States/BBQ.webp']},
+    {name:'3D Visualization',country:'USA',cat:'residential',category:'Residential · Visualization',images:['/RESIDENTIAL/Facade - United States/FACADE.webp']},
+    {name:'Residential Pool Design',country:'USA',cat:'residential',category:'Residential',images:['/RESIDENTIAL/Pool - United States/PISCINA.webp']},
+    {name:'La Pradera – Residential Design',country:'Colombia',cat:'residential',category:'Residential',images:['/RESIDENTIAL/Rooftop Single Family House - Colombia/TERRACE.webp']},
     {name:'Residential House',country:'USA',cat:'residential',category:'Residential',images:residentialHouseImages},
     {name:'Serena Hills',country:'USA',cat:'interior',category:'Residential + Interior Design',images:serenaImages},
     {name:'Architectural Design',country:'Colombia',cat:'interior',category:'Residential + Interior Design',images:architecturalDesignImages}
@@ -181,11 +181,11 @@ initRevealObserver();
 
   const featuredData = [
     {name:'Single Family Arboretum',country:'USA',images:arboretumImages},
-    {name:'Arboretum 2',country:'Colombia',images:['images/home/img-hero.jpg'],award:true},
-    {name:'Cultural & Convention Center',country:'Colombia',images:['images/home/img-cultural.jpg'],award:true},
+    {name:'Arboretum 2',country:'Colombia',images:['/images/home/img-hero.webp'],award:true},
+    {name:'Cultural & Convention Center',country:'Colombia',images:['/images/home/img-cultural.webp'],award:true},
     {name:'Eco Hotel',country:'Colombia',images:ecoHotelImages},
     {name:'Maná',country:'Colombia',images:manaImages,note:'8 of 9 assets found',award:true},
-    {name:'Coworking Building',country:'Spain',images:['images/COWORKING.png']}
+    {name:'Coworking Building',country:'Spain',images:['/images/COWORKING.webp']}
   ];
 
   function carouselMarkup(images, alt, note) {
@@ -615,7 +615,7 @@ initRevealObserver();
       const link = card.querySelector('.jcard-read');
       if (i === 0) {
         card.querySelector('.jcard-title').textContent = 'Maná: Biophilic Architecture';
-        card.querySelector('.jcard-img img').src = 'images/home/img-mana.jpg';
+        card.querySelector('.jcard-img img').src = '/images/home/img-mana.webp';
       }
       if (linkedinUrls[i]) {
         link.href = linkedinUrls[i];
@@ -637,10 +637,10 @@ initRevealObserver();
 
   function isolateRemovedPages() {
     document.querySelectorAll('#page-process img[src^="http"]').forEach(img => {
-      img.src = 'images/process.jpg';
+      img.src = '/images/process.webp';
     });
     document.querySelectorAll('#page-arboretum img[src^="http"]').forEach(img => {
-      img.src = 'images/home/img-arboretum-georgia.jpg';
+      img.src = '/images/home/img-arboretum-georgia.webp';
     });
   }
 

@@ -803,8 +803,8 @@ h1,h2,h3,h4,h5,h6{font-family:var(--font-display);font-weight:300;letter-spacing
 /* ── HERO ── */
 #page-projects .wk-hero{margin:76px 16px 16px;display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:stretch;}
 #page-projects .wk-hero-l{background:var(--cream2);border-radius:24px;padding:52px;display:flex;flex-direction:column;justify-content:space-between;}
-#page-projects .wk-hero-l h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(40px,5.5vw,76px);line-height:1.02;letter-spacing:-.02em;margin-bottom:18px;}
-#page-projects .wk-hero-l h1 em{font-style:italic;}
+#page-projects .wk-hero-l h1,#page-projects .wk-hero-l h2{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(40px,5.5vw,76px);line-height:1.02;letter-spacing:-.02em;margin-bottom:18px;}
+#page-projects .wk-hero-l h1 em,#page-projects .wk-hero-l h2 em{font-style:italic;}
 #page-projects .wk-hero-l p{font-size:13.5px;color:var(--mid);line-height:1.85;font-weight:300;max-width:380px;margin-bottom:28px;}
 #page-projects .wk-cta{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border:1.5px solid rgba(26,24,20,.15);border-radius:32px;
   font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text);background:none;cursor:pointer;
