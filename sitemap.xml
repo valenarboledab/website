@@ -9,7 +9,6 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/"/>
     <image:image><image:loc>https://studio-valentina.com/images/og-image.jpg</image:loc></image:image>
-    <image:image><image:loc>https://studio-valentina.com/images/home/img-arboretum-georgia.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://studio-valentina.com/es/</loc>
@@ -17,6 +16,20 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/"/>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/projects/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/"/>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/es/proyectos/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/"/>
   </url>
   <url>
     <loc>https://studio-valentina.com/projects/arboretum-lake-oconee-georgia/</loc>
@@ -49,5 +62,85 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/edificio-burgos-diseno-interiores-espana/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/edificio-burgos-interior-design-spain/"/>
     <image:image><image:loc>https://studio-valentina.com/images/home/img-burgos.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/projects/mana-biomimetic-architecture-colombia/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/mana-biomimetic-architecture-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/mana-arquitectura-biomimetica-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/mana-biomimetic-architecture-colombia/"/>
+    <image:image><image:loc>https://studio-valentina.com/images/home/img-mana.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/es/proyectos/mana-arquitectura-biomimetica-colombia/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/mana-biomimetic-architecture-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/mana-arquitectura-biomimetica-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/mana-biomimetic-architecture-colombia/"/>
+    <image:image><image:loc>https://studio-valentina.com/images/home/img-mana.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/projects/eco-hotel-quindio-colombia/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/eco-hotel-quindio-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/eco-hotel-quindio-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/eco-hotel-quindio-colombia/"/>
+    <image:image><image:loc>https://studio-valentina.com/COMMERCIAL/COMMERCIAL%20+%20PUBLIC%20INTERIOR%20DESIGN/Eco-Hotel%20-%20Colombia/ECO%20HOTEL%203.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/es/proyectos/eco-hotel-quindio-colombia/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/eco-hotel-quindio-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/eco-hotel-quindio-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/eco-hotel-quindio-colombia/"/>
+    <image:image><image:loc>https://studio-valentina.com/COMMERCIAL/COMMERCIAL%20+%20PUBLIC%20INTERIOR%20DESIGN/Eco-Hotel%20-%20Colombia/ECO%20HOTEL%203.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/projects/cultural-convention-center-colombia/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/cultural-convention-center-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/centro-cultural-convenciones-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/cultural-convention-center-colombia/"/>
+    <image:image><image:loc>https://studio-valentina.com/images/home/img-cultural.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/es/proyectos/centro-cultural-convenciones-colombia/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/cultural-convention-center-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/centro-cultural-convenciones-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/cultural-convention-center-colombia/"/>
+    <image:image><image:loc>https://studio-valentina.com/images/home/img-cultural.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/projects/teleferico-fatima-cable-car-colombia/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/teleferico-fatima-cable-car-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/teleferico-fatima-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/teleferico-fatima-cable-car-colombia/"/>
+    <image:image><image:loc>https://studio-valentina.com/images/teleferico.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/es/proyectos/teleferico-fatima-colombia/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/teleferico-fatima-cable-car-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/teleferico-fatima-colombia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/teleferico-fatima-cable-car-colombia/"/>
+    <image:image><image:loc>https://studio-valentina.com/images/teleferico.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/projects/coworking-the-shed-madrid-entrance-design/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/coworking-the-shed-madrid-entrance-design/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/coworking-the-shed-madrid-diseno-acceso/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/coworking-the-shed-madrid-entrance-design/"/>
+    <image:image><image:loc>https://studio-valentina.com/images/COWORKING.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/es/proyectos/coworking-the-shed-madrid-diseno-acceso/</loc>
+    <lastmod>2026-11-01</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/coworking-the-shed-madrid-entrance-design/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/coworking-the-shed-madrid-diseno-acceso/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/coworking-the-shed-madrid-entrance-design/"/>
+    <image:image><image:loc>https://studio-valentina.com/images/COWORKING.webp</image:loc></image:image>
   </url>
 </urlset>
