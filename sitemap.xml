@@ -3,6 +3,22 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://studio-valentina.com/projects/elementi-wellness-interior-design-usa/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/elementi-wellness-interior-design-usa/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/elementi-diseno-interior-bienestar-usa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/elementi-wellness-interior-design-usa/"/>
+    <image:image><image:loc>https://studio-valentina.com/COMMERCIAL/COMMERCIAL%20+%20PUBLIC%20INTERIOR%20DESIGN/Elementi%20-%20United%20States/elementi-01-rain-ring.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://studio-valentina.com/es/proyectos/elementi-diseno-interior-bienestar-usa/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/projects/elementi-wellness-interior-design-usa/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://studio-valentina.com/es/proyectos/elementi-diseno-interior-bienestar-usa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://studio-valentina.com/projects/elementi-wellness-interior-design-usa/"/>
+    <image:image><image:loc>https://studio-valentina.com/COMMERCIAL/COMMERCIAL%20+%20PUBLIC%20INTERIOR%20DESIGN/Elementi%20-%20United%20States/elementi-01-rain-ring.webp</image:loc></image:image>
+  </url>
+  <url>
     <loc>https://studio-valentina.com/</loc>
     <lastmod>2026-11-01</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://studio-valentina.com/"/>
