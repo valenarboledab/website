@@ -162,7 +162,13 @@ initRevealObserver();
     '/RESIDENTIAL/United States - House - Lot 1 - PTC/20260316_155040000_iOS.webp'
   ];
 
+  const elementiImages = [
+    'elementi-01-rain-ring.webp','elementi-02-front-facade.webp','elementi-03-roof-oculus.webp',
+    'elementi-05-waterfall-light.webp','elementi-07-contemplation-lounge.webp','elementi-09-ondas-seat.webp'
+  ].map(name => '/COMMERCIAL/COMMERCIAL + PUBLIC INTERIOR DESIGN/Elementi - United States/' + name);
+
   const projectData = [
+    {name:'ELEMENTI',country:'USA',cat:'interior',category:'Commercial · Wellness Interior Design',images:elementiImages},
     {name:'Cable Car',country:'Colombia',cat:'commercial',category:'Commercial · Infrastructure',images:['/images/teleferico.webp']},
     {name:'Residential Building 5 Floors',country:'Spain',cat:'commercial',category:'Commercial · Residential',images:residentialBuildingImages},
     {name:'G-Metria',country:'Colombia',cat:'commercial',category:'Commercial · Public Interior',images:['/COMMERCIAL/PUBLIC SPACE/G-Metria - Colombia/20260527_125716831_iOS.webp']},
@@ -191,7 +197,7 @@ initRevealObserver();
   ];
 
   const tr = t => (window.T ? window.T(t) : t);
-  const PROJECT_VIDEOS = {"Single Family Arboretum": "arboretum-greatroom", "Arboretum 2": "arboretum-col", "Cultural & Convention Center": "cultural", "Eco Hotel": "ecohotel", "Maná": "mana", "Coworking Building": "coworking", "Cable Car": "teleferico", "Residential Building 5 Floors": "burgos", "G-Metria": "gmetria", "Public Space & View Point": "viewpoint", "Medical Building": "medical", "Marawi": "marawi", "Zonata Apartments": "zonata", "Residential BBQ": "bbq", "3D Visualization": "facade", "Residential Pool Design": "pool", "La Pradera – Residential Design": "rooftop", "Residential House": "lot1", "Serena Hills": "serena", "Architectural Design": "bimhouse", "A.D.E.S. Insurance Office": "ades", "Pop-Up Store": "popup"};
+  const PROJECT_VIDEOS = {"ELEMENTI": "elementi", "Single Family Arboretum": "arboretum-greatroom", "Arboretum 2": "arboretum-col", "Cultural & Convention Center": "cultural", "Eco Hotel": "ecohotel", "Maná": "mana", "Coworking Building": "coworking", "Cable Car": "teleferico", "Residential Building 5 Floors": "burgos", "G-Metria": "gmetria", "Public Space & View Point": "viewpoint", "Medical Building": "medical", "Marawi": "marawi", "Zonata Apartments": "zonata", "Residential BBQ": "bbq", "3D Visualization": "facade", "Residential Pool Design": "pool", "La Pradera – Residential Design": "rooftop", "Residential House": "lot1", "Serena Hills": "serena", "Architectural Design": "bimhouse", "A.D.E.S. Insurance Office": "ades", "Pop-Up Store": "popup"};
   const VIDEO_ICON_REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function carouselMarkup(images, alt, note) {
