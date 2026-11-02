@@ -176,7 +176,9 @@ initRevealObserver();
     {name:'La Pradera – Residential Design',country:'Colombia',cat:'residential',category:'Residential',images:['/RESIDENTIAL/Rooftop Single Family House - Colombia/TERRACE.webp']},
     {name:'Residential House',country:'USA',cat:'residential',category:'Residential',images:residentialHouseImages},
     {name:'Serena Hills',country:'USA',cat:'interior',category:'Residential + Interior Design',images:serenaImages},
-    {name:'Architectural Design',country:'Colombia',cat:'interior',category:'Residential + Interior Design',images:architecturalDesignImages}
+    {name:'Architectural Design',country:'Colombia',cat:'interior',category:'Residential + Interior Design',images:architecturalDesignImages},
+    {name:'A.D.E.S. Insurance Office',country:'Colombia',cat:'interior',category:'Commercial · Interior Design',images:['/COMMERCIAL/COMMERCIAL + PUBLIC INTERIOR DESIGN/A.D.E.S. Insurance Office - Colombia/ADES.webp']},
+    {name:'Pop-Up Store',country:'Colombia',cat:'interior',category:'Commercial · Interior Design',images:['/COMMERCIAL/COMMERCIAL + PUBLIC INTERIOR DESIGN/Pop-Up Store - Colombia/Pop-Up Store.webp']}
   ];
 
   const featuredData = [
@@ -188,7 +190,8 @@ initRevealObserver();
     {name:'Coworking Building',country:'Spain',images:['/images/COWORKING.webp']}
   ];
 
-  const PROJECT_VIDEOS = {"Single Family Arboretum": "arboretum-greatroom", "Arboretum 2": "arboretum-col", "Cultural & Convention Center": "cultural", "Eco Hotel": "ecohotel", "Maná": "mana", "Coworking Building": "coworking", "Cable Car": "teleferico", "Residential Building 5 Floors": "burgos", "G-Metria": "gmetria", "Public Space & View Point": "viewpoint", "Medical Building": "medical", "Marawi": "marawi", "Zonata Apartments": "zonata", "Residential BBQ": "bbq", "3D Visualization": "facade", "Residential Pool Design": "pool", "La Pradera – Residential Design": "rooftop", "Residential House": "lot1", "Serena Hills": "serena", "Architectural Design": "bimhouse"};
+  const tr = t => (window.T ? window.T(t) : t);
+  const PROJECT_VIDEOS = {"Single Family Arboretum": "arboretum-greatroom", "Arboretum 2": "arboretum-col", "Cultural & Convention Center": "cultural", "Eco Hotel": "ecohotel", "Maná": "mana", "Coworking Building": "coworking", "Cable Car": "teleferico", "Residential Building 5 Floors": "burgos", "G-Metria": "gmetria", "Public Space & View Point": "viewpoint", "Medical Building": "medical", "Marawi": "marawi", "Zonata Apartments": "zonata", "Residential BBQ": "bbq", "3D Visualization": "facade", "Residential Pool Design": "pool", "La Pradera – Residential Design": "rooftop", "Residential House": "lot1", "Serena Hills": "serena", "Architectural Design": "bimhouse", "A.D.E.S. Insurance Office": "ades", "Pop-Up Store": "popup"};
   const VIDEO_ICON_REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function carouselMarkup(images, alt, note) {
@@ -447,7 +450,7 @@ initRevealObserver();
           '<span class="fproj-num">' + String(i + 1).padStart(2,'0') + '</span>' +
           (p.award ? '<span class="fproj-badge">🥇 Winning</span>' : '') +
           carouselMarkup(p.images,p.name,p.note) +
-          '<div class="fproj-info"><div class="fproj-info-loc">' + p.country + '</div><div class="fproj-info-name">' + p.name + '</div></div>' +
+          '<div class="fproj-info"><div class="fproj-info-loc">' + tr(p.country) + '</div><div class="fproj-info-name">' + p.name + '</div></div>' +
           '<button class="fproj-arrow gallery-open-button" type="button" aria-label="View ' + p.name + ' photos">' + svgArrow('next') + '</button>' +
         '</article>'
       ).join('');
@@ -466,7 +469,7 @@ initRevealObserver();
     const missing = !p.images.length;
     return '<article class="wcard' + (missing ? ' is-missing' : '') + '" data-cat="' + p.cat + '" data-project="' + p.name + '" tabindex="0">' +
       (missing ? '' : carouselMarkup(p.images,p.name,p.note)) +
-      '<div class="wcard-label"><div class="wcard-lname">' + p.name + '</div><div class="wcard-lsub">' + p.category + ' · ' + p.country + '</div></div>' +
+      '<div class="wcard-label"><div class="wcard-lname">' + p.name + '</div><div class="wcard-lsub">' + tr(p.category) + ' · ' + tr(p.country) + '</div></div>' +
     '</article>';
   }
 
