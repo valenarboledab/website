@@ -191,7 +191,7 @@ initRevealObserver();
   ];
 
   const tr = t => (window.T ? window.T(t) : t);
-  const PROJECT_VIDEOS = {"Single Family Arboretum": "arboretum-greatroom", "Arboretum 2": "arboretum-col", "Cultural & Convention Center": "cultural", "Eco Hotel": "ecohotel", "Maná": "mana", "Coworking Building": "coworking", "Cable Car": "teleferico", "Residential Building 5 Floors": "burgos", "G-Metria": "gmetria", "Public Space & View Point": "viewpoint", "Medical Building": "medical", "Marawi": "marawi", "Zonata Apartments": "zonata", "Residential BBQ": "bbq", "3D Visualization": "facade", "Residential Pool Design": "pool", "La Pradera – Residential Design": "rooftop", "Residential House": "lot1", "Serena Hills": "serena", "Architectural Design": "bimhouse", "A.D.E.S. Insurance Office": "ades", "Pop-Up Store": "popup"};
+  const PROJECT_VIDEOS = {"Single Family Arboretum": "arboretum-greatroom", "Arboretum 2": "arboretum-col", "Cultural & Convention Center": "cultural", "Eco Hotel": "ecohotel", "Maná": "mana", "Coworking Building": "coworking", "Cable Car": "teleferico", "Residential Building 5 Floors": "burgos", "G-Metria": "gmetria", "Public Space & View Point": "viewpoint", "Medical Building": "medical", "Marawi": "marawi", "Zonata Apartments": "zonata", "Residential BBQ": "bbq", "3D Visualization": "facade", "Residential Pool Design": "pool", "La Pradera – Residential Design": "rooftop", "Residential House": "lot1", "Serena Hills": "serena", "Architectural Design": "bimhouse", "Pop-Up Store": "popup"};
   const VIDEO_ICON_REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function carouselMarkup(images, alt, note) {
