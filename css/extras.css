@@ -213,3 +213,7 @@ body #page-projects .wcard-case:hover{background:#fff}
 .gallery-lightbox-case:hover{background:#27231f}
 .gallery-lightbox-case[hidden]{display:none}
 @media (max-width:640px){.gallery-lightbox-case{font-size:10.5px;padding:9px 14px}}
+/* Cursor visible on brown/dark areas: light halo around the brown diamond + dot */
+.preview-mode .c-ring{box-shadow:0 0 0 1.5px rgba(245,240,232,.9),inset 0 0 0 1.5px rgba(245,240,232,.9);opacity:.9}
+.preview-mode .c-dot{box-shadow:0 0 0 2px rgba(245,240,232,.95);opacity:1}
+.preview-mode .c-cursor.expanded .c-ring{opacity:.95}
