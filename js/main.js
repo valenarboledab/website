@@ -668,29 +668,6 @@ initRevealObserver();
 
   function updateJournal() {
     document.querySelector('#page-journal .jo-hero-r')?.setAttribute('aria-hidden','true');
-    const linkedinUrls = {
-      0: 'https://www.linkedin.com/posts/valenarboledab_man%C3%A1-biophilic-architecture-activity-7485449792312049664-3tje?utm_source=share&utm_medium=member_ios&rcm=ACoAADQ4oBEBlJbH-kZb1h8A32waERRiUXdgqu4',
-      3: 'https://www.linkedin.com/posts/valenarboledab_what-if-the-problem-became-the-best-part-activity-7494158417423568897-gGGj?utm_source=share&utm_medium=member_ios&rcm=ACoAADQ4oBEBlJbH-kZb1h8A32waERRiUXdgqu4'
-    };
-    const cards = document.querySelectorAll('#page-journal .jcard:not([data-case])');
-    cards.forEach((card, i) => {
-      const link = card.querySelector('.jcard-read');
-      if (i === 0) {
-        card.querySelector('.jcard-title').textContent = 'Maná: Biophilic Architecture';
-        card.querySelector('.jcard-img img').src = '/images/home/img-mana.webp';
-      }
-      if (linkedinUrls[i]) {
-        link.href = linkedinUrls[i];
-        link.target = '_blank';
-        link.rel = 'noopener';
-        link.classList.remove('is-pending');
-        link.innerHTML = 'Read on LinkedIn ' + svgArrow('next');
-      } else {
-        link.removeAttribute('href');
-        link.classList.add('is-pending');
-        link.textContent = 'LinkedIn link pending';
-      }
-    });
   }
 
   function updateFooter() {
