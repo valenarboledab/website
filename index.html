@@ -625,7 +625,7 @@
   <div id="page-projects" class="page">
 <section id="sv-eco">
 <style>
-#sv-eco{position:relative;height:500vh;background:#f0eeed;color:#4a4540;font-family:'DM Sans',system-ui,sans-serif;margin:0 0 16px}
+#sv-eco{position:relative;height:900vh;background:#f0eeed;color:#4a4540;font-family:'DM Sans',system-ui,sans-serif;margin:0 0 16px}
 #sv-eco .st{position:sticky;top:0;height:100vh;overflow:hidden}
 #sv-eco canvas{display:block;width:100%;height:100%}
 #sv-eco .st:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(240,238,237,.94) 0,rgba(240,238,237,.6) 28%,rgba(240,238,237,0) 48%);pointer-events:none}
@@ -659,13 +659,28 @@ new GLTFLoader().setDRACOLoader(dl).load(root.dataset.glb||'/images/3d/eco-hotel
  const bAll=new THREE.Box3().setFromObject(m);const b=new THREE.Box3();['L1','L2','L3','ROOF'].forEach(n=>{const o=m.getObjectByName(n);if(o)b.expandByObject(o)});b.getCenter(c);S=b.getSize(new THREE.Vector3()).length();gnd.position.set(c.x,bAll.min.y-0.02,c.z);
  m.traverse(o=>{if(o.isMesh){o.castShadow=!o.material.transparent;o.receiveShadow=true;if(o.material.transparent){o.material.depthWrite=false;o.renderOrder=2}}});
  L=['L0','L1','L2','L3','ROOF'].map(n=>m.getObjectByName(n)).filter(Boolean);L.forEach(o=>o.userData.y0=o.position.y);
- sun.target.position.copy(c);sun.position.set(c.x+40,c.y+70,c.z+30);root.querySelector('.ld').style.opacity=0;ready=true;fr()});
+ sun.target.position.copy(c);sun.position.set(c.x+40,c.y+70,c.z+30);
+ const pm=new THREE.MeshStandardMaterial({color:0xF7F3EC,roughness:.7}),dk=new THREE.MeshStandardMaterial({color:0x8a7c68,roughness:.8});
+ const mkP=(i)=>{const g=new THREE.Group();g.scale.setScalar(1.25);const h=1.7*(.9+((i*13)%20)/100);const body=new THREE.Mesh(new THREE.CapsuleGeometry(.19,h*.36,4,10),i%3?pm:dk);body.position.y=h*.62;const head=new THREE.Mesh(new THREE.SphereGeometry(.12,12,10),pm);head.position.y=h*.93;
+  const lg=[0,1].map(k=>{const p=new THREE.Group();p.position.set(k?.09:-.09,h*.46,0);const m=new THREE.Mesh(new THREE.CylinderGeometry(.06,.05,h*.46,6),i%3?pm:dk);m.position.y=-h*.23;p.add(m);g.add(p);return p});
+  const ar=[0,1].map(k=>{const p=new THREE.Group();p.position.set(k?.24:-.24,h*.78,0);const m=new THREE.Mesh(new THREE.CylinderGeometry(.045,.04,h*.34,6),pm);m.position.y=-h*.17;p.add(m);g.add(p);return p});
+  g.add(body,head);g.traverse(o=>{if(o.isMesh)o.castShadow=true});g.userData={lg,ar};return g};
+ W=[];const b0=bAll,gy=b.min.y;
+ const hb={min:{x:-8,z:-24},max:{x:30,z:17}};const pad=2;const rect=[[hb.min.x-pad,hb.min.z-pad],[hb.max.x+pad,hb.min.z-pad],[hb.max.x+pad,hb.max.z+pad],[hb.min.x-pad,hb.max.z+pad]];
+ const add=(parent,A,B,y,i,sp)=>{const pp=mkP(i);parent.add(pp);W.push({pp,A,B,y,ph:(i*0.37)%1,sp})};
+ for(let i=0;i<8;i++){const k=i%4,A=rect[k],B=rect[(k+1)%4];add(sc,A,B,3.55,i,0.035+(i%3)*0.01)}
+ const cx=11,cz=-3;L.forEach((o,li)=>{if(li>3)return;const fy=[3.55,7.05,11.0,14.1][li];
+  [[[cx-6,cz-2],[cx+6,cz-2]],[[cx-3,cz-7],[cx-3,cz+6]],[[cx+4,cz+3],[cx-5,cz+3]]].forEach((ab,j)=>add(o,ab[0],ab[1],fy,20+li*3+j,0.045+j*0.008))});
+ root.querySelector('.ld').style.opacity=0;ready=true;fr();loop()});
+let W=[],clk=new THREE.Clock(),vis=true;new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis)loop()}).observe(root);
+let looping=false;function loop(){if(looping||!ready)return;looping=true;const step=()=>{if(!vis||!ready){looping=false;return}walk(clk.getElapsedTime());fr();requestAnimationFrame(step)};requestAnimationFrame(step)}
+function walk(t){for(const w of W){const u=(t*w.sp+w.ph)%2,f=u<1?u:2-u,dir=u<1?1:-1;const x=w.A[0]+(w.B[0]-w.A[0])*f,z=w.A[1]+(w.B[1]-w.A[1])*f;w.pp.position.set(x,w.y,z);w.pp.rotation.y=Math.atan2((w.B[0]-w.A[0])*dir,(w.B[1]-w.A[1])*dir);const sw=Math.sin(t*7+w.ph*9)*.5;w.pp.userData.lg[0].rotation.x=sw;w.pp.userData.lg[1].rotation.x=-sw;w.pp.userData.ar[0].rotation.x=-sw*.7;w.pp.userData.ar[1].rotation.x=sw*.7}}
 function rs(){const w=cv.clientWidth,h=cv.clientHeight;r.setSize(w,h,false);cam.aspect=w/h;if(w>700)cam.setViewOffset(w,h,-w*0.16,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}addEventListener('resize',()=>{rs();fr()});rs();new ResizeObserver(()=>{rs();fr()}).observe(cv);
 const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),e=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,sg=(p,a,b)=>e(cl((p-a)/(b-a)));
 const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-innerHeight))};
-function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<.25?0:p<.6?1:2;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
- const ex=sg(p,.18,.55)*(1-sg(p,.85,1)*0);L.forEach((o,i)=>o.position.y=o.userData.y0+ex*i*S*0.09);
- const a=-0.9+p*1.4,el=THREE.MathUtils.lerp(.42,.62,sg(p,.1,.6)),d=S*THREE.MathUtils.lerp(1.15,1.35,sg(p,.1,.6))*(innerWidth<700?1.4:1);
+function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<.22?0:p<.62?1:2;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
+ const ex=sg(p,.15,.6);L.forEach((o,i)=>o.position.y=o.userData.y0+ex*i*S*0.09);
+ const a=-0.9+p*1.4,el=THREE.MathUtils.lerp(.42,.62,sg(p,.1,.6)),d=S*(THREE.MathUtils.lerp(1.15,1.35,sg(p,.1,.6))-0.35*sg(p,.68,.95))*(innerWidth<700?1.4:1);
  cam.position.set(c.x+Math.cos(a)*Math.cos(el)*d,c.y+Math.sin(el)*d,c.z+Math.sin(a)*Math.cos(el)*d);cam.lookAt(c.x,c.y+ex*S*0.15,c.z);r.render(sc,cam)}
 let q=0;addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(()=>{q=0;fr()})}},{passive:true});
 </script></section>
