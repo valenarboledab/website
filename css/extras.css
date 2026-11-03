@@ -201,9 +201,15 @@ body #page-projects.is-filtered .wcard-label{padding:22px}
 @media (prefers-reduced-motion: reduce){.preview-carousel-slide .slide-video{display:none}}
 
 /* Case-study link on My Work cards */
-body #page-projects .wcard-case{display:inline-block;margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#f5f0e8;text-decoration:none;border:1px solid rgba(245,240,232,.6);border-radius:999px;padding:6px 14px;pointer-events:auto;position:relative;z-index:3}
-body #page-projects .wcard-case:hover{background:#f5f0e8;color:#27231f}
+body #page-projects .wcard-case{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#27231f;background:#f5f0e8;text-decoration:none;border-radius:999px;padding:11px 20px;pointer-events:auto;position:relative;z-index:3;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+body #page-projects .wcard-case:hover{background:#fff}
 /* Journal hero: one main button + quiet LinkedIn line */
 #page-journal .jo-also{margin-top:18px;font-size:13px;color:var(--mid);font-weight:300}
 #page-journal .jo-also a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 #page-journal .jo-also a:hover{opacity:.8}
+/* Case-study button inside the project gallery */
+.gallery-lightbox-actions{display:flex;align-items:center;gap:14px}
+.gallery-lightbox-case{display:inline-flex;align-items:center;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#f5f0e8;background:#72604e;text-decoration:none;border-radius:999px;padding:12px 22px;white-space:nowrap}
+.gallery-lightbox-case:hover{background:#27231f}
+.gallery-lightbox-case[hidden]{display:none}
+@media (max-width:640px){.gallery-lightbox-case{font-size:10.5px;padding:9px 14px}}
