@@ -217,3 +217,6 @@ body #page-projects .wcard-case:hover{background:#fff}
 .preview-mode .c-ring{box-shadow:0 0 0 1.5px rgba(245,240,232,.9),inset 0 0 0 1.5px rgba(245,240,232,.9);opacity:.9}
 .preview-mode .c-dot{box-shadow:0 0 0 2px rgba(245,240,232,.95);opacity:1}
 .preview-mode .c-cursor.expanded .c-ring{opacity:.95}
+/* Case-study button on home featured cards */
+#page-home .preview-feature .wcard-case{display:inline-flex;align-items:center;margin-top:10px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#27231f;background:#f5f0e8;text-decoration:none;border-radius:999px;padding:8px 14px;pointer-events:auto;position:relative;z-index:5;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+#page-home .preview-feature .wcard-case:hover{background:#fff}
