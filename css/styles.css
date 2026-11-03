@@ -1,7 +1,3 @@
-@font-face{font-family:'Gilroy';src:url('../assets/fonts/Gilroy-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
-@font-face{font-family:'Gilroy';src:url('../assets/fonts/Gilroy-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap;}
-@font-face{font-family:'Gilroy';src:url('../assets/fonts/Gilroy-SemiBold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;}
-@font-face{font-family:'Gilroy';src:url('../assets/fonts/Gilroy-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap;}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 :root{
@@ -25,8 +21,8 @@
 
 
   /* ── Tipografía oficial ── */
-  --font-primary:'Gilroy','Manrope','Inter','Helvetica Neue',Arial,sans-serif;
-  --font-display:'Gilroy','Manrope','Inter','Helvetica Neue',Arial,sans-serif;
+  --font-primary:'Inter','Helvetica Neue',Arial,sans-serif;
+  --font-display:'Inter','Helvetica Neue',Arial,sans-serif;
   --serif:var(--font-display);
   --sans:var(--font-primary);
 
