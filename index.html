@@ -623,6 +623,53 @@
 
   <!-- ══════════════ PAGE: PROJECTS / WORK ══════════════ -->
   <div id="page-projects" class="page">
+<section id="sv-eco">
+<style>
+#sv-eco{position:relative;height:500vh;background:#f0eeed;color:#4a4540;font-family:'DM Sans',system-ui,sans-serif;margin:0 0 16px}
+#sv-eco .st{position:sticky;top:0;height:100vh;overflow:hidden}
+#sv-eco canvas{display:block;width:100%;height:100%}
+#sv-eco .st:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(240,238,237,.94) 0,rgba(240,238,237,.6) 28%,rgba(240,238,237,0) 48%);pointer-events:none}
+#sv-eco .cap{z-index:2;position:absolute;left:7vw;bottom:13vh;max-width:min(460px,86vw);opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
+#sv-eco .cap.on{opacity:1;transform:none}
+#sv-eco .cap small{display:block;letter-spacing:.28em;text-transform:uppercase;font-size:11px;color:#9a7f61;margin-bottom:14px}
+#sv-eco .cap h2 em{font-style:italic}
+#sv-eco .cap h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:clamp(42px,5.5vw,80px);line-height:1;letter-spacing:-.02em;margin:0 0 14px;color:#27231f}
+#sv-eco .cap p{font-size:16px;line-height:1.6;margin:0;color:#4a4540}
+#sv-eco .cap a{display:inline-block;margin-top:18px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#72604e;text-decoration:none;border-bottom:1px solid #9a7f61;padding-bottom:3px;pointer-events:auto}
+#sv-eco .ld{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);letter-spacing:.3em;font-size:11px;text-transform:uppercase;color:#9a7f61;transition:opacity .5s}
+#sv-eco .bar{position:absolute;left:0;bottom:0;height:2px;background:#9a7f61;width:0}
+</style>
+<div class="st"><canvas></canvas><div class="ld">Loading model</div>
+<div class="cap on"><small>Selected work · Quindío, Colombia</small><h2>Eco <em>Hotel</em></h2><p>Hospitality shaped by nature. A winning project designed with biomimetic principles. Scroll to open it level by level.</p></div>
+<div class="cap"><small>Section</small><h2>Level by <em>level</em></h2><p>The building opens floor by floor to show how rooms, terraces and circulation stack together.</p></div>
+<div class="cap"><small>Landscape</small><h2>Part of the <em>stay</em></h2><p>Planted terraces, gardens around the base and a rooftop pool open the hotel toward the mountains.</p><a href="/projects/eco-hotel-quindio-colombia/">View the case study</a></div>
+<div class="bar"></div></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';
+const root=document.getElementById('sv-eco'),cv=root.querySelector('canvas'),caps=[...root.querySelectorAll('.cap')],bar=root.querySelector('.bar');
+const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
+const sc=new THREE.Scene();sc.background=new THREE.Color(0xf0eeed);
+const cam=new THREE.PerspectiveCamera(32,1,0.5,600);
+sc.add(new THREE.HemisphereLight(0xfffaf0,0xb9ad98,0.9));const sun=new THREE.DirectionalLight(0xfff3e0,3.2);sun.castShadow=true;sun.shadow.bias=-0.0006;sun.shadow.normalBias=0.06;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-45,right:45,top:45,bottom:-45,far:200});sc.add(sun,sun.target);
+const gnd=new THREE.Mesh(new THREE.CircleGeometry(140,64),new THREE.MeshStandardMaterial({color:0xD8CDBA,roughness:1}));gnd.rotation.x=-Math.PI/2;gnd.receiveShadow=true;sc.add(gnd);
+let L=[],c=new THREE.Vector3(),S=40,ready=false;
+const dl=new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+new GLTFLoader().setDRACOLoader(dl).load(root.dataset.glb||'/images/3d/eco-hotel.glb',g=>{const m=g.scene;sc.add(m);
+ const bAll=new THREE.Box3().setFromObject(m);const b=new THREE.Box3();['L1','L2','L3','ROOF'].forEach(n=>{const o=m.getObjectByName(n);if(o)b.expandByObject(o)});b.getCenter(c);S=b.getSize(new THREE.Vector3()).length();gnd.position.set(c.x,bAll.min.y-0.02,c.z);
+ m.traverse(o=>{if(o.isMesh){o.castShadow=!o.material.transparent;o.receiveShadow=true;if(o.material.transparent){o.material.depthWrite=false;o.renderOrder=2}}});
+ L=['L0','L1','L2','L3','ROOF'].map(n=>m.getObjectByName(n)).filter(Boolean);L.forEach(o=>o.userData.y0=o.position.y);
+ sun.target.position.copy(c);sun.position.set(c.x+40,c.y+70,c.z+30);root.querySelector('.ld').style.opacity=0;ready=true;fr()});
+function rs(){const w=cv.clientWidth,h=cv.clientHeight;r.setSize(w,h,false);cam.aspect=w/h;if(w>700)cam.setViewOffset(w,h,-w*0.16,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}addEventListener('resize',()=>{rs();fr()});rs();new ResizeObserver(()=>{rs();fr()}).observe(cv);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),e=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,sg=(p,a,b)=>e(cl((p-a)/(b-a)));
+const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-innerHeight))};
+function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<.25?0:p<.6?1:2;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
+ const ex=sg(p,.18,.55)*(1-sg(p,.85,1)*0);L.forEach((o,i)=>o.position.y=o.userData.y0+ex*i*S*0.09);
+ const a=-0.9+p*1.4,el=THREE.MathUtils.lerp(.42,.62,sg(p,.1,.6)),d=S*THREE.MathUtils.lerp(1.15,1.35,sg(p,.1,.6))*(innerWidth<700?1.4:1);
+ cam.position.set(c.x+Math.cos(a)*Math.cos(el)*d,c.y+Math.sin(el)*d,c.z+Math.sin(a)*Math.cos(el)*d);cam.lookAt(c.x,c.y+ex*S*0.15,c.z);r.render(sc,cam)}
+let q=0;addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(()=>{q=0;fr()})}},{passive:true});
+</script></section>
+
     <div class="wk-hero">
       <div class="wk-hero-l">
         <div>
