@@ -267,7 +267,8 @@ initRevealObserver();
       '<div class="gallery-lightbox-panel">' +
         '<header class="gallery-lightbox-header">' +
           '<div><span class="gallery-lightbox-eyebrow">Project gallery</span><h2 id="gallery-lightbox-title"></h2></div>' +
-          '<button class="gallery-lightbox-close" type="button" aria-label="Close gallery">×</button>' +
+          '<div class="gallery-lightbox-actions"><a class="gallery-lightbox-case" hidden></a>' +
+          '<button class="gallery-lightbox-close" type="button" aria-label="Close gallery">×</button></div>' +
         '</header>' +
         '<div class="gallery-lightbox-stage">' +
           '<img class="gallery-lightbox-image" alt="">' +
@@ -304,6 +305,17 @@ initRevealObserver();
     const card = carousel.closest('.preview-feature,.wcard');
     const title = card?.querySelector('.fproj-info-name,.wcard-lname')?.textContent.trim() || 'Project';
     modal.querySelector('#gallery-lightbox-title').textContent = title;
+    const caseSrc = card?.querySelector('.wcard-case');
+    const caseLinkEl = modal.querySelector('.gallery-lightbox-case');
+    if (caseSrc) {
+      const esLang = (document.documentElement.lang || '').toLowerCase().startsWith('es');
+      caseLinkEl.href = caseSrc.getAttribute('href');
+      caseLinkEl.textContent = esLang ? 'Leer el caso de estudio →' : 'Read the case study →';
+      caseLinkEl.hidden = false;
+    } else {
+      caseLinkEl.hidden = true;
+      caseLinkEl.removeAttribute('href');
+    }
     const thumbs = modal.querySelector('.gallery-lightbox-thumbs');
     thumbs.innerHTML = '';
     galleryImages.forEach((item, index) => {
