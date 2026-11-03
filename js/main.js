@@ -468,7 +468,7 @@ initRevealObserver();
           '<span class="fproj-num">' + String(i + 1).padStart(2,'0') + '</span>' +
           (p.award ? '<span class="fproj-badge">🥇 Winning</span>' : '') +
           carouselMarkup(p.images,p.name,p.note) +
-          '<div class="fproj-info"><div class="fproj-info-loc">' + tr(p.country) + '</div><div class="fproj-info-name">' + p.name + '</div></div>' +
+          '<div class="fproj-info"><div class="fproj-info-loc">' + tr(p.country) + '</div><div class="fproj-info-name">' + p.name + '</div>' + caseLink(p) + '</div>' +
           '<button class="fproj-arrow gallery-open-button" type="button" aria-label="View ' + p.name + ' photos">' + svgArrow('next') + '</button>' +
         '</article>'
       ).join('');
@@ -483,7 +483,19 @@ initRevealObserver();
     if (featuredLink) { featuredLink.textContent = 'View Work →'; featuredLink.onclick = () => window.showPage('projects'); }
   }
 
+  const CASE_PAGES = {
+    'Single Family Arboretum': {en:'/projects/arboretum-residential-design-georgia/', es:'/es/proyectos/arboretum-residential-design-georgia/'},
+    'Arboretum 2': {en:'/projects/arboretum-2-commercial-architecture-colombia/', es:'/es/proyectos/arboretum-2-arquitectura-comercial-colombia/'},
+    'Cultural & Convention Center': {en:'/projects/cultural-convention-center-colombia/', es:'/es/proyectos/centro-cultural-convenciones-colombia/'},
+    'Eco Hotel': {en:'/projects/eco-hotel-quindio-colombia/', es:'/es/proyectos/eco-hotel-quindio-colombia/'},
+    'Maná': {en:'/projects/mana-biomimetic-architecture-colombia/', es:'/es/proyectos/mana-arquitectura-biomimetica-colombia/'},
+    'Coworking Building': {en:'/projects/coworking-the-shed-madrid-entrance-design/', es:'/es/proyectos/coworking-the-shed-madrid-diseno-acceso/'},
+    'Cable Car': {en:'/projects/teleferico-fatima-cable-car-colombia/', es:'/es/proyectos/teleferico-fatima-colombia/'},
+    'Residential Building 5 Floors': {en:'/projects/edificio-burgos-interior-design-spain/', es:'/es/proyectos/edificio-burgos-diseno-interiores-espana/'}
+  };
+
   function caseLink(p) {
+    p = Object.assign({}, p, {page: p.page || CASE_PAGES[p.name]});
     if (!p.page) return '';
     const es = (document.documentElement.lang || '').toLowerCase().startsWith('es');
     return '<a class="wcard-case" href="' + (es ? p.page.es : p.page.en) + '" onclick="event.stopPropagation()">' + (es ? 'Leer caso de estudio →' : 'Read case study →') + '</a>';
