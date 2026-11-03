@@ -168,7 +168,7 @@ initRevealObserver();
   ].map(name => '/COMMERCIAL/COMMERCIAL + PUBLIC INTERIOR DESIGN/Elementi - United States/' + name);
 
   const projectData = [
-    {name:'ELEMENTI',country:'USA',cat:'interior',category:'Commercial · Wellness Interior Design',images:elementiImages},
+    {name:'ELEMENTI',country:'USA',cat:'interior',category:'Commercial · Wellness Interior Design',images:elementiImages,page:{en:'/projects/elementi-wellness-interior-design-usa/',es:'/es/proyectos/elementi-diseno-interior-bienestar-usa/'}},
     {name:'Cable Car',country:'Colombia',cat:'commercial',category:'Commercial · Infrastructure',images:['/images/teleferico.webp']},
     {name:'Residential Building 5 Floors',country:'Spain',cat:'commercial',category:'Commercial · Residential',images:residentialBuildingImages},
     {name:'G-Metria',country:'Colombia',cat:'commercial',category:'Commercial · Public Interior',images:['/COMMERCIAL/PUBLIC SPACE/G-Metria - Colombia/20260527_125716831_iOS.webp']},
@@ -471,11 +471,17 @@ initRevealObserver();
     if (featuredLink) { featuredLink.textContent = 'View Work →'; featuredLink.onclick = () => window.showPage('projects'); }
   }
 
+  function caseLink(p) {
+    if (!p.page) return '';
+    const es = (document.documentElement.lang || '').toLowerCase().startsWith('es');
+    return '<a class="wcard-case" href="' + (es ? p.page.es : p.page.en) + '" onclick="event.stopPropagation()">' + (es ? 'Leer caso de estudio →' : 'Read case study →') + '</a>';
+  }
+
   function workCard(p) {
     const missing = !p.images.length;
     return '<article class="wcard' + (missing ? ' is-missing' : '') + '" data-cat="' + p.cat + '" data-project="' + p.name + '" tabindex="0">' +
       (missing ? '' : carouselMarkup(p.images,p.name,p.note)) +
-      '<div class="wcard-label"><div class="wcard-lname">' + p.name + '</div><div class="wcard-lsub">' + tr(p.category) + ' · ' + tr(p.country) + '</div></div>' +
+      '<div class="wcard-label"><div class="wcard-lname">' + p.name + '</div><div class="wcard-lsub">' + tr(p.category) + ' · ' + tr(p.country) + '</div>' + caseLink(p) + '</div>' +
     '</article>';
   }
 
@@ -642,7 +648,7 @@ initRevealObserver();
       0: 'https://www.linkedin.com/posts/valenarboledab_man%C3%A1-biophilic-architecture-activity-7485449792312049664-3tje?utm_source=share&utm_medium=member_ios&rcm=ACoAADQ4oBEBlJbH-kZb1h8A32waERRiUXdgqu4',
       3: 'https://www.linkedin.com/posts/valenarboledab_what-if-the-problem-became-the-best-part-activity-7494158417423568897-gGGj?utm_source=share&utm_medium=member_ios&rcm=ACoAADQ4oBEBlJbH-kZb1h8A32waERRiUXdgqu4'
     };
-    const cards = document.querySelectorAll('#page-journal .jcard');
+    const cards = document.querySelectorAll('#page-journal .jcard:not([data-case])');
     cards.forEach((card, i) => {
       const link = card.querySelector('.jcard-read');
       if (i === 0) {
