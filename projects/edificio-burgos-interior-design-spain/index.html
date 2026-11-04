@@ -177,14 +177,14 @@ function garden(){const G=new THREE.Group();sc.add(G);const X0=34.85,X1=39.6,Z0=
  box(.55,.05,.9,std(0xa98863,{roughness:.6}),38.35,.55,SZ);box(.5,.36,.8,std(0x8c7258),38.35,.33,SZ);
  [[38.2,-7.6],[38.2,-10.8]].forEach(([x,z],i)=>{box(.7,.36,.7,fr,x,.36,z);box(.6,.14,.6,cu,x,.6,z);box(.12,.35,.7,cu,x,.8,z+(i?.3:-.3),Math.PI/2)});
  // parasol
- const pol=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,2.6,8),std(0xd9d2c4));pol.position.set(37.8,1.45,-8.2);G.add(pol);const um=new THREE.Mesh(new THREE.ConeGeometry(1.6,.45,4,1,true),std(0xd8c8a8,{side:THREE.DoubleSide}));um.rotation.y=Math.PI/4;um.position.set(37.8,2.6,-8.2);um.castShadow=true;G.add(um);
+ const pol=new THREE.Mesh(new THREE.CylinderGeometry(.03,.03,2.6,8),std(0xd9d2c4));pol.position.set(37.8,1.45,-8.2);G.add(pol);const um=new THREE.Mesh(new THREE.ConeGeometry(1.2,.35,4,1,true),std(0xd8c8a8,{side:THREE.DoubleSide}));um.rotation.y=Math.PI/4;um.position.set(37.8,2.75,-8.2);um.castShadow=true;G.add(um);
  // grill
  box(.6,.85,.45,std(0x2a2a2b,{roughness:.4,metalness:.5}),39.2,.58,-12.6);
  // shed + bench
  box(1.1,2,.9,std(0x9d8670,{roughness:.8}),35.45,1,-6.75);box(1.25,.08,1.05,std(0x3a3a3c),35.45,2.04,-6.75);
  box(1.6,.42,.45,std(0xb08d68,{roughness:.6}),36.9,.22,-6.55);
  // fire bowl
- const fb=new THREE.Mesh(new THREE.SphereGeometry(.55,24,12,0,Math.PI*2,Math.PI/2,Math.PI/2),std(0xe8e0d2,{side:THREE.DoubleSide}));fb.rotation.x=Math.PI;fb.position.set(36.1,.56,-11.6);fb.castShadow=true;G.add(fb);
+ const fb=new THREE.Mesh(new THREE.SphereGeometry(.55,24,12,0,Math.PI*2,Math.PI/2,Math.PI/2),std(0xe8e0d2,{side:THREE.DoubleSide}));fb.position.set(36.1,.56,-11.6);fb.castShadow=true;G.add(fb);
  const lava=new THREE.Mesh(new THREE.CircleGeometry(.5,20),std(0x4a3a30));lava.rotation.x=-Math.PI/2;lava.position.set(36.1,.5,-11.6);G.add(lava);
  fire=new THREE.Group();const fm=new THREE.MeshBasicMaterial({color:0xffa040,transparent:true,opacity:.9});const fm2=new THREE.MeshBasicMaterial({color:0xffe08a,transparent:true,opacity:.9});
  for(let i=0;i<5;i++){const f=new THREE.Mesh(new THREE.ConeGeometry(.12+rnd(i)*.06,.5+rnd(i+2)*.35,6),i%2?fm2:fm);f.position.set((rnd(i+5)-.5)*.35,.25,(rnd(i+9)-.5)*.35);fire.add(f)}
@@ -235,8 +235,8 @@ const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-in
 // ---------- shots: [p, level(-1 none), focus('b' building | 'r' room | 'g' garden), azimuth, elevation, distance] ----------
 const K=[[0,-1,'b',-.35,.22,1.25],[.08,-1,'b',-.05,.12,.78],[.15,-1,'b',.5,.62,1.05],
  [.2,0,'b',.9,1.0,.92],[.27,0,'r',1.4,.85,.46],[.33,1,'b',1.9,1.0,.92],[.39,1,'r',2.4,.82,.46],[.45,2,'b',2.8,1.0,.92],[.51,2,'r',3.3,.82,.46],
- [.57,3,'b',3.7,1.0,.92],[.62,3,'r',4.1,.82,.48],[.69,3,'g',6.6,.85,.55],[.76,-1,'g',7.75,.6,.5],
- [.84,-1,'b',7.2,.3,1.0],[.92,-1,'b',6.3,.14,.9],[1,-1,'b',6.0,.2,1.25]];
+ [.57,3,'b',3.7,1.0,.92],[.62,3,'r',4.1,.82,.48],[.69,3,'g',6.6,.85,.55],[.76,-1,'g',7.75,.62,.68],
+ [.84,-1,'b',7.2,.3,1.0],[.92,-1,'b',6.3,.16,1.2],[1,-1,'b',6.0,.2,1.25]];
 const tgt=new THREE.Vector3(),tmp=new THREE.Vector3();
 function shotT(k,out){if(k[2]==='g')return out.set(37.3,Y0+.8,-11.6);if(k[2]==='r'&&k[1]>=0&&SH[k[1]])return out.set(SH[k[1]][0],Y0+LV[k[1]]+.7,SH[k[1]][1]);if(k[1]>=0)return out.set(c.x,Y0+LV[k[1]]+.6,c.z);return out.set(c.x,c.y-.8,c.z)}
 const cutH=k=>k[1]<0?999:Y0+LV[k[1]]+1.55;
