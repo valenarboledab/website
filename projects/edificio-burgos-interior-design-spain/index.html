@@ -126,12 +126,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <div class="bar"></div></div>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module">
-import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';
+import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 const root=document.getElementById('sv-burgos'),cv=root.querySelector('canvas'),caps=[...root.querySelectorAll('.cap')],bar=root.querySelector('.bar'),lv=root.querySelector('.lv'),lvs=[...lv.children],ldp=root.querySelector('.ld span');
 const BASE=root.dataset.base??'/images/3d/';
 const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;r.localClippingEnabled=true;
 const sc=new THREE.Scene();const dayBg=new THREE.Color(0xe9e3d9),duskBg=new THREE.Color(0xe2b28e),nightBg=new THREE.Color(0x1e2126);sc.background=dayBg.clone();sc.fog=new THREE.Fog(0xe9e3d9,60,160);
-const cam=new THREE.PerspectiveCamera(32,1,0.2,400);
+const cam=new THREE.PerspectiveCamera(32,1,0.2,400);{const pm=new THREE.PMREMGenerator(r);sc.environment=pm.fromScene(new RoomEnvironment(),0.04).texture}
 const hemi=new THREE.HemisphereLight(0xfffaf0,0x9c8a72,1.25);sc.add(hemi);
 const sun=new THREE.DirectionalLight(0xfff0d8,2.6);sun.castShadow=true;sun.shadow.bias=-0.0004;sun.shadow.normalBias=0.03;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-14,right:14,top:14,bottom:-14,near:1,far:80});sc.add(sun,sun.target);
 const fill=new THREE.PointLight(0xffd6a0,0,40,1.6);sc.add(fill);
@@ -145,7 +145,8 @@ LD.load(BASE+'edificio-burgos.glb',g=>{const m=g.scene;sc.add(m);
  const bb=new THREE.Box3().setFromObject(m);bb.getCenter(c);S=bb.getSize(new THREE.Vector3()).length();Y0=bb.min.y;TOP=bb.max.y;
  gnd.position.set(c.x,Y0-0.02,c.z);
  m.traverse(o=>{if(!o.isMesh)return;const M=o.material,n=M.name||'';
-  if(!o.geometry.attributes.normal)o.geometry.computeVertexNormals();
+  if(!o.geometry.attributes.normal)o.geometry.computeVertexNormals();M.envMapIntensity=.35;
+  if(!n&&!M.map){M.metalness=0;M.roughness=.9;M.color.setHex(0xe8e2d8)}
   M.clippingPlanes=[cut];M.clipShadows=true;
   if(M.alphaTest>0&&!M.map&&!M.alphaMap)M.alphaTest=0;
   const isGlass=M.transparent||/glass|glas|vidr|crist/i.test(n);
