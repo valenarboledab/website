@@ -261,3 +261,37 @@ body.rs-open{overflow:hidden}
 #page-journal .jcard[data-pending] .jcard-read.is-pending{
   color:var(--text-light);cursor:default;pointer-events:none;font-style:italic;letter-spacing:.02em}
 #page-journal .jcard[data-pending]{opacity:.92}
+
+/* ── Journal hero: text on the left, latest article on the right ───── */
+.preview-mode #page-journal .jo-hero{
+  display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(28px,4vw,56px);align-items:center;min-height:0!important;
+  padding:clamp(34px,4vw,54px) clamp(28px,4vw,56px)}
+.preview-mode #page-journal .jo-hero-l{padding:0!important;min-height:0!important;gap:22px!important;justify-content:center}
+.preview-mode #page-journal .jo-hero-l h2{line-height:1.02;letter-spacing:.01em}
+.preview-mode #page-journal .jo-hero-l>div:last-child p{line-height:1.75!important}
+
+.jo-feature{display:grid;grid-template-rows:auto 1fr;text-decoration:none;color:inherit;
+  background:rgba(255,253,249,.07);border:1px solid rgba(255,253,249,.22);border-radius:16px;
+  overflow:hidden;backdrop-filter:blur(2px);
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease}
+.jo-feature:hover{transform:translateY(-3px);background:rgba(255,253,249,.11);
+  border-color:rgba(255,253,249,.4);box-shadow:0 18px 40px rgba(0,0,0,.22)}
+.jo-feature-img{display:block;aspect-ratio:16/9;overflow:hidden}
+.jo-feature-img img{width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .5s cubic-bezier(.2,.8,.3,1)}
+.jo-feature:hover .jo-feature-img img{transform:scale(1.04)}
+.jo-feature-body{display:flex;flex-direction:column;gap:9px;padding:20px 22px 22px}
+.jo-feature-label{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#d9c8ba}
+.jo-feature-title{font-size:19px;line-height:1.3;color:#fffdf9;font-weight:400}
+.jo-feature-exc{font-size:13px;line-height:1.65;color:rgba(255,253,249,.72);font-weight:300}
+.jo-feature-meta{font-size:11.5px;letter-spacing:.06em;color:rgba(255,253,249,.5);margin-top:2px}
+.jo-feature-cta{display:inline-flex;align-items:center;gap:7px;margin-top:6px;
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#fffdf9}
+.jo-feature-cta svg{width:14px;height:14px;transition:transform .25s ease}
+.jo-feature:hover .jo-feature-cta svg{transform:translateX(4px)}
+
+@media (max-width:900px){
+  .preview-mode #page-journal .jo-hero{grid-template-columns:1fr;gap:28px;padding:34px 26px}
+  .jo-feature-title{font-size:18px}
+}
