@@ -49,6 +49,32 @@ function render(user, data) {
 }
 
 /* Free-resource download form: saves the lead (if Firebase is set up), then downloads the file. */
+/* Email notification for every download.
+   Each lead is also posted to a Google Form owned by Studio Valentina. The form has
+   "email me on new responses" turned on, so Valentina gets an email straight away and
+   every lead lands in the form's response sheet. The request is fire-and-forget: if it
+   fails, the visitor still gets their file. */
+const LEAD_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfMyLRuuZFByyFmyuKiXAETEqn940KsiA87xYXj84me9toJHQ/formResponse';
+const LEAD_FIELDS = {
+  name: 'entry.1300000209',
+  email: 'entry.1564732390',
+  resource: 'entry.1089109249',
+  optIn: 'entry.132300978',
+  lang: 'entry.442757480'
+};
+
+function notifyLead(lead) {
+  try {
+    const body = new URLSearchParams();
+    body.append(LEAD_FIELDS.name, lead.name || '');
+    body.append(LEAD_FIELDS.email, lead.email || '');
+    body.append(LEAD_FIELDS.resource, lead.resource || '');
+    body.append(LEAD_FIELDS.optIn, lead.optIn ? 'yes' : 'no');
+    body.append(LEAD_FIELDS.lang, (document.documentElement.lang || 'en').slice(0, 5));
+    fetch(LEAD_FORM_URL, { method: 'POST', mode: 'no-cors', body }).catch(() => {});
+  } catch (e) { /* the download must happen either way */ }
+}
+
 function setupLeadForm(saveLead) {
   const form = $('leadForm');
   if (!form) return;
@@ -59,8 +85,10 @@ function setupLeadForm(saveLead) {
     const email = $('leadEmail').value.trim().slice(0, 120);
     if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { m.textContent = 'Please enter your name and a valid email.'; m.classList.remove('ok'); return; }
     const btn = form.querySelector('button'); btn.disabled = true;
+    const lead = { name, email, optIn: $('leadConsent').checked, resource: form.dataset.resource };
+    notifyLead(lead);
     try {
-      if (saveLead) await saveLead({ name, email, optIn: $('leadConsent').checked, resource: form.dataset.resource });
+      if (saveLead) await saveLead(lead);
     } catch (err) { /* still deliver the file */ }
     if (window.gtag) gtag('event', 'generate_lead', { resource: form.dataset.resource });
     const file = form.dataset.file;
