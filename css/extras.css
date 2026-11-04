@@ -318,3 +318,28 @@ body.rs-open{overflow:hidden}
   #page-portal.active .sp-wrap{min-height:calc(100vh - 140px)}
   #page-portal #ptLogin .faq-hero img.nala-pose{width:120px}
 }
+
+/* ── Floating contact button, bottom right, on every page ─────────── */
+.ct-fab{position:fixed;right:24px;bottom:24px;z-index:998;display:flex;align-items:center;gap:10px;
+  background:none;border:0;padding:0;cursor:pointer;font:inherit}
+.ct-fab-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text);
+  background:var(--white);border:1px solid var(--sand);border-radius:999px;padding:9px 16px;
+  box-shadow:0 8px 22px rgba(74,69,64,.16);
+  opacity:0;transform:translateX(10px);transition:opacity .25s ease, transform .25s ease;pointer-events:none;white-space:nowrap}
+.ct-fab:hover .ct-fab-label,.ct-fab:focus-visible .ct-fab-label{opacity:1;transform:none}
+.ct-fab-btn{width:54px;height:54px;border-radius:50%;background:#6c5444;color:#fffdf9;
+  display:grid;place-items:center;box-shadow:0 10px 26px rgba(108,84,68,.4);
+  transition:transform .25s ease, background .25s ease}
+.ct-fab-btn svg{width:24px;height:24px}
+.ct-fab:hover .ct-fab-btn{transform:translateY(-3px);background:#564234}
+.ct-fab:focus-visible .ct-fab-btn{outline:2px solid var(--text);outline-offset:3px}
+#page-contact.active ~ * .ct-fab,body:has(#page-contact.active) .ct-fab{opacity:.45}
+body:has(#page-contact.active) .ct-fab:hover{opacity:1}
+@media (max-width:640px){
+  .ct-fab{right:14px;bottom:14px}
+  .ct-fab-btn{width:48px;height:48px}
+  .ct-fab-label{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .ct-fab-label,.ct-fab-btn{transition:none}
+}
