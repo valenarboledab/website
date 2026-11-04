@@ -101,15 +101,43 @@
 
   /* Resources: choose which freebie the form delivers */
   var RS_COVERS = { 'before-you-build-georgia': '/images/checklist-cover.png', 'budget-planner': '/images/budget-cover.png', 'moodboard-template': '/images/moodboard-cover.png', 'nala-stickers': '/images/stickers-cover.png', 'ai-playbook': '/images/ai-playbook-cover.png', 'prompt-pack': '/images/prompt-pack-cover.png', 'software-stack': '/images/software-stack-cover.png' };
+  var rsLastFocus = null;
   window.pickResource = function (id, file, title) {
-    var f = document.getElementById('leadForm'); if (!f) return;
+    var f = document.getElementById('leadForm'), m = document.getElementById('rsModal');
+    if (!f || !m) return;
+    rsLastFocus = document.activeElement;
     f.dataset.resource = id; f.dataset.file = file;
     document.getElementById('rsFormTitle').textContent = title;
-    document.getElementById('rsFormCover').src = RS_COVERS[id] || '';
+    var cover = document.getElementById('rsFormCover');
+    cover.src = RS_COVERS[id] || ''; cover.alt = title;
     document.getElementById('leadMsg').textContent = '';
-    document.getElementById('rsFormCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(function () { document.getElementById('leadName').focus(); }, 500);
+    document.getElementById('leadMsg').classList.remove('ok');
+    m.hidden = false; document.body.classList.add('rs-open');
+    setTimeout(function () { document.getElementById('leadName').focus(); }, 120);
   };
+
+  window.closeResource = function () {
+    var m = document.getElementById('rsModal');
+    if (!m || m.hidden) return;
+    m.hidden = true; document.body.classList.remove('rs-open');
+    if (rsLastFocus && rsLastFocus.focus) rsLastFocus.focus();
+  };
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') window.closeResource();
+  });
+
+  /* Close the dialog shortly after a successful download */
+  document.addEventListener('DOMContentLoaded', function () {
+    var msg = document.getElementById('leadMsg');
+    if (!msg || !window.MutationObserver) return;
+    new MutationObserver(function () {
+      if (msg.classList.contains('ok') && msg.textContent) {
+        setTimeout(function () { window.closeResource(); }, 2600);
+      }
+    }).observe(msg, { childList: true, attributes: true, attributeFilter: ['class'] });
+  });
+
 
   /* Nala speech bubble: a short line that changes with the page */
   var NALA_LINES = {

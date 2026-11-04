@@ -668,6 +668,25 @@ initRevealObserver();
 
   function updateJournal() {
     document.querySelector('#page-journal .jo-hero-r')?.setAttribute('aria-hidden','true');
+    /* Cards still waiting for their LinkedIn post show "link pending".
+       To publish one, add data-linkedin="<post url>" to its .jcard in index.html
+       and it turns into a working "Read on LinkedIn" link automatically. */
+    document.querySelectorAll('#page-journal .jcard[data-pending]').forEach(card => {
+      const link = card.querySelector('.jcard-read');
+      const url = card.getAttribute('data-linkedin');
+      if (!link) return;
+      if (url) {
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.classList.remove('is-pending');
+        card.removeAttribute('data-pending');
+        link.innerHTML = (document.documentElement.lang === 'es' ? 'Leer en LinkedIn ' : 'Read on LinkedIn ') + svgArrow('next');
+      } else {
+        link.removeAttribute('href');
+        link.classList.add('is-pending');
+      }
+    });
   }
   function updateFooter() {
     document.querySelector('.footer-title').innerHTML = 'Great projects start<br>with a <em>conversation.</em>';
