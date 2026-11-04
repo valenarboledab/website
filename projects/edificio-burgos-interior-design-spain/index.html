@@ -92,9 +92,94 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <a class="brand" href="/"><span class="badge">VA</span>STUDIO VALENTINA</a>
     <nav><a href="/">Home</a><a href="/projects/">All projects</a><a href="/#contact">Contact</a><a class="lang" href="/es/proyectos/edificio-burgos-diseno-interiores-espana/" hreflang="es" lang="es">Español</a></nav>
   </div></div>
+<section id="sv-burgos">
+<style>
+#sv-burgos{position:relative;height:900vh;background:#f0eeed;color:#4a4540;font-family:'DM Sans',system-ui,sans-serif;margin:0 0 16px}
+#sv-burgos .st{position:sticky;top:0;height:100vh;overflow:hidden}
+#sv-burgos canvas{display:block;width:100%;height:100%}
+#sv-burgos .st:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(240,238,237,.9) 0,rgba(240,238,237,.55) 26%,rgba(240,238,237,0) 46%);pointer-events:none;transition:opacity .8s}
+#sv-burgos.night .st:after{opacity:.25}
+#sv-burgos .cap{z-index:2;position:absolute;left:7vw;bottom:13vh;max-width:min(460px,86vw);opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s,color .8s;pointer-events:none}
+#sv-burgos .cap.on{opacity:1;transform:none}
+#sv-burgos .cap small{display:block;letter-spacing:.28em;text-transform:uppercase;font-size:11px;color:#9a7f61;margin-bottom:14px}
+#sv-burgos .cap h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:clamp(42px,5.5vw,80px);line-height:1;letter-spacing:-.02em;margin:0 0 14px;color:#27231f;transition:color .8s}
+#sv-burgos .cap h2 em{font-style:italic}
+#sv-burgos .cap p{font-size:16px;line-height:1.6;margin:0;color:#4a4540;transition:color .8s}
+#sv-burgos.night .cap h2{color:#f5f0e8}#sv-burgos.night .cap p{color:#e6ded7}
+#sv-burgos .cap a{display:inline-block;margin-top:18px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#d9c4a3;text-decoration:none;border-bottom:1px solid #9a7f61;padding-bottom:3px;pointer-events:auto}
+#sv-burgos .lv{position:absolute;right:4vw;top:50%;transform:translateY(-50%);z-index:2;display:flex;flex-direction:column;gap:10px;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#9a7f61;opacity:0;transition:opacity .6s}
+#sv-burgos .lv.on{opacity:1}
+#sv-burgos .lv span{display:flex;align-items:center;gap:10px;justify-content:flex-end;transition:color .4s}
+#sv-burgos .lv span:after{content:'';width:18px;height:1px;background:currentColor;opacity:.5;transition:width .4s,opacity .4s}
+#sv-burgos .lv span.on{color:#27231f}#sv-burgos .lv span.on:after{width:34px;opacity:1}
+#sv-burgos .ld{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);letter-spacing:.3em;font-size:11px;text-transform:uppercase;color:#9a7f61;transition:opacity .5s;text-align:center}
+#sv-burgos .bar{position:absolute;left:0;bottom:0;height:2px;background:#9a7f61;width:0;z-index:3}
+@media (max-width:700px){#sv-burgos .st:after{background:linear-gradient(0deg,rgba(240,238,237,.92) 0,rgba(240,238,237,0) 55%)}#sv-burgos .cap{bottom:9vh;left:6vw}#sv-burgos .lv{top:84px;transform:none;right:5vw}}
+</style>
+<div class="st"><canvas></canvas><div class="ld">Loading model <span>0%</span></div>
+<div class="cap on"><small>Interior design · Burgos, Spain</small><h2>Edificio <em>Burgos</em></h2><p>A five-story residential building, designed inside out. Scroll to open it floor by floor.</p></div>
+<div class="cap"><small>Attic</small><h2>Under the <em>beams</em></h2><p>Attic penthouses with exposed timber, linen and soft daylight.</p></div>
+<div class="cap"><small>Residences</small><h2>Warm wood, <em>calm</em> light</h2><p>Light oak, beige and linen. One Japandi language on every floor.</p></div>
+<div class="cap"><small>Ground floor</small><h2>A quiet <em>welcome</em></h2><p>Common areas and entry, the first impression of the whole building.</p></div>
+<div class="cap"><small>Evening</small><h2>Home after <em>dark</em></h2><p>A space should first make you feel something, then function beautifully around that feeling.</p><a href="#case">Read the case study</a></div>
+<div class="lv"><span>Attic</span><span>Floor 2</span><span>Floor 1</span><span>Ground</span></div>
+<div class="bar"></div></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';
+const root=document.getElementById('sv-burgos'),cv=root.querySelector('canvas'),caps=[...root.querySelectorAll('.cap')],bar=root.querySelector('.bar'),lv=root.querySelector('.lv'),lvs=[...lv.children],ldp=root.querySelector('.ld span');
+const BASE=root.dataset.base??'/images/3d/';
+const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;r.localClippingEnabled=true;
+const sc=new THREE.Scene();const dayBg=new THREE.Color(0xe9e3d9),duskBg=new THREE.Color(0xe2b28e),nightBg=new THREE.Color(0x1e2126);sc.background=dayBg.clone();sc.fog=new THREE.Fog(0xe9e3d9,60,160);
+const cam=new THREE.PerspectiveCamera(32,1,0.2,400);
+const hemi=new THREE.HemisphereLight(0xfffaf0,0x9c8a72,1.25);sc.add(hemi);
+const sun=new THREE.DirectionalLight(0xfff0d8,2.6);sun.castShadow=true;sun.shadow.bias=-0.0004;sun.shadow.normalBias=0.03;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-14,right:14,top:14,bottom:-14,near:1,far:80});sc.add(sun,sun.target);
+const fill=new THREE.PointLight(0xffd6a0,0,40,1.6);sc.add(fill);
+const gnd=new THREE.Mesh(new THREE.CircleGeometry(160,64),new THREE.MeshStandardMaterial({color:0xd8d0c3,roughness:1}));gnd.rotation.x=-Math.PI/2;gnd.receiveShadow=true;sc.add(gnd);
+// cut plane: keeps everything below h
+const cut=new THREE.Plane(new THREE.Vector3(0,-1,0),100);
+let c=new THREE.Vector3(),S=20,ready=false,Y0=0,TOP=12,glow=[],glass=[];
+const LV=[8.68,5.58,2.38,0];// attic, floor 2, floor 1, ground (model levels)
+const dl=new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');const LD=new GLTFLoader().setDRACOLoader(dl);
+LD.load(BASE+'edificio-burgos.glb',g=>{const m=g.scene;sc.add(m);
+ const bb=new THREE.Box3().setFromObject(m);bb.getCenter(c);S=bb.getSize(new THREE.Vector3()).length();Y0=bb.min.y;TOP=bb.max.y;
+ gnd.position.set(c.x,Y0-0.02,c.z);
+ m.traverse(o=>{if(!o.isMesh)return;const M=o.material,n=M.name||'';
+  if(!o.geometry.attributes.normal)o.geometry.computeVertexNormals();
+  M.clippingPlanes=[cut];M.clipShadows=true;
+  if(M.alphaTest>0&&!M.map&&!M.alphaMap)M.alphaTest=0;
+  const isGlass=M.transparent||/glass|glas|vidr|crist/i.test(n);
+  if(isGlass){M.depthWrite=false;o.renderOrder=2;o.castShadow=false;glass.push(M);M.emissive=new THREE.Color(0xffb468);M.emissiveIntensity=0}else{o.castShadow=true}
+  o.receiveShadow=true;
+  if(/emissive|luz|lampada|lamp|difusor aceso|dicroico/i.test(n)){M.emissive=new THREE.Color(0xffc477);M.emissiveIntensity=0;glow.push(M)}});
+ sun.target.position.copy(c);sun.position.set(c.x+18,c.y+26,c.z+12);fill.position.set(c.x,c.y,c.z);
+ root.querySelector('.ld').style.opacity=0;ready=true;fr()},x=>{if(x.total)ldp.textContent=Math.round(x.loaded/x.total*100)+'%'});
+function rs(){const w=cv.clientWidth,h=cv.clientHeight;if(!w)return;r.setSize(w,h,false);cam.aspect=w/h;if(w>700)cam.setViewOffset(w,h,-w*0.15,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}addEventListener('resize',()=>{rs();fr()});rs();new ResizeObserver(()=>{rs();fr()}).observe(cv);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),e=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,sg=(p,a,b)=>e(cl((p-a)/(b-a))),lerp=THREE.MathUtils.lerp;
+const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-innerHeight))};
+// scroll keys: [p, cut height above level (model y), level index]
+const K=[[.14,null],[.22,0],[.34,0],[.42,1],[.52,1],[.58,2],[.66,2],[.72,3],[.80,3],[.88,null]];
+function cutAt(p){if(p<=K[0][0]||p>=K[K.length-1][0])return {h:999,l:-1};
+ const hOf=k=>k[1]===null?TOP+1:Y0+LV[k[1]]+1.55;
+ for(let i=0;i<K.length-1;i++){const a=K[i],b=K[i+1];if(p<=b[0]){const t=e((p-a[0])/(b[0]-a[0]));return {h:lerp(hOf(a),hOf(b),t),l:t<.5?(a[1]??b[1]):(b[1]??a[1])}}}return {h:999,l:-1}}
+function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';
+ const s=p<.16?0:p<.38?1:p<.68?2:p<.84?3:4;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
+ const C=cutAt(p);cut.constant=C.h;lv.classList.toggle('on',C.l>=0);lvs.forEach((x,i)=>x.classList.toggle('on',i===C.l));
+ const open=sg(p,.12,.24)*(1-sg(p,.8,.9));
+ const a=-1.25+p*2.4,el=lerp(.3,1.0,open),d=S*lerp(1.4,.8,open)*(innerWidth<700?1.45:1);
+ const ty=lerp(c.y,(C.l>=0?Y0+LV[C.l]+0.6:c.y),open);
+ cam.position.set(c.x+Math.cos(a)*Math.cos(el)*d,ty+Math.sin(el)*d,c.z+Math.sin(a)*Math.cos(el)*d);cam.lookAt(c.x,ty,c.z);
+ const dk=sg(p,.8,.9),n=sg(p,.88,.97);root.classList.toggle('night',n>.5);
+ sc.background.copy(dayBg).lerp(duskBg,dk).lerp(nightBg,n);sc.fog.color.copy(sc.background);gnd.material.color.setHex(0xd8d0c3).lerp(new THREE.Color(0x2a2c30),n);
+ sun.intensity=2.6*(1-n*.94);sun.color.setHex(0xfff0d8).lerp(new THREE.Color(0xff9a5a),dk);hemi.intensity=1.25*(1-n*.75);fill.intensity=n*60;
+ glow.forEach(M=>M.emissiveIntensity=n*4);glass.forEach(M=>M.emissiveIntensity=n*1.2);
+ r.toneMappingExposure=1-n*.1;r.render(sc,cam)}
+let qq=0;addEventListener('scroll',()=>{if(!qq){qq=1;requestAnimationFrame(()=>{qq=0;fr()})}},{passive:true});
+</script></section>
+
   <div class="hero"><figure><video src="/videos/proj-burgos.mp4" poster="/videos/posters/proj-burgos.webp" autoplay muted loop playsinline aria-label="Edificio Burgos"></video><noscript><img src="/images/home/img-burgos.webp" alt="Edificio Burgos"></noscript></figure></div>
   <main class="wrap">
-    <header class="intro">
+    <header class="intro" id="case">
       <div><p class="eyebrow">Case Study · Burgos, Castilla y León, Spain</p><h1>Edificio Burgos: Interior Design for a Five-Story Building</h1></div>
       <dl class="facts"><div><dt>Location</dt><dd>Burgos, Castilla y León, Spain</dd></div><div><dt>Program</dt><dd>3 units · 2 attic penthouses · common areas</dd></div><div><dt>Style</dt><dd>Japandi · Organic · Mediterranean</dd></div></dl>
     </header>
