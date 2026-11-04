@@ -36,7 +36,7 @@ TERMS_EN_BODY = f"""
 <p>The Site is intended for people aged 18 or over, or for minors acting with the consent and supervision of a parent or legal guardian. The Site is not directed to children under 13. By using the Site you confirm that you meet this requirement and that any information you provide is accurate and your own, or that you are authorized to provide it.</p>
 
 <h2>3. The Site is information, not an offer</h2>
-<p>Everything published on the Site — project pages, renders, drawings, articles, guides, templates, prices or ranges, timelines and descriptions of services — is published for general information and to show previous work. It is <strong>not</strong> an offer capable of acceptance, a quotation, a bid, a contract, or advice for your particular project, lot, budget or jurisdiction.</p>
+<p>Everything published on the Site, project pages, renders, drawings, articles, guides, templates, prices or ranges, timelines and descriptions of services, is published for general information and to show previous work. It is <strong>not</strong> an offer capable of acceptance, a quotation, a bid, a contract, or advice for your particular project, lot, budget or jurisdiction.</p>
 <p>Studio Valentina provides services only under a separate written agreement signed by both parties, which defines the scope, deliverables, fees, schedule, responsibilities and limits of that engagement. Nothing on the Site modifies a signed agreement, and in case of any conflict the signed agreement prevails.</p>
 
 <h2>4. Professional status and licensure</h2>
@@ -49,7 +49,7 @@ TERMS_EN_BODY = f"""
 <p>They do not constitute architectural, engineering, construction, legal, tax, insurance or financial advice, and you should not rely on them as a substitute for the opinion of a qualified professional or of the authority having jurisdiction. Any figure, cost range, duration or code reference is an illustration, not a commitment, and must be verified before you act on it.</p>
 
 <h2>6. Intellectual property</h2>
-<p>All content on the Site — including designs, floor plans, elevations, 3D models, renders, photographs, video, text, articles, templates, graphics, the Studio Valentina name and logo, and the Nala illustrations — is owned by Valentina Arboleda or used with permission, and is protected by copyright, trademark and other intellectual property laws of the United States and other countries.</p>
+<p>All content on the Site, including designs, floor plans, elevations, 3D models, renders, photographs, video, text, articles, templates, graphics, the Studio Valentina name and logo, and the Nala illustrations, is owned by Valentina Arboleda or used with permission, and is protected by copyright, trademark and other intellectual property laws of the United States and other countries.</p>
 <p>You are granted a limited, personal, non-exclusive, non-transferable and revocable license to view the Site and to use the free resources as described in section 7. You may not, without our prior written consent:</p>
 <ul>
 <li>copy, reproduce, republish, distribute, sell, license or exploit any content commercially;</li>
@@ -71,7 +71,7 @@ TERMS_EN_BODY = f"""
 
 <h2>9. Client Portal</h2>
 <p>The Client Portal is reserved for clients who have been invited by Studio Valentina. You are responsible for keeping your credentials confidential, for everything done through your account, and for telling us immediately at <a href="mailto:{EMAIL}">{EMAIL}</a> if you suspect unauthorized access.</p>
-<p>Information shown in the Portal — phases, status, next steps, updates and documents — is a convenience summary maintained manually. It may be incomplete or out of date, and it does not replace your signed agreement, the official project documents, the permit set or any communication from your contractor or the authority having jurisdiction. Where the Portal and your written agreement differ, the agreement controls.</p>
+<p>Information shown in the Portal, phases, status, next steps, updates and documents, is a convenience summary maintained manually. It may be incomplete or out of date, and it does not replace your signed agreement, the official project documents, the permit set or any communication from your contractor or the authority having jurisdiction. Where the Portal and your written agreement differ, the agreement controls.</p>
 <p>We may suspend, change or close Portal access, including on completion of a project, or if an account is misused.</p>
 
 <h2>10. Communications</h2>
@@ -96,7 +96,7 @@ TERMS_EN_BODY = f"""
 <p>You agree to indemnify and hold harmless Studio Valentina and Valentina Arboleda from any claim, loss, liability, cost or expense, including reasonable legal fees, arising from your misuse of the Site or the Resources, your breach of these Terms, or your violation of any law or third-party right.</p>
 
 <h2>16. Suspension and termination</h2>
-<p>We may restrict or end your access to the Site, a Resource or the Client Portal at any time if we reasonably believe you have breached these Terms or that your use harms the Site, our clients or a third party. Sections that by their nature should survive termination — including intellectual property, disclaimers, limitation of liability, indemnification and governing law — will survive.</p>
+<p>We may restrict or end your access to the Site, a Resource or the Client Portal at any time if we reasonably believe you have breached these Terms or that your use harms the Site, our clients or a third party. Sections that by their nature should survive termination, including intellectual property, disclaimers, limitation of liability, indemnification and governing law, will survive.</p>
 
 <h2>17. Governing law and disputes</h2>
 <p>These Terms are governed by the laws of the State of Georgia, United States, without regard to conflict-of-law principles. Before starting any formal proceeding, you agree to contact us at <a href="mailto:{EMAIL}">{EMAIL}</a> and to try in good faith to resolve the matter informally for at least thirty (30) days.</p>
@@ -109,7 +109,7 @@ TERMS_EN_BODY = f"""
 <p>We may update these Terms. The "last updated" date above shows the current version, and your continued use of the Site after a change means you accept the updated Terms. For material changes we will make the update visible on this page.</p>
 
 <h2>20. Contact</h2>
-<p>Studio Valentina — Valentina Arboleda<br>
+<p>Studio Valentina, Valentina Arboleda<br>
 Peachtree City, Georgia, United States<br>
 Email: <a href="mailto:{EMAIL}">{EMAIL}</a><br>
 WhatsApp: +1 (678) 490-5574</p>
@@ -125,7 +125,7 @@ TERMS_ES_BODY = f"""
 <p>El Sitio está dirigido a personas mayores de 18 años, o a menores que actúen con el consentimiento y la supervisión de su padre, madre o tutor legal. El Sitio no está dirigido a menores de 13 años. Al usarlo, usted confirma que cumple este requisito y que la información que entrega es veraz y propia, o que está autorizado para entregarla.</p>
 
 <h2>3. El Sitio es información, no una oferta</h2>
-<p>Todo lo publicado en el Sitio — páginas de proyectos, renders, planos, artículos, guías, plantillas, precios o rangos, plazos y descripciones de servicios — se publica con fines informativos y para mostrar trabajo previo. <strong>No</strong> es una oferta susceptible de aceptación, ni una cotización, ni una propuesta, ni un contrato, ni asesoría para su proyecto, lote, presupuesto o jurisdicción en particular.</p>
+<p>Todo lo publicado en el Sitio, páginas de proyectos, renders, planos, artículos, guías, plantillas, precios o rangos, plazos y descripciones de servicios, se publica con fines informativos y para mostrar trabajo previo. <strong>No</strong> es una oferta susceptible de aceptación, ni una cotización, ni una propuesta, ni un contrato, ni asesoría para su proyecto, lote, presupuesto o jurisdicción en particular.</p>
 <p>Studio Valentina presta servicios únicamente mediante un acuerdo escrito firmado por ambas partes, que define el alcance, los entregables, los honorarios, el cronograma, las responsabilidades y los límites de ese encargo. Nada en el Sitio modifica un acuerdo firmado y, en caso de conflicto, prevalece el acuerdo firmado.</p>
 
 <h2>4. Situación profesional y licencia</h2>
@@ -138,7 +138,7 @@ TERMS_ES_BODY = f"""
 <p>No constituyen asesoría arquitectónica, de ingeniería, de construcción, legal, tributaria, de seguros ni financiera, y no deben reemplazar la opinión de un profesional calificado ni de la autoridad competente. Cualquier cifra, rango de costos, plazo o referencia normativa es un ejemplo, no un compromiso, y debe verificarse antes de actuar con base en él.</p>
 
 <h2>6. Propiedad intelectual</h2>
-<p>Todo el contenido del Sitio — diseños, plantas, alzados, modelos 3D, renders, fotografías, video, textos, artículos, plantillas, gráficos, el nombre y el logo de Studio Valentina y las ilustraciones de Nala — pertenece a Valentina Arboleda o se usa con autorización, y está protegido por las leyes de derechos de autor, marcas y demás normas de propiedad intelectual de Estados Unidos y de otros países.</p>
+<p>Todo el contenido del Sitio, diseños, plantas, alzados, modelos 3D, renders, fotografías, video, textos, artículos, plantillas, gráficos, el nombre y el logo de Studio Valentina y las ilustraciones de Nala, pertenece a Valentina Arboleda o se usa con autorización, y está protegido por las leyes de derechos de autor, marcas y demás normas de propiedad intelectual de Estados Unidos y de otros países.</p>
 <p>Se le concede una licencia limitada, personal, no exclusiva, intransferible y revocable para ver el Sitio y usar los recursos gratuitos según la sección 7. Sin nuestro consentimiento previo por escrito, usted no puede:</p>
 <ul>
 <li>copiar, reproducir, republicar, distribuir, vender, licenciar o explotar comercialmente ningún contenido;</li>
@@ -160,7 +160,7 @@ TERMS_ES_BODY = f"""
 
 <h2>9. Portal de Clientes</h2>
 <p>El Portal de Clientes está reservado a clientes invitados por Studio Valentina. Usted es responsable de mantener sus credenciales en reserva, de todo lo que ocurra a través de su cuenta y de avisarnos de inmediato a <a href="mailto:{EMAIL}">{EMAIL}</a> si sospecha de un acceso no autorizado.</p>
-<p>La información del Portal — fases, estado, próximos pasos, actualizaciones y documentos — es un resumen de conveniencia que se mantiene manualmente. Puede estar incompleta o desactualizada y no reemplaza su acuerdo firmado, los documentos oficiales del proyecto, el juego de planos aprobado ni las comunicaciones de su contratista o de la autoridad competente. Si el Portal y su acuerdo escrito difieren, prevalece el acuerdo.</p>
+<p>La información del Portal, fases, estado, próximos pasos, actualizaciones y documentos, es un resumen de conveniencia que se mantiene manualmente. Puede estar incompleta o desactualizada y no reemplaza su acuerdo firmado, los documentos oficiales del proyecto, el juego de planos aprobado ni las comunicaciones de su contratista o de la autoridad competente. Si el Portal y su acuerdo escrito difieren, prevalece el acuerdo.</p>
 <p>Podemos suspender, modificar o cerrar el acceso al Portal, incluso al terminar un proyecto o si se hace un uso indebido de una cuenta.</p>
 
 <h2>10. Comunicaciones</h2>
@@ -185,7 +185,7 @@ TERMS_ES_BODY = f"""
 <p>Usted se obliga a mantener indemne a Studio Valentina y a Valentina Arboleda frente a cualquier reclamación, pérdida, responsabilidad, costo o gasto, incluidos honorarios legales razonables, derivados del uso indebido del Sitio o de los Recursos, del incumplimiento de estos Términos o de la vulneración de una ley o de un derecho de un tercero.</p>
 
 <h2>16. Suspensión y terminación</h2>
-<p>Podemos restringir o terminar su acceso al Sitio, a un Recurso o al Portal de Clientes en cualquier momento si creemos razonablemente que ha incumplido estos Términos o que su uso perjudica el Sitio, a nuestros clientes o a un tercero. Las secciones que por su naturaleza deban subsistir — propiedad intelectual, exclusión de garantías, limitación de responsabilidad, indemnidad y ley aplicable — seguirán vigentes.</p>
+<p>Podemos restringir o terminar su acceso al Sitio, a un Recurso o al Portal de Clientes en cualquier momento si creemos razonablemente que ha incumplido estos Términos o que su uso perjudica el Sitio, a nuestros clientes o a un tercero. Las secciones que por su naturaleza deban subsistir, propiedad intelectual, exclusión de garantías, limitación de responsabilidad, indemnidad y ley aplicable, seguirán vigentes.</p>
 
 <h2>17. Ley aplicable y controversias</h2>
 <p>Estos Términos se rigen por las leyes del Estado de Georgia, Estados Unidos, sin aplicar sus normas de conflicto de leyes. Antes de iniciar cualquier procedimiento formal, usted acepta escribirnos a <a href="mailto:{EMAIL}">{EMAIL}</a> e intentar de buena fe resolver el asunto de manera informal durante al menos treinta (30) días.</p>
@@ -198,7 +198,7 @@ TERMS_ES_BODY = f"""
 <p>Podemos actualizar estos Términos. La fecha de actualización que aparece arriba indica la versión vigente, y el uso continuado del Sitio después de un cambio significa que acepta la versión actualizada. Los cambios importantes se publicarán de forma visible en esta página.</p>
 
 <h2>20. Contacto</h2>
-<p>Studio Valentina — Valentina Arboleda<br>
+<p>Studio Valentina, Valentina Arboleda<br>
 Peachtree City, Georgia, Estados Unidos<br>
 Correo: <a href="mailto:{EMAIL}">{EMAIL}</a><br>
 WhatsApp: +1 (678) 490-5574</p>
@@ -243,13 +243,13 @@ PRIVACY_EN_BODY = f"""
 <h2>6. Who we share it with</h2>
 <p>We share personal information only with providers that help us operate, and only as needed. Each processes data under its own terms:</p>
 <ul>
-<li><strong>GitHub Pages</strong> (GitHub, Inc.) — hosting and delivery of the Site.</li>
-<li><strong>Google Firebase</strong> (Google LLC) — authentication and database for the Client Portal and for resource download records.</li>
-<li><strong>Google Analytics</strong> (Google LLC) — usage statistics, only with your consent.</li>
-<li><strong>Google Fonts</strong> (Google LLC) — typography; loading a font involves a request to Google's servers.</li>
-<li><strong>Google Translate</strong> (Google LLC) — optional on-page translation when you choose a language other than the ones we publish.</li>
-<li><strong>WhatsApp / Meta Platforms</strong> — if you choose to write to us on WhatsApp.</li>
-<li><strong>Email provider</strong> — to receive and answer your messages.</li>
+<li><strong>GitHub Pages</strong> (GitHub, Inc.), hosting and delivery of the Site.</li>
+<li><strong>Google Firebase</strong> (Google LLC), authentication and database for the Client Portal and for resource download records.</li>
+<li><strong>Google Analytics</strong> (Google LLC), usage statistics, only with your consent.</li>
+<li><strong>Google Fonts</strong> (Google LLC), typography; loading a font involves a request to Google's servers.</li>
+<li><strong>Google Translate</strong> (Google LLC), optional on-page translation when you choose a language other than the ones we publish.</li>
+<li><strong>WhatsApp / Meta Platforms</strong>, if you choose to write to us on WhatsApp.</li>
+<li><strong>Email provider</strong>, to receive and answer your messages.</li>
 </ul>
 <p>We may also disclose information if required by law, court order or a valid request from a public authority; to protect our rights, safety or property or those of others; or in connection with a reorganization, merger or sale of the business, in which case we will require the recipient to honour this Policy.</p>
 
@@ -271,7 +271,7 @@ PRIVACY_EN_BODY = f"""
 
 <h2>10. Your rights</h2>
 <p>Depending on where you live, you may have the right to: know what personal information we hold and obtain a copy; correct inaccurate information; request deletion; restrict or object to certain processing; withdraw consent at any time; receive your information in a portable format; and not be discriminated against for exercising these rights.</p>
-<p>Residents of U.S. states with comprehensive privacy laws — including California, Virginia, Colorado, Connecticut, Utah, Texas and others — may exercise the rights those laws grant, including the right to appeal a refusal. Georgia does not currently have a comprehensive consumer privacy statute, but we extend these rights to all visitors.</p>
+<p>Residents of U.S. states with comprehensive privacy laws, including California, Virginia, Colorado, Connecticut, Utah, Texas and others, may exercise the rights those laws grant, including the right to appeal a refusal. Georgia does not currently have a comprehensive consumer privacy statute, but we extend these rights to all visitors.</p>
 <p>To exercise any right, write to <a href="mailto:{EMAIL}">{EMAIL}</a> from the email address concerned, or tell us how we can verify your identity. We answer within 30 days, or 45 days where the law allows an extension and we tell you why. You may use an authorized agent where the law permits. If you are in the EEA or the UK, you may also complain to your national supervisory authority.</p>
 
 <h2>11. Marketing emails</h2>
@@ -290,7 +290,7 @@ PRIVACY_EN_BODY = f"""
 <p>We may update this Policy to reflect changes in our practices or in the law. The "last updated" date above shows the current version. If a change is material, we will make it visible on this page before it takes effect.</p>
 
 <h2>16. Contact</h2>
-<p>Studio Valentina — Valentina Arboleda<br>
+<p>Studio Valentina, Valentina Arboleda<br>
 Peachtree City, Georgia, United States<br>
 Email: <a href="mailto:{EMAIL}">{EMAIL}</a><br>
 WhatsApp: +1 (678) 490-5574</p>
@@ -335,13 +335,13 @@ PRIVACY_ES_BODY = f"""
 <h2>6. Con quién la compartimos</h2>
 <p>Compartimos información personal solo con proveedores que nos ayudan a operar, y solo en lo necesario. Cada uno trata los datos bajo sus propias condiciones:</p>
 <ul>
-<li><strong>GitHub Pages</strong> (GitHub, Inc.) — alojamiento y entrega del Sitio.</li>
-<li><strong>Google Firebase</strong> (Google LLC) — autenticación y base de datos del Portal de Clientes y de los registros de descarga de recursos.</li>
-<li><strong>Google Analytics</strong> (Google LLC) — estadísticas de uso, solo con su consentimiento.</li>
-<li><strong>Google Fonts</strong> (Google LLC) — tipografías; cargar una fuente implica una solicitud a los servidores de Google.</li>
-<li><strong>Google Translate</strong> (Google LLC) — traducción opcional de la página cuando elige un idioma distinto a los que publicamos.</li>
-<li><strong>WhatsApp / Meta Platforms</strong> — si decide escribirnos por WhatsApp.</li>
-<li><strong>Proveedor de correo electrónico</strong> — para recibir y responder sus mensajes.</li>
+<li><strong>GitHub Pages</strong> (GitHub, Inc.), alojamiento y entrega del Sitio.</li>
+<li><strong>Google Firebase</strong> (Google LLC), autenticación y base de datos del Portal de Clientes y de los registros de descarga de recursos.</li>
+<li><strong>Google Analytics</strong> (Google LLC), estadísticas de uso, solo con su consentimiento.</li>
+<li><strong>Google Fonts</strong> (Google LLC), tipografías; cargar una fuente implica una solicitud a los servidores de Google.</li>
+<li><strong>Google Translate</strong> (Google LLC), traducción opcional de la página cuando elige un idioma distinto a los que publicamos.</li>
+<li><strong>WhatsApp / Meta Platforms</strong>, si decide escribirnos por WhatsApp.</li>
+<li><strong>Proveedor de correo electrónico</strong>, para recibir y responder sus mensajes.</li>
 </ul>
 <p>También podemos revelar información si lo exige la ley, una orden judicial o una solicitud válida de una autoridad pública; para proteger nuestros derechos, seguridad o bienes o los de terceros; o en el marco de una reorganización, fusión o venta del negocio, en cuyo caso exigiremos al receptor respetar esta Política.</p>
 
@@ -363,7 +363,7 @@ PRIVACY_ES_BODY = f"""
 
 <h2>10. Sus derechos</h2>
 <p>Según dónde viva, puede tener derecho a: saber qué información personal tenemos y obtener una copia; corregir información inexacta; solicitar su eliminación; limitar u oponerse a ciertos tratamientos; retirar su consentimiento en cualquier momento; recibir su información en un formato portable; y a no ser discriminado por ejercer estos derechos.</p>
-<p>Los residentes de estados de EE.UU. con leyes integrales de privacidad — California, Virginia, Colorado, Connecticut, Utah, Texas y otros — pueden ejercer los derechos que esas leyes conceden, incluido el de apelar una negativa. Georgia no cuenta hoy con una ley integral de privacidad del consumidor, pero extendemos estos derechos a todos los visitantes.</p>
+<p>Los residentes de estados de EE.UU. con leyes integrales de privacidad, California, Virginia, Colorado, Connecticut, Utah, Texas y otros, pueden ejercer los derechos que esas leyes conceden, incluido el de apelar una negativa. Georgia no cuenta hoy con una ley integral de privacidad del consumidor, pero extendemos estos derechos a todos los visitantes.</p>
 <p>Para ejercer cualquier derecho, escriba a <a href="mailto:{EMAIL}">{EMAIL}</a> desde el correo correspondiente, o indíquenos cómo verificar su identidad. Respondemos en 30 días, o en 45 cuando la ley permite una prórroga y le explicamos el motivo. Puede actuar por medio de un representante autorizado cuando la ley lo permita. Si está en el EEE o el Reino Unido, también puede presentar una reclamación ante su autoridad de control.</p>
 
 <h2>11. Correos de marketing</h2>
@@ -382,7 +382,7 @@ PRIVACY_ES_BODY = f"""
 <p>Podemos actualizar esta Política para reflejar cambios en nuestras prácticas o en la ley. La fecha de actualización que aparece arriba indica la versión vigente. Si un cambio es importante, lo publicaremos de forma visible en esta página antes de que entre en vigor.</p>
 
 <h2>16. Contacto</h2>
-<p>Studio Valentina — Valentina Arboleda<br>
+<p>Studio Valentina, Valentina Arboleda<br>
 Peachtree City, Georgia, Estados Unidos<br>
 Correo: <a href="mailto:{EMAIL}">{EMAIL}</a><br>
 WhatsApp: +1 (678) 490-5574</p>
@@ -406,11 +406,11 @@ COOKIES_EN_BODY = f"""
 
 <h2>4. The specific cookies and storage we use</h2>
 <ul>
-<li><strong>sv_cookie_choice</strong> — first party, local storage, strictly necessary. Remembers whether you accepted or declined analytics so the notice is not shown again. Kept until you clear your browser storage.</li>
-<li><strong>googtrans</strong> — first party, cookie, functional. Records the language you selected. Kept for the browsing session or until you switch back.</li>
-<li><strong>Firebase Authentication storage</strong> — first party, local storage, strictly necessary. Keeps you signed in to the Client Portal and is cleared when you sign out.</li>
-<li><strong>_ga</strong> — third party (Google), analytics, optional. Distinguishes one browser from another. Up to 2 years.</li>
-<li><strong>_ga_&lt;container-id&gt;</strong> — third party (Google), analytics, optional. Maintains the session state for Google Analytics 4. Up to 2 years.</li>
+<li><strong>sv_cookie_choice</strong>, first party, local storage, strictly necessary. Remembers whether you accepted or declined analytics so the notice is not shown again. Kept until you clear your browser storage.</li>
+<li><strong>googtrans</strong>, first party, cookie, functional. Records the language you selected. Kept for the browsing session or until you switch back.</li>
+<li><strong>Firebase Authentication storage</strong>, first party, local storage, strictly necessary. Keeps you signed in to the Client Portal and is cleared when you sign out.</li>
+<li><strong>_ga</strong>, third party (Google), analytics, optional. Distinguishes one browser from another. Up to 2 years.</li>
+<li><strong>_ga_&lt;container-id&gt;</strong>, third party (Google), analytics, optional. Maintains the session state for Google Analytics 4. Up to 2 years.</li>
 </ul>
 <p>Names and durations are set by the providers and may change. If you want to see exactly what is stored during a visit, your browser's developer tools list every cookie and storage key for this Site.</p>
 
@@ -473,11 +473,11 @@ COOKIES_ES_BODY = f"""
 
 <h2>4. Cookies y almacenamiento específicos que usamos</h2>
 <ul>
-<li><strong>sv_cookie_choice</strong> — propia, almacenamiento local, estrictamente necesaria. Recuerda si aceptó o rechazó la analítica para no volver a mostrar el aviso. Se conserva hasta que borre el almacenamiento de su navegador.</li>
-<li><strong>googtrans</strong> — propia, cookie, funcional. Registra el idioma que eligió. Dura la sesión de navegación o hasta que vuelva al idioma original.</li>
-<li><strong>Almacenamiento de Firebase Authentication</strong> — propia, almacenamiento local, estrictamente necesaria. Lo mantiene con sesión iniciada en el Portal de Clientes y se borra al cerrar sesión.</li>
-<li><strong>_ga</strong> — de terceros (Google), analítica, opcional. Distingue un navegador de otro. Hasta 2 años.</li>
-<li><strong>_ga_&lt;id-de-contenedor&gt;</strong> — de terceros (Google), analítica, opcional. Mantiene el estado de la sesión en Google Analytics 4. Hasta 2 años.</li>
+<li><strong>sv_cookie_choice</strong>, propia, almacenamiento local, estrictamente necesaria. Recuerda si aceptó o rechazó la analítica para no volver a mostrar el aviso. Se conserva hasta que borre el almacenamiento de su navegador.</li>
+<li><strong>googtrans</strong>, propia, cookie, funcional. Registra el idioma que eligió. Dura la sesión de navegación o hasta que vuelva al idioma original.</li>
+<li><strong>Almacenamiento de Firebase Authentication</strong>, propia, almacenamiento local, estrictamente necesaria. Lo mantiene con sesión iniciada en el Portal de Clientes y se borra al cerrar sesión.</li>
+<li><strong>_ga</strong>, de terceros (Google), analítica, opcional. Distingue un navegador de otro. Hasta 2 años.</li>
+<li><strong>_ga_&lt;id-de-contenedor&gt;</strong>, de terceros (Google), analítica, opcional. Mantiene el estado de la sesión en Google Analytics 4. Hasta 2 años.</li>
 </ul>
 <p>Los nombres y las duraciones los definen los proveedores y pueden cambiar. Si quiere ver exactamente qué se guarda durante una visita, las herramientas de desarrollo de su navegador listan todas las cookies y claves de almacenamiento de este Sitio.</p>
 
