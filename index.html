@@ -114,27 +114,105 @@
   <div id="page-home" class="page active">
 
     <!-- HERO -->
-    <section class="h-hero">
-      <img class="bg" fetchpriority="high" src="images/home/img-hero.webp" alt="Architectural visualization of a modern building">
-      <div class="h-hero-content">
-        <div class="h-hero-tag">Architecture · Interior Design · Atlanta, GA &amp; Latin America</div>
-        <div>
-          <h1 class="h-hero-title"><span class="sr-only">Valentina Arboleda — Architectural Designer and Interior Designer in Atlanta, Georgia. </span>My <em>Portfolio</em></h1>
-          <p class="h-hero-sub">Architecture, visualization and design that connects people to place — rooted in
-            emotion, strategy and clarity.</p>
-          <div class="h-hero-actions">
-            <span class="pill pill-dark" onclick="showPage('projects')">MY PROJECTS →</span>
-            <div class="h-hero-ncarb"><span class="h-hero-ncarb-pill">NCARB</span> International Architect Path</div>
-          </div>
-        </div>
-        <div class="h-hero-bottom">
-          <span>Colombia · Spain · USA</span>
-          <div class="h-scroll"><span>Scroll to explore</span>
-            <div class="h-scroll-dot">↓</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- HERO: Arboretum 2 interactive 3D -->
+<section id="sv-acol" class="sv-home">
+<style>
+#sv-acol{position:relative;height:700vh;background:#f0eeed;color:#4a4540;font-family:'DM Sans',system-ui,sans-serif;margin:0 0 16px}
+#sv-acol .st{position:sticky;top:0;height:100vh;overflow:hidden}
+#sv-acol canvas{display:block;width:100%;height:100%}
+#sv-acol .st:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(240,238,237,.9) 0,rgba(240,238,237,.55) 26%,rgba(240,238,237,0) 46%);pointer-events:none;transition:opacity .8s}
+#sv-acol.night .st:after{opacity:.25}
+#sv-acol .cap{z-index:2;position:absolute;left:7vw;bottom:13vh;max-width:min(460px,86vw);opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s,color .8s}
+#sv-acol .cap.on{opacity:1;transform:none}
+#sv-acol .cap small{display:block;letter-spacing:.28em;text-transform:uppercase;font-size:11px;color:#9a7f61;margin-bottom:14px}
+#sv-acol .cap h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:clamp(42px,5.5vw,80px);line-height:1;letter-spacing:-.02em;margin:0 0 14px;color:#27231f;transition:color .8s}
+#sv-acol .cap h2 em,#sv-acol .sv-h1 em{font-style:italic}
+#sv-acol .sv-h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:clamp(52px,7vw,104px);line-height:.95;letter-spacing:-.02em;margin:0 0 16px;color:#27231f}
+#sv-acol .sv-btn{display:inline-block;margin-top:20px;padding:12px 22px;border-radius:999px;background:#4a4540;color:#f5f0e8;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;pointer-events:auto}
+#sv-acol.sv-home .st:after{background:linear-gradient(90deg,rgba(240,238,237,.95) 0,rgba(240,238,237,.7) 30%,rgba(240,238,237,0) 50%)}
+@media (max-width:700px){#sv-acol.sv-home .st:after{background:linear-gradient(180deg,rgba(240,238,237,0) 38%,rgba(240,238,237,.9) 62%,rgba(240,238,237,.97))}#sv-acol .sv-h1{font-size:54px}#sv-acol.sv-home .cap{bottom:9vh}}
+#sv-acol .cap p{font-size:16px;line-height:1.6;margin:0;color:#4a4540;transition:color .8s}
+#sv-acol.night .cap h2{color:#f5f0e8}#sv-acol.night .cap p{color:#e6ded7}
+#sv-acol .cap a{display:inline-block;margin-top:18px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#d9c4a3;text-decoration:none;border-bottom:1px solid #9a7f61;padding-bottom:3px;pointer-events:auto}
+#sv-acol .ld{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);letter-spacing:.3em;font-size:11px;text-transform:uppercase;color:#9a7f61;transition:opacity .5s}
+#sv-acol .bar{position:absolute;left:0;bottom:0;height:2px;background:#9a7f61;width:0;z-index:3}
+@media (max-width:700px){#sv-acol .st:after{background:linear-gradient(0deg,rgba(240,238,237,.92) 0,rgba(240,238,237,0) 55%)}#sv-acol .cap{bottom:9vh;left:6vw}}
+</style>
+<div class="st"><canvas></canvas><div class="ld">Loading model</div>
+<div class="cap on"><small>Architecture · Interior Design · Atlanta, GA &amp; Latin America</small><h1 class="sv-h1"><span class="sr-only">Valentina Arboleda — Architectural Designer and Interior Designer in Atlanta, Georgia. </span>My <em>Portfolio</em></h1><p>Architecture, visualization and design that connects people to place. Scroll to explore Arboretum 2, a winning project in Colombia.</p><span class="sv-btn" onclick="showPage('projects')">My projects →</span></div>
+<div class="cap"><small>Arboretum 2 · Landscape</small><h2>Nature as <em>program</em></h2><p>Planted terraces, gardens and open plazas run through the whole complex.</p></div>
+<div class="cap"><small>Public space</small><h2>Walking through a <em>landscape</em></h2><p>Curved paths, shaded plazas and terraces that follow the terrain and frame the views.</p></div>
+<div class="cap"><small>Evening</small><h2>Alive after <em>dark</em></h2><p>When architecture follows the land, nature becomes part of every space.</p><a href="/projects/arboretum-2-commercial-architecture-colombia/">View the case study</a></div>
+<div class="bar"></div></div>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+const root=document.getElementById('sv-acol'),cv=root.querySelector('canvas'),caps=[...root.querySelectorAll('.cap')],bar=root.querySelector('.bar');
+const BASE=root.dataset.base??'/images/3d/';
+const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
+const sc=new THREE.Scene();const dayBg=new THREE.Color(0xdfe7ea),duskBg=new THREE.Color(0xe7b48c),nightBg=new THREE.Color(0x1d2228);sc.background=dayBg.clone();sc.fog=new THREE.Fog(0xdfe7ea,160,420);
+const cam=new THREE.PerspectiveCamera(32,1,0.5,900);
+const hemi=new THREE.HemisphereLight(0xf3f6ff,0x8a8a70,1.1);sc.add(hemi);const sun=new THREE.DirectionalLight(0xfff1dc,3);sun.castShadow=true;sun.shadow.bias=-0.0006;sun.shadow.normalBias=0.06;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-80,right:80,top:80,bottom:-80,far:300});sc.add(sun,sun.target);
+const gnd=new THREE.Mesh(new THREE.CircleGeometry(420,64),new THREE.MeshStandardMaterial({color:0x7d9256,roughness:1}));gnd.rotation.x=-Math.PI/2;gnd.receiveShadow=true;sc.add(gnd);
+// mountains
+{const g=new THREE.CylinderGeometry(330,360,70,140,6,true);const p=g.attributes.position;for(let i=0;i<p.count;i++){const y=p.getY(i);if(y>-30){const a=Math.atan2(p.getZ(i),p.getX(i));const h=(Math.sin(a*5)*.5+Math.sin(a*13+1)*.3+Math.sin(a*29+2)*.15+1)*0.55;p.setY(i,-35+(y+35)*h)}}g.computeVertexNormals();const mt=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x7f9470,roughness:1,side:THREE.BackSide,flatShading:true}));mt.position.y=34;sc.add(mt);var MT=mt}
+let L=[],c=new THREE.Vector3(),S=80,ready=false,lampMat,winMat,W=[],GR=[];
+const dl=new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');const LD=new GLTFLoader().setDRACOLoader(dl);
+const pts=fetch(BASE+'arboretum-col-pts.json').then(r=>r.json());
+LD.load(BASE+'arboretum-col.glb',async g=>{const m=g.scene;sc.add(m);
+ m.traverse(o=>{if(o.isMesh){o.castShadow=!o.material.transparent;o.receiveShadow=true;if(o.material.transparent){o.material.depthWrite=false;o.renderOrder=2}if(o.material.name==='glass')winMat=o.material}});
+ const names=['L0','L1','L2','L3','L4','L5','ROOF'];L=names.map(n=>m.getObjectByName(n)).filter(Boolean);L.forEach(o=>o.userData.y0=o.position.y);
+ const bb=new THREE.Box3();L.slice(1).forEach(o=>bb.expandByObject(o));bb.getCenter(c);S=bb.getSize(new THREE.Vector3()).length();
+ const GY=14.5;gnd.position.set(c.x,GY,c.z);MT.position.set(c.x,GY+33,c.z);L.forEach((o,i)=>{if(i<3)o.traverse(q=>{if(q.isMesh){q.castShadow=false}})});
+ sun.target.position.copy(c);sun.position.set(c.x+70,c.y+110,c.z+50);
+ const P=await pts;const cuts=[6,9.5,13,18,23,28];const grp=y=>{let i=cuts.findIndex(k=>y<k);return L[i<0?6:i]||m};
+ const rnd=(i)=>((Math.sin(i*12.9898)*43758.5453)%1+1)%1;
+ // terrace plants (bushes) + hanging greenery
+ const parts=[];for(let k=0;k<6;k++){const g0=new THREE.IcosahedronGeometry(.22+rnd(k+40)*.18,0);g0.translate((rnd(k)-.5)*.9,rnd(k+9)*.35,(rnd(k+20)-.5)*.9);parts.push(g0)}
+ for(let k=0;k<5;k++){const g1=new THREE.ConeGeometry(.05,.9+rnd(k+60)*.5,4);g1.rotateZ((rnd(k+70)-.5)*.9);g1.translate((rnd(k+80)-.5)*.6,.45,(rnd(k+90)-.5)*.6);parts.push(g1)}
+ const bushG=mergeGeometries(parts.map(g=>g.toNonIndexed()));const bushM=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.9,flatShading:true});
+ const vp=[];for(let k=0;k<7;k++){const g2=new THREE.IcosahedronGeometry(.16+rnd(k+100)*.08,0);g2.translate((rnd(k+110)-.5)*.35,-k*.32,(rnd(k+120)-.5)*.2);vp.push(g2.toNonIndexed())}
+ const hangG=mergeGeometries(vp),hangM=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.9,flatShading:true});
+ const greens=[0x4c7a33,0x5f8f3c,0x3f6b2c,0x6e9a45,0x7a8f3a,0x557f2f].map(h=>new THREE.Color(h));
+ const byG=new Map();P.rail.forEach((p,i)=>{const gp=grp(p[1]);if(!byG.has(gp))byG.set(gp,[]);byG.get(gp).push([p,i])});
+ for(const [gp,arr] of byG){const ib=new THREE.InstancedMesh(bushG,bushM,arr.length*2),ih=new THREE.InstancedMesh(hangG,hangM,arr.length*2);const o=new THREE.Object3D();let k=0,h=0;
+  arr.forEach(([p,i])=>{for(let j=0;j<2;j++){o.position.set(p[0]+(rnd(i+j)-.5)*.8,p[1]-0.6+rnd(i*3+j)*.25,p[2]+(rnd(i*7+j)-.5)*.8);o.scale.setScalar(.8+rnd(i*5+j)*.6);o.rotation.set(0,rnd(i+j)*6,0);o.updateMatrix();ib.setColorAt(k,greens[(i+j)%6]);ib.setMatrixAt(k++,o.matrix)}
+   for(let j=0;j<2;j++){o.position.set(p[0]+(rnd(i*13+j)-.5)*1.2,p[1]-0.7,p[2]+(rnd(i*17+j)-.5)*1.2);o.rotation.set(0,rnd(i*19+j)*6,0);o.scale.set(1,.5+rnd(i*11+j)*.9,1);o.updateMatrix();ih.setColorAt(h,greens[(i*3+j)%6]);ih.setMatrixAt(h++,o.matrix)}});
+  ib.castShadow=ih.castShadow=true;gp.add(ib,ih)}
+ // smooth roof caps (cover openings on the roofs)
+ if(P.cap){const capM=m.getObjectByName('ROOF');let wm=null;m.traverse(o=>{if(!wm&&o.isMesh&&o.material.name==='white')wm=o.material});const gs=P.cap.map(([x,z0,z1])=>{const g=new THREE.BoxGeometry(1.02,.08,z1-z0+1.02);g.translate(x,30.06,(z0+z1)/2);return g});const cg=mergeGeometries(gs);const cm=new THREE.Mesh(cg,new THREE.MeshStandardMaterial({color:0xf3f1ec,roughness:.9}));cm.receiveShadow=false;cm.castShadow=false;(capM||m).add(cm)}
+ // lamps
+ const lampN=Math.min(28,P.plaza.length);const poleG=new THREE.CylinderGeometry(.06,.08,4.2,6),headG=new THREE.SphereGeometry(.22,10,8);lampMat=new THREE.MeshStandardMaterial({color:0xfff2d0,emissive:0xffc77a,emissiveIntensity:0});
+ const ip=new THREE.InstancedMesh(poleG,new THREE.MeshStandardMaterial({color:0x222222,roughness:.5}),lampN),ih2=new THREE.InstancedMesh(headG,lampMat,lampN);{const o=new THREE.Object3D();for(let i=0;i<lampN;i++){const p=P.plaza[Math.floor(i*P.plaza.length/lampN)];o.position.set(p[0]+1.2,p[1]+2.1,p[2]+1.2);o.scale.setScalar(1);o.rotation.set(0,0,0);o.updateMatrix();ip.setMatrixAt(i,o.matrix);o.position.y=p[1]+4.3;o.updateMatrix();ih2.setMatrixAt(i,o.matrix)}}
+ m.add(ip,ih2);
+ // trees
+ LD.load(BASE+'plant_tree_small_02.glb',tg=>{const src=tg.scene;src.traverse(o=>{if(o.isMesh){o.castShadow=true;o.material.side=THREE.DoubleSide;if(o.material.transparent){o.material.transparent=false;o.material.alphaTest=.5}}});
+  const tp=P.grass.filter((_,i)=>i%5===0).slice(0,34);tp.forEach((p,i)=>{const t=src.clone();t.position.set(p[0],p[1],p[2]);t.scale.setScalar(1+rnd(i*9)*.6);t.rotation.y=i*2.4;grp(p[1]).add(t)});
+  [[c.x-S*.42,c.z-S*.3],[c.x+S*.45,c.z+S*.25],[c.x-S*.38,c.z+S*.33],[c.x+S*.4,c.z-S*.35],[c.x+S*.05,c.z+S*.45],[c.x-S*.05,c.z-S*.45]].forEach(([x,z],i)=>{const t=src.clone();t.position.set(x,gnd.position.y,z);t.scale.setScalar(1.8+rnd(i)*.6);t.rotation.y=i;sc.add(t)});fr()});
+ // people
+ const pm=[0xf2ede4,0x8a7c68,0x5f6b74,0xb86b4b].map(c=>new THREE.MeshStandardMaterial({color:c,roughness:.7}));
+ const mkP=(i)=>{const gg=new THREE.Group(),h=1.7*(.9+rnd(i*13)*.2),mt=pm[i%4];const body=new THREE.Mesh(new THREE.CapsuleGeometry(.19,h*.36,4,8),mt);body.position.y=h*.62;const head=new THREE.Mesh(new THREE.SphereGeometry(.12,10,8),pm[0]);head.position.y=h*.93;
+  const lg=[0,1].map(k=>{const p=new THREE.Group();p.position.set(k?.09:-.09,h*.46,0);const q=new THREE.Mesh(new THREE.CylinderGeometry(.06,.05,h*.46,6),mt);q.position.y=-h*.23;p.add(q);gg.add(p);return p});gg.add(body,head);gg.traverse(o=>{if(o.isMesh)o.castShadow=true});gg.userData.lg=lg;gg.scale.setScalar(1.15);return gg};
+ const pp=P.plaza;for(let i=0;i<Math.min(40,pp.length);i++){const A=pp[(i*7)%pp.length];let B=null,bd=1e9;for(const q of pp){const dd=Math.hypot(q[0]-A[0],q[2]-A[2]);if(dd>6&&dd<16&&Math.abs(q[1]-A[1])<.5&&dd<bd){bd=dd;B=q}}if(!B)continue;const w=mkP(i);grp(A[1]).add(w);W.push({w,A,B,ph:rnd(i),sp:.04+rnd(i*3)*.03})}
+ root.querySelector('.ld').style.opacity=0;ready=true;fr();loop()});
+function rs(){const w=cv.clientWidth,h=cv.clientHeight;if(!w)return;r.setSize(w,h,false);cam.aspect=w/h;if(w>700)cam.setViewOffset(w,h,-w*0.15,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}addEventListener('resize',()=>{rs();fr()});rs();new ResizeObserver(()=>{rs();fr()}).observe(cv);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),e=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,sg=(p,a,b)=>e(cl((p-a)/(b-a)));
+const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-innerHeight))};
+let clk=new THREE.Clock(),vis=true,looping=false;new IntersectionObserver(x=>{vis=x[0].isIntersecting;if(vis)loop()}).observe(root);
+function loop(){if(looping||!ready)return;looping=true;const step=()=>{if(!vis){looping=false;return}walk(clk.getElapsedTime());fr();requestAnimationFrame(step)};requestAnimationFrame(step)}
+function walk(t){for(const q of W){const u=(t*q.sp+q.ph)%2,f=u<1?u:2-u,dir=u<1?1:-1;q.w.position.set(q.A[0]+(q.B[0]-q.A[0])*f,q.A[1],q.A[2]+(q.B[2]-q.A[2])*f);q.w.rotation.y=Math.atan2((q.B[0]-q.A[0])*dir,(q.B[2]-q.A[2])*dir);const s=Math.sin(t*7+q.ph*9)*.5;q.w.userData.lg[0].rotation.x=s;q.w.userData.lg[1].rotation.x=-s}}
+function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<.2?0:p<.48?1:p<.74?2:3;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
+ const ex=sg(p,.22,.45)*(1-sg(p,.6,.75));L.forEach((o,i)=>o.position.y=o.userData.y0+Math.max(0,i-2)*ex*3.6);
+ const a=-1.0+p*1.7,el=THREE.MathUtils.lerp(.5,.32,sg(p,.4,.8)),d=S*(THREE.MathUtils.lerp(.95,.62,sg(p,.35,.75)))*(innerWidth<700?1.5:1);
+ cam.position.set(c.x+Math.cos(a)*Math.cos(el)*d,c.y+Math.sin(el)*d,c.z+Math.sin(a)*Math.cos(el)*d);cam.lookAt(c.x,c.y,c.z);
+ const dk=sg(p,.72,.84),n=sg(p,.82,.95);root.classList.toggle('night',n>.5);
+ sc.background.copy(dayBg).lerp(duskBg,dk).lerp(nightBg,n);sc.fog.color.copy(sc.background);
+ sun.intensity=3*(1-n*.92);sun.color.setHex(0xfff1dc).lerp(new THREE.Color(0xff9a5a),dk);hemi.intensity=1.1*(1-n*.7);
+ if(lampMat)lampMat.emissiveIntensity=n*3;if(winMat){winMat.emissive=winMat.emissive||new THREE.Color();winMat.emissive.setHex(0xffb468);winMat.emissiveIntensity=n*.9}
+ r.toneMappingExposure=1-n*.15;r.render(sc,cam)}
+let qq=0;addEventListener('scroll',()=>{if(!qq){qq=1;requestAnimationFrame(()=>{qq=0;fr()})}},{passive:true});
+</script></section>
+
 
     <!-- ABOUT -->
     <section class="h-about">
@@ -644,7 +722,7 @@
 <div class="cap"><small>Section</small><h2>Level by <em>level</em></h2><p>The building opens floor by floor to show how rooms, terraces and circulation stack together.</p></div>
 <div class="cap"><small>Landscape</small><h2>Part of the <em>stay</em></h2><p>Planted terraces, gardens around the base and a rooftop pool open the hotel toward the mountains.</p><a href="/projects/eco-hotel-quindio-colombia/">View the case study</a></div>
 <div class="bar"></div></div>
-<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+
 <script type="module">
 import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';
 const root=document.getElementById('sv-eco'),cv=root.querySelector('canvas'),caps=[...root.querySelectorAll('.cap')],bar=root.querySelector('.bar');
