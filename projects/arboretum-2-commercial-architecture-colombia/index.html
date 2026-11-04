@@ -129,7 +129,7 @@ const hemi=new THREE.HemisphereLight(0xf3f6ff,0x8a8a70,1.1);sc.add(hemi);const s
 const gnd=new THREE.Mesh(new THREE.CircleGeometry(420,64),new THREE.MeshStandardMaterial({color:0x7d9256,roughness:1}));gnd.rotation.x=-Math.PI/2;gnd.receiveShadow=true;sc.add(gnd);
 // mountains
 {const g=new THREE.CylinderGeometry(330,360,70,140,6,true);const p=g.attributes.position;for(let i=0;i<p.count;i++){const y=p.getY(i);if(y>-30){const a=Math.atan2(p.getZ(i),p.getX(i));const h=(Math.sin(a*5)*.5+Math.sin(a*13+1)*.3+Math.sin(a*29+2)*.15+1)*0.55;p.setY(i,-35+(y+35)*h)}}g.computeVertexNormals();const mt=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x7f9470,roughness:1,side:THREE.BackSide,flatShading:true}));mt.position.y=34;sc.add(mt);var MT=mt}
-let L=[],c=new THREE.Vector3(),S=80,ready=false,lampMat,winMat,W=[],GR=[];
+let L=[],c=new THREE.Vector3(),S=80,ready=false,lampMat,winMat,W=[],GR=[],RW=[],facG=[];
 const dl=new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');const LD=new GLTFLoader().setDRACOLoader(dl);
 const pts=fetch(BASE+'arboretum-col-pts.json').then(r=>r.json());
 LD.load(BASE+'arboretum-col.glb',async g=>{const m=g.scene;sc.add(m);
@@ -167,13 +167,36 @@ LD.load(BASE+'arboretum-col.glb',async g=>{const m=g.scene;sc.add(m);
  const mkP=(i)=>{const gg=new THREE.Group(),h=1.7*(.9+rnd(i*13)*.2),mt=pm[i%4];const body=new THREE.Mesh(new THREE.CapsuleGeometry(.19,h*.36,4,8),mt);body.position.y=h*.62;const head=new THREE.Mesh(new THREE.SphereGeometry(.12,10,8),pm[0]);head.position.y=h*.93;
   const lg=[0,1].map(k=>{const p=new THREE.Group();p.position.set(k?.09:-.09,h*.46,0);const q=new THREE.Mesh(new THREE.CylinderGeometry(.06,.05,h*.46,6),mt);q.position.y=-h*.23;p.add(q);gg.add(p);return p});gg.add(body,head);gg.traverse(o=>{if(o.isMesh)o.castShadow=true});gg.userData.lg=lg;gg.scale.setScalar(1.15);return gg};
  const pp=P.plaza;for(let i=0;i<Math.min(40,pp.length);i++){const A=pp[(i*7)%pp.length];let B=null,bd=1e9;for(const q of pp){const dd=Math.hypot(q[0]-A[0],q[2]-A[2]);if(dd>6&&dd<16&&Math.abs(q[1]-A[1])<.5&&dd<bd){bd=dd;B=q}}if(!B)continue;const w=mkP(i);grp(A[1]).add(w);W.push({w,A,B,ph:rnd(i),sp:.04+rnd(i*3)*.03})}
+
+ // facades (walls + glass) for the open building, interior life, terrace walkers and cafe tables
+ if(P.fac){const gl=[],wh=[],wd=[],mu=[];const seg=(a,b,y0,y1,th,arr)=>{const dx=b[0]-a[0],dz=b[1]-a[1],l=Math.hypot(dx,dz);const g=new THREE.BoxGeometry(l+.04,y1-y0,th);g.rotateY(-Math.atan2(dz,dx));g.translate((a[0]+b[0])/2,(y0+y1)/2,(a[1]+b[1])/2);arr.push({g,y:y0})};
+  P.fac.forEach(f=>{const p=f.p,n=p.length;for(let i=0;i<n;i++){const a=p[i],b=p[(i+1)%n],k=i%9;
+   if(k<6){seg(a,b,f.y0+.35,f.y1-.35,.04,gl);seg(a,b,f.y0,f.y0+.35,.22,wd);seg(a,b,f.y1-.35,f.y1,.2,wh);const mx=[(a[0]+b[0])/2,(a[1]+b[1])/2];mu.push([a,f],[mx,f])}
+   else seg(a,b,f.y0,f.y1,.25,k<8?wd:wh)}});
+  const byY=(arr,mat,o={})=>{const gs=new Map();arr.forEach(({g,y})=>{const gp=grp(y+.5);if(!gs.has(gp))gs.set(gp,[]);gs.get(gp).push(g)});for(const [gp,list] of gs){const me=new THREE.Mesh(mergeGeometries(list),mat);me.castShadow=!o.t;me.receiveShadow=true;if(o.t){me.renderOrder=2}gp.add(me)}};
+  const fgl=new THREE.MeshStandardMaterial({color:0x40525a,transparent:true,opacity:.5,roughness:.06,metalness:.4,depthWrite:false,emissive:0xffb468,emissiveIntensity:0});facG.push(fgl);
+  byY(gl,fgl,{t:1});byY(wh,new THREE.MeshStandardMaterial({color:0xefece6,roughness:.85}));byY(wd,new THREE.MeshStandardMaterial({color:0x6a4b34,roughness:.7}));
+  const mg=new THREE.BoxGeometry(.09,1,.14),mm=new THREE.MeshStandardMaterial({color:0x2a2a2b,roughness:.5,metalness:.3});const gm=new Map();mu.forEach(([q,f])=>{const gp=grp(f.y0+.5);if(!gm.has(gp))gm.set(gp,[]);gm.get(gp).push([q,f])});
+  for(const [gp,arr] of gm){const im=new THREE.InstancedMesh(mg,mm,arr.length);const o=new THREE.Object3D();arr.forEach(([q,f],i)=>{o.position.set(q[0],(f.y0+f.y1)/2,q[1]);o.scale.set(1,f.y1-f.y0,1);o.updateMatrix();im.setMatrixAt(i,o.matrix)});gp.add(im)}
+  // warm interior: floor glow + shop counters
+  const cg=new THREE.BoxGeometry(2.2,1,.7),cm=new THREE.MeshStandardMaterial({color:0x8a6a4c,roughness:.6});const inn=P.inn||[];const ic=new THREE.InstancedMesh(cg,cm,inn.length);{const o=new THREE.Object3D();inn.forEach((q,i)=>{o.position.set(q[0],q[1]+.5,q[2]);o.rotation.set(0,rnd(i*31)*3,0);o.scale.set(.6+rnd(i)*.8,1,1);o.updateMatrix();ic.setMatrixAt(i,o.matrix)})}ic.castShadow=true;
+  const ig=new Map();inn.forEach((q,i)=>{if(i%2)return;const gp=grp(q[1]+.5);ig.set(gp,(ig.get(gp)||[]).concat([q]))});grp(16.5).add(ic);
+  inn.forEach((A,i)=>{if(i%2===0)return;let B=null,bd=1e9;for(const q of inn){const dd=Math.hypot(q[0]-A[0],q[2]-A[2]);if(q!==A&&q[1]===A[1]&&dd>3&&dd<12&&dd<bd){bd=dd;B=q}}if(!B)return;const w=mkP(i+200);grp(A[1]+.5).add(w);W.push({w,A,B,ph:rnd(i+5),sp:.05+rnd(i*7)*.03})});
+  // walkers around terraces
+  (P.ring||[]).forEach((rg,ri)=>{const p=rg.p,cd=[0];for(let i=1;i<=p.length;i++){const a=p[i-1],b=p[i%p.length];cd.push(cd[i-1]+Math.hypot(b[0]-a[0],b[1]-a[1]))}const Lr=cd[cd.length-1];const nW=9;
+   for(let j=0;j<nW;j++){const w=mkP(j*5+ri*31+300);grp(rg.y+.5).add(w);RW.push({w,p,cd,L:Lr,y:rg.y,ph:rnd(j*3+ri)*Lr,sp:(rnd(j+ri*9)>.5?1:-1)*(1+rnd(j*11)*.4)})}
+   if(1){const tg=new THREE.CylinderGeometry(.45,.45,.05,14),lg2=new THREE.CylinderGeometry(.04,.04,.75,6),chg=new THREE.BoxGeometry(.45,.45,.45);const T=[];for(let i=0;i<p.length;i+=7){const a=p[i],b=p[(i+1)%p.length];const nx=-(b[1]-a[1]),nz=b[0]-a[0],nl=Math.hypot(nx,nz)||1;T.push([a[0]+nx/nl*.0,rg.y,a[1]+nz/nl*.0,Math.atan2(b[1]-a[1],b[0]-a[0])])}
+    const gp=grp(rg.y+.5),it=new THREE.InstancedMesh(tg,new THREE.MeshStandardMaterial({color:0xf3efe8,roughness:.6}),T.length),il=new THREE.InstancedMesh(lg2,mm,T.length),ich=new THREE.InstancedMesh(chg,new THREE.MeshStandardMaterial({color:0x6a4b34,roughness:.7}),T.length*2);const o=new THREE.Object3D();
+    T.forEach(([x,y,z,an],i)=>{o.rotation.set(0,-an,0);o.scale.setScalar(1);o.position.set(x,y+.76,z);o.updateMatrix();it.setMatrixAt(i,o.matrix);o.position.set(x,y+.38,z);o.updateMatrix();il.setMatrixAt(i,o.matrix);for(const s of [-1,1]){o.position.set(x+Math.cos(an)*.75*s,y+.23,z+Math.sin(an)*.75*s);o.updateMatrix();ich.setMatrixAt(i*2+(s>0?1:0),o.matrix)}});
+    it.castShadow=ich.castShadow=true;gp.add(it,il,ich)}})}
  root.querySelector('.ld').style.opacity=0;ready=true;fr();loop()});
 function rs(){const w=cv.clientWidth,h=cv.clientHeight;if(!w)return;r.setSize(w,h,false);cam.aspect=w/h;if(w>700)cam.setViewOffset(w,h,-w*0.15,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}addEventListener('resize',()=>{rs();fr()});rs();new ResizeObserver(()=>{rs();fr()}).observe(cv);
 const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),e=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,sg=(p,a,b)=>e(cl((p-a)/(b-a)));
 const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-innerHeight))};
 let clk=new THREE.Clock(),vis=true,looping=false;new IntersectionObserver(x=>{vis=x[0].isIntersecting;if(vis)loop()}).observe(root);
 function loop(){if(looping||!ready)return;looping=true;const step=()=>{if(!vis){looping=false;return}walk(clk.getElapsedTime());fr();requestAnimationFrame(step)};requestAnimationFrame(step)}
-function walk(t){for(const q of W){const u=(t*q.sp+q.ph)%2,f=u<1?u:2-u,dir=u<1?1:-1;q.w.position.set(q.A[0]+(q.B[0]-q.A[0])*f,q.A[1],q.A[2]+(q.B[2]-q.A[2])*f);q.w.rotation.y=Math.atan2((q.B[0]-q.A[0])*dir,(q.B[2]-q.A[2])*dir);const s=Math.sin(t*7+q.ph*9)*.5;q.w.userData.lg[0].rotation.x=s;q.w.userData.lg[1].rotation.x=-s}}
+function walk(t){for(const q of W){const u=(t*q.sp+q.ph)%2,f=u<1?u:2-u,dir=u<1?1:-1;q.w.position.set(q.A[0]+(q.B[0]-q.A[0])*f,q.A[1],q.A[2]+(q.B[2]-q.A[2])*f);q.w.rotation.y=Math.atan2((q.B[0]-q.A[0])*dir,(q.B[2]-q.A[2])*dir);const s=Math.sin(t*7+q.ph*9)*.5;q.w.userData.lg[0].rotation.x=s;q.w.userData.lg[1].rotation.x=-s}
+ for(const q of RW){let d=((q.ph+t*q.sp)%q.L+q.L)%q.L;let i=1;while(q.cd[i]<d)i++;const a=q.p[i-1],b=q.p[i%q.p.length],f=(d-q.cd[i-1])/(q.cd[i]-q.cd[i-1]||1);q.w.position.set(a[0]+(b[0]-a[0])*f,q.y,a[1]+(b[1]-a[1])*f);q.w.rotation.y=Math.atan2((b[0]-a[0])*Math.sign(q.sp),(b[1]-a[1])*Math.sign(q.sp));const s=Math.sin(t*7+q.ph)*.5;q.w.userData.lg[0].rotation.x=s;q.w.userData.lg[1].rotation.x=-s}}
 function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<.2?0:p<.48?1:p<.74?2:3;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
  const ex=sg(p,.22,.45)*(1-sg(p,.6,.75));L.forEach((o,i)=>o.position.y=o.userData.y0+Math.max(0,i-2)*ex*3.6);
  const a=-1.0+p*1.7,el=THREE.MathUtils.lerp(.5,.32,sg(p,.4,.8)),d=S*(THREE.MathUtils.lerp(.95,.62,sg(p,.35,.75)))*(innerWidth<700?1.5:1);
@@ -181,7 +204,7 @@ function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<
  const dk=sg(p,.72,.84),n=sg(p,.82,.95);root.classList.toggle('night',n>.5);
  sc.background.copy(dayBg).lerp(duskBg,dk).lerp(nightBg,n);sc.fog.color.copy(sc.background);
  sun.intensity=3*(1-n*.92);sun.color.setHex(0xfff1dc).lerp(new THREE.Color(0xff9a5a),dk);hemi.intensity=1.1*(1-n*.7);
- if(lampMat)lampMat.emissiveIntensity=n*3;if(winMat){winMat.emissive=winMat.emissive||new THREE.Color();winMat.emissive.setHex(0xffb468);winMat.emissiveIntensity=n*.9}
+ if(lampMat)lampMat.emissiveIntensity=n*3;if(winMat){winMat.emissive=winMat.emissive||new THREE.Color();winMat.emissive.setHex(0xffb468);winMat.emissiveIntensity=n*.9}facG.forEach(m=>m.emissiveIntensity=n*1.1);
  r.toneMappingExposure=1-n*.15;r.render(sc,cam)}
 let qq=0;addEventListener('scroll',()=>{if(!qq){qq=1;requestAnimationFrame(()=>{qq=0;fr()})}},{passive:true});
 </script></section>
