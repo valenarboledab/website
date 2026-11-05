@@ -233,10 +233,10 @@ LD.load(BASE+'edificio-burgos.glb',async g=>{const m=g.scene;sc.add(m);
 function rs(){const w=cv.clientWidth,h=cv.clientHeight;if(!w)return;r.setSize(w,h,false);cam.aspect=w/h;if(w>700)cam.setViewOffset(w,h,-w*0.15,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}addEventListener('resize',()=>{rs();fr()});rs();new ResizeObserver(()=>{rs();fr()}).observe(cv);
 const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-innerHeight))};
 // ---------- shots: [p, level(-1 none), focus('b' building | 'r' room | 'g' garden), azimuth, elevation, distance] ----------
-const K=[[0,-1,'b',-.35,.22,1.25],[.08,-1,'b',-.05,.12,.78],[.15,-1,'b',.5,.62,1.05],
+const K=[[0,-1,'b',-.35,.22,1.6],[.08,-1,'b',-.05,.12,1.0],[.15,-1,'b',.5,.62,1.05],
  [.2,0,'b',.9,1.0,.92],[.27,0,'r',1.4,.85,.46],[.33,1,'b',1.9,1.0,.92],[.39,1,'r',2.4,.82,.46],[.45,2,'b',2.8,1.0,.92],[.51,2,'r',3.3,.82,.46],
  [.57,3,'b',3.7,1.0,.92],[.62,3,'r',4.1,.82,.48],[.69,3,'g',6.6,.85,.55],[.76,-1,'g',7.75,.62,.68],
- [.84,-1,'b',7.2,.3,1.0],[.92,-1,'b',6.3,.16,1.2],[1,-1,'b',6.0,.2,1.25]];
+ [.84,-1,'b',7.2,.3,1.0],[.92,-1,'b',6.3,.16,1.6],[1,-1,'b',6.0,.2,1.7]];
 const tgt=new THREE.Vector3(),tmp=new THREE.Vector3();
 function shotT(k,out){if(k[2]==='g')return out.set(37.3,Y0+.8,-11.6);if(k[2]==='r'&&k[1]>=0&&SH[k[1]])return out.set(SH[k[1]][0],Y0+LV[k[1]]+.7,SH[k[1]][1]);if(k[1]>=0)return out.set(c.x,Y0+LV[k[1]]+.6,c.z);return out.set(c.x,c.y-.8,c.z)}
 const cutH=k=>k[1]<0?999:Y0+LV[k[1]]+1.55;
