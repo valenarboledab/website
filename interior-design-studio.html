@@ -219,8 +219,9 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-// the furnished interiors come from the model at commit 32761d5 (the later web model simplified the furniture away)
-const MODEL = "https://cdn.jsdelivr.net/gh/valenarboledab/website@32761d5/images/3d/edificio-burgos.glb";
+// one detailed model per floor, cut from Valentina's export (Edificio Burgos_web.glb)
+const SITE = /studio-valentina\.com$/.test(location.hostname) || /^(localhost|127\.)/.test(location.hostname) ? "/" : "https://studio-valentina.com/";
+const MODEL = (n) => SITE + "images/3d/burgos-floor-" + n + ".glb";
 // floor surfaces measured in the model: 0.0, 2.4, 5.6, 8.7, 11.5 m
 const BANDS = [[-0.25, 2.15], [2.3, 5.25], [5.5, 8.4], [8.6, 11.35], [11.4, 14.5]];
 const stage = document.querySelector(".bz-stage");
@@ -243,14 +244,14 @@ function planMode() {
 }
 toggle.addEventListener("click", () => { editing = !editing; planMode(); if (ctx) { fit(); draw(); } });
 
-let gltf = null, loading = null, floorSet = {}, current = -1, ctx = null;
-function load() {
-  if (loading) return loading;
+let gltf = null, loading = {}, models = {}, floorSet = {}, current = -1, ctx = null;
+function load(n) {
+  if (loading[n]) return loading[n];
   const l = new GLTFLoader(), d = new DRACOLoader();
   d.setDecoderPath(window.BZ_DRACO || "https://www.gstatic.com/draco/versioned/decoders/1.5.6/");
   l.setDRACOLoader(d);
-  loading = new Promise((res, rej) => l.load(MODEL, (g) => { g.scene.updateMatrixWorld(true); gltf = g; res(g); }, (e) => { if (e.total) msg.textContent = "Cargando tu diseño… " + Math.round((e.loaded / e.total) * 100) + "%"; }, rej));
-  return loading;
+  loading[n] = new Promise((res, rej) => l.load(MODEL(n), (g) => { g.scene.updateMatrixWorld(true); models[n] = g; res(g); }, (e) => { if (e.total) msg.textContent = "Cargando tu diseño… " + Math.round((e.loaded / e.total) * 100) + "%"; }, rej));
+  return loading[n];
 }
 
 // split the model into the triangles of one floor, then into separate pieces
@@ -262,7 +263,7 @@ function buildFloor(n) {
   const comps = [];
   const fp = { x0: 39.4, x1: 48.75, z0: -17.3, z1: -6.1 };      // building footprint in model units (m)
   const A = new THREE.Vector3(), B = new THREE.Vector3(), C = new THREE.Vector3();
-  gltf.scene.traverse((o) => {
+  models[n].scene.traverse((o) => {
     if (!o.isMesh) return;
     const g = o.geometry, pos = g.attributes.position, nor = g.attributes.normal, uv = g.attributes.uv, idx = g.index;
     const N = idx ? idx.count : pos.count, M = o.matrixWorld, NM = new THREE.Matrix3().getNormalMatrix(M);
@@ -401,7 +402,8 @@ async function show(n) {
   if (n === 5) { msg.hidden = false; msg.textContent = "El techo no tiene interior"; planCanvas.style.opacity = 0; return; }
   planCanvas.style.opacity = 1;
   msg.hidden = false; msg.textContent = "Cargando tu diseño…";
-  try { await load(); } catch (e) { msg.textContent = "No se pudo cargar el modelo"; return; }
+  if (n > 3) { msg.textContent = "Este nivel no tiene muebles en tu modelo"; planCanvas.style.opacity = 0; return; }
+  try { await load(n); } catch (e) { msg.textContent = "No se pudo cargar el modelo"; return; }
   if (current !== n) return;
   msg.textContent = "Preparando el piso…"; window.BZ_T0 = performance.now();
   await new Promise((r) => setTimeout(r, 30));
