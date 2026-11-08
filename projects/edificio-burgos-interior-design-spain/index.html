@@ -238,7 +238,7 @@ const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-in
 // ---------- shots: [p, level(-1 none), focus('b' building | 'r' room | 'g' garden), azimuth, elevation, distance] ----------
 const K=[[0,-1,'b',-.35,.22,1.6],[.08,-1,'b',-.05,.12,1.0],[.15,-1,'b',.5,.62,1.05],
  [.2,0,'b',.9,1.0,.92],[.27,0,'r',1.4,.85,.46],[.33,1,'b',1.9,1.0,.92],[.39,1,'r',2.4,.82,.46],[.45,2,'b',2.8,1.0,.92],[.51,2,'r',3.3,.82,.46],
- [.57,3,'b',3.7,1.0,.92],[.62,3,'r',4.1,.82,.48],[.69,3,'g',6.6,.85,.55],[.725,3,'n',7.0,.42,.16],[.76,-1,'g',7.75,.62,.68],
+ [.57,3,'b',3.7,1.0,.92],[.62,3,'r',4.1,.82,.48],[.69,3,'g',6.6,.85,.55],[.725,3,'n',8.05,.4,.16],[.76,-1,'g',7.75,.62,.68],
  [.84,-1,'b',7.2,.3,1.0],[.92,-1,'b',6.3,.16,1.6],[1,-1,'b',6.0,.2,1.7]];
 const tgt=new THREE.Vector3(),tmp=new THREE.Vector3();
 function shotT(k,out){if(k[2]==='g'||k[2]==='n'){const f=GD?GD.focus():new THREE.Vector3(36.6,.6,-11.6);return out.copy(f).setY(Y0+(k[2]==='n'?.55:.8))}if(k[2]==='r'&&k[1]>=0&&SH[k[1]])return out.set(SH[k[1]][0],Y0+LV[k[1]]+.7,SH[k[1]][1]);if(k[1]>=0)return out.set(c.x,Y0+LV[k[1]]+.6,c.z);return out.set(c.x,c.y-.8,c.z)}
