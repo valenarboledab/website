@@ -1,0 +1,15 @@
+rules_version = '2';
+// Studio Valentina: Cloud Storage security rules.
+// Paste into Firebase Console > Storage > Rules, then Publish.
+// Files go in clients/<client uid>/... ; each client can only download their own files.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /clients/{uid}/{allPaths=**} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}
