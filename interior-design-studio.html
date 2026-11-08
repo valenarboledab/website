@@ -356,18 +356,12 @@ function buildFloor(n) {
     if (Math.max(s.x, s.z) > 3.2 || s.x * s.z < 0.004) { stat.push(...list); continue; }
     const g = meshOf(list); g.userData.piece = true; g.userData.box = box; pieces.add(g); count++;
   }
-  // plan cut: walls and ceilings stop 2.1 m above the floor so the rooms read from above
+  // plan cut: a real clipping plane 1.60 m above the floor, walls drawn on both sides so the cut reads solid
   const cutY = y0 + 0.25 + 1.6;
-  const cut = stat.map((c) => {
-    if (c.box.max.y <= cutY) return c;
-    const T = c.P.length / 9, keepT = [];
-    for (let t = 0; t < T; t++) { const cy = (c.P[t * 9 + 1] + c.P[t * 9 + 4] + c.P[t * 9 + 7]) / 3; if (cy <= cutY) keepT.push(t); }
-    if (!keepT.length) return null;
-    const P = new Float32Array(keepT.length * 9), Nn = c.Nn ? new Float32Array(keepT.length * 9) : null, U = c.U ? new Float32Array(keepT.length * 6) : null;
-    keepT.forEach((t, i) => { P.set(c.P.subarray(t * 9, t * 9 + 9), i * 9); if (Nn) Nn.set(c.Nn.subarray(t * 9, t * 9 + 9), i * 9); if (U) U.set(c.U.subarray(t * 6, t * 6 + 6), i * 6); });
-    return { ...c, P, Nn, U };
-  }).filter(Boolean);
-  structure.add(meshOf(cut));
+  const plane = new THREE.Plane(new THREE.Vector3(0, -1, 0), cutY);
+  const st = meshOf(stat);
+  st.traverse((m) => { if (!m.isMesh) return; const mat = m.material.clone(); mat.side = THREE.DoubleSide; mat.clippingPlanes = [plane]; mat.clipShadows = true; m.material = mat; });
+  structure.add(st);
   const set = { root, pieces, structure, count, y0, y1 };
   floorSet[n] = set;
   return set;
@@ -380,7 +374,7 @@ function makeCtx() {
   const sun = new THREE.DirectionalLight(0xfff0dc, 1.9); sun.position.set(30, 40, 18); scene.add(sun, sun.target);
   const plan = new THREE.WebGLRenderer({ canvas: planCanvas, antialias: true });
   const mini = new THREE.WebGLRenderer({ canvas: miniCanvas, antialias: true, alpha: true });
-  for (const r of [plan, mini]) { r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.05; }
+  for (const r of [plan, mini]) { r.localClippingEnabled = true; r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.05; }
   const ortho = new THREE.OrthographicCamera(-5, 5, 5, -5, 0.1, 100);
   const persp = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
   const ctl = new OrbitControls(persp, miniCanvas); ctl.enableDamping = true; ctl.enablePan = false;
@@ -465,7 +459,7 @@ renderBtn?.addEventListener("click", async (e) => {
   rmsg.textContent = "Renderizando…";
   const set = floorSet[current];
   const r = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
-  r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
+  r.localClippingEnabled = true; r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
   r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.1;
   const w = canvas.clientWidth, h = canvas.clientHeight; r.setSize(w, h, false);
   const scene = new THREE.Scene(); scene.background = new THREE.Color("#efe9df");
