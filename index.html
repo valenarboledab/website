@@ -176,14 +176,7 @@ function terrain(cx,cz,y0){const n2=(x,z)=>.5+.25*Math.sin(x*.021+1.3)*Math.cos(
  for(let i=0;i<P.count;i++){const x=P.getX(i)+cx,z=P.getZ(i)+cz,h=H(x,z),k=Math.floor(h/STEP);P.setY(i,k*STEP);const cc=k%2?c1:c0;col[i*3]=cc.r;col[i*3+1]=cc.g;col[i*3+2]=cc.b}
  g.setAttribute('color',new THREE.BufferAttribute(col,3));g.computeVertexNormals();
  const t=new THREE.Mesh(g,new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,flatShading:true}));t.position.set(cx,y0,cz);t.receiveShadow=true;t.castShadow=true;sc.add(t);
- // model trees on the hills
- const tg=new THREE.IcosahedronGeometry(1,1);{const Q=tg.attributes.position;for(let i=0;i<Q.count;i++){const v=new THREE.Vector3().fromBufferAttribute(Q,i);v.multiplyScalar(.88+Math.sin(v.x*7)*.07+Math.cos(v.y*9+v.z*5)*.07);Q.setXYZ(i,v.x,v.y,v.z)}tg.computeVertexNormals()}
- const N=420,crowns=new THREE.InstancedMesh(tg,new THREE.MeshStandardMaterial({color:0xffffff,roughness:.95,flatShading:true}),N),trunks=new THREE.InstancedMesh(new THREE.CylinderGeometry(.12,.18,1,6),new THREE.MeshStandardMaterial({color:0x8d7a62,roughness:1}),N);
- const o=new THREE.Object3D(),cc=new THREE.Color();let n=0,tries=0;const rnd=(()=>{let q=11;return()=>{q=(q*16807)%2147483647;return q/2147483647}})();
- while(n<N&&tries<20000){tries++;const x=cx+(rnd()-.5)*560,z=cz+(rnd()-.5)*560,re=RE(x,z);if(re<1.2)continue;if(n2(x*1.7,z*1.7)<.45&&rnd()<.7)continue;
-  const gy=y0+Math.floor(H(x,z)/STEP)*STEP,sz=2.2+rnd()*2.6;o.position.set(x,gy+sz*.9+1.2,z);o.rotation.set(0,rnd()*6,0);o.scale.set(sz,sz*(1+rnd()*.35),sz);o.updateMatrix();crowns.setMatrixAt(n,o.matrix);
-  cc.setHSL(.2+rnd()*.06,.16+rnd()*.12,.66+rnd()*.12);crowns.setColorAt(n,cc);o.position.set(x,gy+1,z);o.scale.set(1,2,1);o.updateMatrix();trunks.setMatrixAt(n,o.matrix);n++}
- crowns.count=trunks.count=n;crowns.castShadow=trunks.castShadow=true;crowns.receiveShadow=true;sc.add(crowns,trunks)}
+}
 let W=[],clk=new THREE.Clock(),vis=true;new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis)loop()}).observe(root);
 let looping=false;function loop(){if(looping||!ready)return;looping=true;const step=()=>{if(!vis||!ready){looping=false;return}walk(clk.getElapsedTime());fr();requestAnimationFrame(step)};requestAnimationFrame(step)}
 function walk(t){for(const w of W){const u=(t*w.sp+w.ph)%2,f=u<1?u:2-u,dir=u<1?1:-1;const x=w.A[0]+(w.B[0]-w.A[0])*f,z=w.A[1]+(w.B[1]-w.A[1])*f;w.pp.position.set(x,w.y,z);w.pp.rotation.y=Math.atan2((w.B[0]-w.A[0])*dir,(w.B[1]-w.A[1])*dir);const sw=Math.sin(t*7+w.ph*9)*.5;w.pp.userData.lg[0].rotation.x=sw;w.pp.userData.lg[1].rotation.x=-sw;w.pp.userData.ar[0].rotation.x=-sw*.7;w.pp.userData.ar[1].rotation.x=sw*.7}}
