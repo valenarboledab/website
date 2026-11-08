@@ -130,6 +130,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module">
 import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+const V=await import(document.getElementById('sv-burgos').dataset.lib??'/js/valentinas.js');const VM=V.materials();
 const root=document.getElementById('sv-burgos'),cv=root.querySelector('canvas'),caps=[...root.querySelectorAll('.cap')],bar=root.querySelector('.bar'),lv=root.querySelector('.lv'),lvs=[...lv.children],ldp=root.querySelector('.ld span'),clk=root.querySelector('.clk');
 const BASE=root.dataset.base??'/images/3d/',MOB=innerWidth<700;
 const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,MOB?1.5:2));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;r.localClippingEnabled=true;
@@ -143,7 +144,7 @@ const gnd=new THREE.Mesh(new THREE.CircleGeometry(160,64),new THREE.MeshStandard
 const cut=new THREE.Plane(new THREE.Vector3(0,-1,0),999);
 const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),e=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,sg=(p,a,b)=>e(cl((p-a)/(b-a))),lerp=THREE.MathUtils.lerp;
 const rnd=i=>((Math.sin(i*12.9898)*43758.5453)%1+1)%1;
-let ready=false,c=new THREE.Vector3(),S=20,Y0=0,TOP=12,glow=[],glass=[],W=[],lamps=[],fire=null,fireL=null,SH=[];
+let arqV=null,planV=null,nalaV=null,cooks=[],ready=false,c=new THREE.Vector3(),S=20,Y0=0,TOP=12,glow=[],glass=[],W=[],lamps=[],fire=null,fireL=null,SH=[];
 const LV=[8.68,5.58,2.38,0];
 const std=(col,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:col,roughness:.85},o));
 // ---------- people ----------
@@ -154,7 +155,7 @@ function mkP(i,clip){const g=new THREE.Group(),h=1.68*(.92+rnd(i*13)*.16),mt=std
  const ar=[0,1].map(k=>{const p=new THREE.Group();p.position.set(k?.21:-.21,h*.8,0);const q=new THREE.Mesh(new THREE.CapsuleGeometry(.045,h*.26,3,6),mt);q.position.y=-h*.17;p.add(q);g.add(p);return p});
  g.add(body,head);g.traverse(o=>{if(o.isMesh)o.castShadow=true});g.userData={lg,ar,h};return g}
 function sit(g){const {lg,h}=g.userData;lg.forEach(l=>{l.rotation.x=-1.45});g.position.y-=h*.2}
-function walker(g,A,B,sp,ph){W.push({w:g,A,B,sp,ph})}
+function walker(g,A,B,sp,ph,base=0){W.push({w:g,A,B,sp,ph,base,yaw:0})}
 // ---------- garden (back yard x 34.8..39.66, z -17.15..-6.17) ----------
 function garden(){const G=new THREE.Group();sc.add(G);const X0=34.85,X1=39.6,Z0=-17.1,Z1=-6.22,DX=37.55;
  const box=(w,h,d,m,x,y,z,ry=0)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);o.rotation.y=ry;o.castShadow=o.receiveShadow=true;G.add(o);return o};
@@ -203,11 +204,12 @@ function garden(){const G=new THREE.Group();sc.add(G);const X0=34.85,X1=39.6,Z0=
  const bulb=new THREE.InstancedMesh(new THREE.SphereGeometry(.045,8,6),bm,24);{const o=new THREE.Object3D();for(let i=0;i<24;i++){const t=i/23;o.position.set(lerp(39.5,35.0,t),2.35-Math.sin(t*Math.PI)*.45,lerp(-6.4,-6.4,t)-Math.sin(t*Math.PI*2)*.05);o.updateMatrix();bulb.setMatrixAt(i,o.matrix)}}G.add(bulb);
  const gL=new THREE.PointLight(0xffc477,0,10,1.8);gL.position.set(38,2.2,-9);G.add(gL);lamps.push([gL,14]);
  // people in the garden
- const a=mkP(1);a.position.set(39.05,.32,-9.6);a.rotation.y=-Math.PI/2;sit(a);G.add(a);
- const b=mkP(4);b.position.set(39.05,.32,-8.75);b.rotation.y=-Math.PI/2;sit(b);G.add(b);
- const d=mkP(2);d.position.set(39.0,.17,-12.0);d.rotation.y=Math.PI;G.add(d);
- const w=mkP(5);G.add(w);walker(w,[36.6,.02,-8.6],[36.2,.02,-14.6],.07,.3);
- const k=mkP(3);G.add(k);walker(k,[38.9,.17,-14.3],[38.9,.17,-10.6],.06,.7);
+ const sitV=(hair,x,z)=>{const f=V.figure(VM.white,{hair});f.userData.pose(V.poseValues(hair==='long'?'sitSip':'sitTalk'));f.userData.refresh();f.position.set(x,-.07,z);f.rotation.y=-Math.PI/2;G.add(f);return f};
+ const sa=sitV('long',39.12,-9.65),sb=sitV('pony',39.12,-8.75);sa.userData.head.rotation.y=-.5;sb.userData.head.rotation.y=.5;
+ const ck=V.figure(VM.white,{hair:'bob'});ck.position.set(39.0,.17,-12.05);ck.rotation.y=Math.PI;ck.userData.pose(V.poseValues('cook'));ck.userData.refresh();G.add(ck);cooks.push(ck);
+ const wk=V.figure(VM.white,{hair:'pony'});G.add(wk);walker(wk,[38.85,.17,-14.3],[38.85,.17,-10.7],.05,.7,.17);
+ arqV=V.figure(VM.gold,{hair:'bob',gold:true,h:1.64});planV=V.blueprint();arqV.add(planV);G.add(arqV);
+ nalaV=V.nala();G.add(nalaV);
 }
 // ---------- load ----------
 const dl=new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');const LD=new GLTFLoader().setDRACOLoader(dl);
@@ -227,7 +229,7 @@ LD.load(BASE+'edificio-burgos.glb',async g=>{const m=g.scene;sc.add(m);
  const P=await pts;
  if(P)P.lv.forEach((L,li)=>{L.rooms.forEach((rm,ri)=>{SH[li]=SH[li]||rm.c;
    const pl=new THREE.PointLight(0xffc98a,0,7,1.6);pl.position.set(rm.c[0],Y0+L.y+2.0,rm.c[1]);sc.add(pl);lamps.push([pl,ri?5:8]);
-   rm.s.slice(0,ri?1:2).forEach((s,si)=>{const w=mkP(li*7+ri*3+si,true);sc.add(w);walker(w,[s[0],Y0+L.y,s[1]],[s[2],Y0+L.y,s[3]],.05+rnd(li+si)*.03,rnd(li*3+si))})})});
+   rm.s.slice(0,ri?1:2).forEach((s,si)=>{const w=V.figure(VM.white,{hair:['bob','pony','long'][(li+ri+si)%3],clip:[cut]});sc.add(w);walker(w,[s[0],Y0+L.y,s[1]],[s[2],Y0+L.y,s[3]],.05+rnd(li+si)*.03,rnd(li*3+si),Y0+L.y)})})});
  sun.target.position.copy(c);
  root.querySelector('.ld').style.opacity=0;ready=true;fr();loop()},x=>{if(x.total)ldp.textContent=Math.round(x.loaded/x.total*100)+'%'});
 function rs(){const w=cv.clientWidth,h=cv.clientHeight;if(!w)return;r.setSize(w,h,false);cam.aspect=w/h;if(w>700)cam.setViewOffset(w,h,-w*0.15,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}addEventListener('resize',()=>{rs();fr()});rs();new ResizeObserver(()=>{rs();fr()}).observe(cv);
@@ -260,7 +262,19 @@ function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';
  r.toneMappingExposure=1-n*.08;r.render(sc,cam)}
 let clock=new THREE.Clock(),vis=true,looping=false;new IntersectionObserver(x=>{vis=x[0].isIntersecting;if(vis)loop()}).observe(root);
 function loop(){if(looping||!ready)return;looping=true;const step=()=>{if(!vis){looping=false;return}anim(clock.getElapsedTime());fr();requestAnimationFrame(step)};requestAnimationFrame(step)}
-function anim(t){for(const q of W){const u=(t*q.sp+q.ph)%2,f=u<1?u:2-u,dir=u<1?1:-1;const A=q.A,B=q.B;q.w.position.set(A[0]+(B[0]-A[0])*f,A[1],A[2]+(B[2]-A[2])*f);q.w.rotation.y=Math.atan2((B[0]-A[0])*dir,(B[2]-A[2])*dir);const s=Math.sin(t*6+q.ph*9)*.45;const ud=q.w.userData;ud.lg[0].rotation.x=s;ud.lg[1].rotation.x=-s;ud.ar[0].rotation.x=-s*.7;ud.ar[1].rotation.x=s*.7}
+const route=new THREE.CatmullRomCurve3([[37.25,-7.9],[36.1,-9.3],[36.3,-13.2],[37.15,-15.1],[37.3,-12.3]].map(([x,z])=>new THREE.Vector3(x,.03,z)),true,'centripetal');const RLEN=route.getLength();
+let lastT=0,arqYaw=0,nYaw=0,nPrev=null;
+function anim(t){const dt=Math.min(.1,Math.max(.001,t-lastT));lastT=t;
+ for(const q of W){const A=q.A,B=q.B,len=Math.hypot(B[0]-A[0],B[2]-A[2]),dur=len/.55,cyc=2*dur+2.4,c=((t+q.ph*cyc)%cyc);
+  let f,mv,dir;if(c<dur){f=V.ease(c/dur);mv=1;dir=1}else if(c<dur+1.2){f=1;mv=0;dir=-1}else if(c<2*dur+1.2){f=1-V.ease((c-dur-1.2)/dur);mv=1;dir=-1}else{f=0;mv=0;dir=1}
+  const sp=mv?Math.sin(Math.PI*(dir>0?c/dur:(c-dur-1.2)/dur))*1.5:0;
+  q.w.position.set(A[0]+(B[0]-A[0])*f,q.base,A[2]+(B[2]-A[2])*f);const ty=Math.atan2((B[0]-A[0])*dir,(B[2]-A[2])*dir);q.yaw=V.yawTo(q.yaw,ty,Math.min(1,dt*3));q.w.rotation.y=q.yaw;
+  const u=q.w.userData;u.pose(V.poseValues('stand'));const bob=u.walk((f*len)/.6*Math.PI,Math.min(1,sp));q.w.position.y=q.base+.012*bob;u.refresh()}
+ cooks.forEach(c=>{const u=c.userData;u.L.sr.p=-.75+Math.sin(t*4)*.18;u.L.sr.b=-.7+Math.sin(t*4)*.2;u.refresh()});
+ if(arqV){const ua=((t*.38/RLEN)%1+1)%1,P=route.getPointAt(ua),T=route.getTangentAt(ua);arqYaw=V.yawTo(arqYaw,Math.atan2(T.x,T.z),Math.min(1,dt*4));arqV.rotation.y=arqYaw;
+  const u=arqV.userData;u.pose(V.poseValues('read'));const bob=u.walk(t*.38/.6*Math.PI,1);arqV.position.set(P.x,P.y+.012*bob,P.z);u.refresh();V.holdPlan(arqV,planV);u.head.rotation.x=.42+Math.sin(t*.7)*.04;
+  const un=(ua-.03+1)%1,Q=route.getPointAt(un),TQ=route.getTangentAt(un),side=new THREE.Vector3(TQ.z,0,-TQ.x).multiplyScalar(.35);const np=Q.clone().add(side);
+  const spd=nPrev?nPrev.distanceTo(np)/dt:0;nPrev=np.clone();nYaw=V.yawTo(nYaw,Math.atan2(TQ.x,TQ.z),Math.min(1,dt*5));nalaV.rotation.y=nYaw;nalaV.position.copy(np);nalaV.position.y=.02+nalaV.userData.update(t,dt,spd,0)}
  if(fire)fire.children.forEach((f,i)=>{f.scale.y=.75+Math.sin(t*9+i*1.7)*.2+Math.sin(t*23+i)*.08;f.rotation.y=t*(i%2?1:-1)});if(fireL)fireL.position.y=1.1+Math.sin(t*13)*.05}
 let qq=0;addEventListener('scroll',()=>{if(!qq){qq=1;requestAnimationFrame(()=>{qq=0;fr()})}},{passive:true});
 </script></section>
