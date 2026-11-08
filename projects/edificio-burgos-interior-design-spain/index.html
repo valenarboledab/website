@@ -122,7 +122,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <div class="cap"><small>Attic</small><h2>Under the <em>beams</em></h2><p>Attic penthouses with exposed timber, linen and soft daylight.</p></div>
 <div class="cap"><small>Residences</small><h2>Warm wood, <em>calm</em> light</h2><p>Light oak, beige and linen. One Japandi language on every floor.</p></div>
 <div class="cap"><small>Ground floor</small><h2>A quiet <em>welcome</em></h2><p>Common areas and entry, the first impression of the whole building.</p></div>
-<div class="cap"><small>Back garden</small><h2>An outdoor <em>room</em></h2><p>Timber deck, hot tub, lawn and a fire bowl, framed by cypresses and planted beds.</p></div>
+<div class="cap"><small>Back garden</small><h2>Nala's <em>garden</em></h2><p>Teak deck, hot tub, lawn and a fire bowl, framed by cypresses. Nala runs the place.</p></div>
 <div class="cap"><small>Evening</small><h2>Home after <em>dark</em></h2><p>A space should first make you feel something, then function beautifully around that feeling.</p><a href="#case">Read the case study</a></div>
 <div class="lv"><span>Attic</span><span>Floor 2</span><span>Floor 1</span><span>Ground</span><span>Garden</span></div>
 <div class="clk">08:00</div>
@@ -144,7 +144,7 @@ const gnd=new THREE.Mesh(new THREE.CircleGeometry(160,64),new THREE.MeshStandard
 const cut=new THREE.Plane(new THREE.Vector3(0,-1,0),999);
 const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),e=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,sg=(p,a,b)=>e(cl((p-a)/(b-a))),lerp=THREE.MathUtils.lerp;
 const rnd=i=>((Math.sin(i*12.9898)*43758.5453)%1+1)%1;
-let arqV=null,planV=null,nalaV=null,cooks=[],ready=false,c=new THREE.Vector3(),S=20,Y0=0,TOP=12,glow=[],glass=[],W=[],lamps=[],fire=null,fireL=null,SH=[];
+let GD=null,nalaIn=null,LSEG={},curL=-1,nInPrev=null,nInYaw=0,arqV=null,planV=null,nalaV=null,cooks=[],ready=false,c=new THREE.Vector3(),S=20,Y0=0,TOP=12,glow=[],glass=[],W=[],lamps=[],fire=null,fireL=null,SH=[];
 const LV=[8.68,5.58,2.38,0];
 const std=(col,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:col,roughness:.85},o));
 // ---------- people ----------
@@ -225,11 +225,12 @@ LD.load(BASE+'edificio-burgos.glb',async g=>{const m=g.scene;sc.add(m);
   if(isGlass){M.depthWrite=false;o.renderOrder=2;o.castShadow=false;M.emissive=new THREE.Color(0xffb468);M.emissiveIntensity=0;glass.push(M)}else o.castShadow=true;
   o.receiveShadow=true;
   if(/emissive|luz|lampada|lamp|difusor aceso|dicroico/i.test(n)){M.emissive=new THREE.Color(0xffc477);M.emissiveIntensity=0;M.userData.k=4;glow.push(M)}});
- garden();
+ GD=(await import(root.dataset.garden??'/js/garden-burgos.js')).buildGarden({sc,V,VM,glow,lamps});
  const P=await pts;
- if(P)P.lv.forEach((L,li)=>{L.rooms.forEach((rm,ri)=>{SH[li]=SH[li]||rm.c;
+ if(P)P.lv.forEach((L,li)=>{L.rooms.forEach((rm,ri)=>{SH[li]=SH[li]||rm.c;if(!LSEG[L.y]&&rm.s[0])LSEG[L.y]=rm.s[0];
    const pl=new THREE.PointLight(0xffc98a,0,7,1.6);pl.position.set(rm.c[0],Y0+L.y+2.0,rm.c[1]);sc.add(pl);lamps.push([pl,ri?5:8]);
    rm.s.slice(0,ri?1:2).forEach((s,si)=>{const w=V.figure(VM.white,{hair:['bob','pony','long'][(li+ri+si)%3],clip:[cut]});sc.add(w);walker(w,[s[0],Y0+L.y,s[1]],[s[2],Y0+L.y,s[3]],.05+rnd(li+si)*.03,rnd(li*3+si),Y0+L.y)})})});
+ nalaIn=V.nala({clip:[cut]});nalaIn.scale.setScalar(1.2);sc.add(nalaIn);
  sun.target.position.copy(c);
  root.querySelector('.ld').style.opacity=0;ready=true;fr();loop()},x=>{if(x.total)ldp.textContent=Math.round(x.loaded/x.total*100)+'%'});
 function rs(){const w=cv.clientWidth,h=cv.clientHeight;if(!w)return;r.setSize(w,h,false);cam.aspect=w/h;if(w>700)cam.setViewOffset(w,h,-w*0.15,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}addEventListener('resize',()=>{rs();fr()});rs();new ResizeObserver(()=>{rs();fr()}).observe(cv);
@@ -237,17 +238,17 @@ const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-in
 // ---------- shots: [p, level(-1 none), focus('b' building | 'r' room | 'g' garden), azimuth, elevation, distance] ----------
 const K=[[0,-1,'b',-.35,.22,1.6],[.08,-1,'b',-.05,.12,1.0],[.15,-1,'b',.5,.62,1.05],
  [.2,0,'b',.9,1.0,.92],[.27,0,'r',1.4,.85,.46],[.33,1,'b',1.9,1.0,.92],[.39,1,'r',2.4,.82,.46],[.45,2,'b',2.8,1.0,.92],[.51,2,'r',3.3,.82,.46],
- [.57,3,'b',3.7,1.0,.92],[.62,3,'r',4.1,.82,.48],[.69,3,'g',6.6,.85,.55],[.76,-1,'g',7.75,.62,.68],
+ [.57,3,'b',3.7,1.0,.92],[.62,3,'r',4.1,.82,.48],[.69,3,'g',6.6,.85,.55],[.725,3,'n',7.0,.42,.16],[.76,-1,'g',7.75,.62,.68],
  [.84,-1,'b',7.2,.3,1.0],[.92,-1,'b',6.3,.16,1.6],[1,-1,'b',6.0,.2,1.7]];
 const tgt=new THREE.Vector3(),tmp=new THREE.Vector3();
-function shotT(k,out){if(k[2]==='g')return out.set(37.3,Y0+.8,-11.6);if(k[2]==='r'&&k[1]>=0&&SH[k[1]])return out.set(SH[k[1]][0],Y0+LV[k[1]]+.7,SH[k[1]][1]);if(k[1]>=0)return out.set(c.x,Y0+LV[k[1]]+.6,c.z);return out.set(c.x,c.y-.8,c.z)}
+function shotT(k,out){if(k[2]==='g'||k[2]==='n'){const f=GD?GD.focus():new THREE.Vector3(36.6,.6,-11.6);return out.copy(f).setY(Y0+(k[2]==='n'?.55:.8))}if(k[2]==='r'&&k[1]>=0&&SH[k[1]])return out.set(SH[k[1]][0],Y0+LV[k[1]]+.7,SH[k[1]][1]);if(k[1]>=0)return out.set(c.x,Y0+LV[k[1]]+.6,c.z);return out.set(c.x,c.y-.8,c.z)}
 const cutH=k=>k[1]<0?999:Y0+LV[k[1]]+1.55;
 function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';
  const s=p<.15?0:p<.32?1:p<.56?2:p<.66?3:p<.8?4:5;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
  let i=0;while(i<K.length-2&&p>K[i+1][0])i++;const A=K[i],B=K[i+1],t=e(cl((p-A[0])/(B[0]-A[0])));
  shotT(A,tgt);shotT(B,tmp);tgt.lerp(tmp,t);
  const ha=cutH(A),hb=cutH(B);cut.constant=(ha>900&&hb>900)?999:lerp(Math.min(ha,TOP+1),Math.min(hb,TOP+1),t);
- const L=t<.5?A[1]:B[1],gd=(t<.5?A[2]:B[2])==='g';lv.classList.toggle('on',L>=0||gd);lvs.forEach((x,j)=>x.classList.toggle('on',gd?j===4:j===L));
+ const L=t<.5?A[1]:B[1],gd=['g','n'].includes(t<.5?A[2]:B[2]);curL=gd?-2:L;lv.classList.toggle('on',L>=0||gd);lvs.forEach((x,j)=>x.classList.toggle('on',gd?j===4:j===L));
  const a=lerp(A[3],B[3],t),el=lerp(A[4],B[4],t),d=S*lerp(A[5],B[5],t)*(MOB?1.4:1);
  cam.position.set(tgt.x+Math.cos(a)*Math.cos(el)*d,tgt.y+Math.sin(el)*d,tgt.z+Math.sin(a)*Math.cos(el)*d);cam.lookAt(tgt);
  // time of day 08:00 -> 23:00
@@ -270,6 +271,13 @@ function anim(t){const dt=Math.min(.1,Math.max(.001,t-lastT));lastT=t;
   const sp=mv?Math.sin(Math.PI*(dir>0?c/dur:(c-dur-1.2)/dur))*1.5:0;
   q.w.position.set(A[0]+(B[0]-A[0])*f,q.base,A[2]+(B[2]-A[2])*f);const ty=Math.atan2((B[0]-A[0])*dir,(B[2]-A[2])*dir);q.yaw=V.yawTo(q.yaw,ty,Math.min(1,dt*3));q.w.rotation.y=q.yaw;
   const u=q.w.userData;u.pose(V.poseValues('stand'));const bob=u.walk((f*len)/.6*Math.PI,Math.min(1,sp));q.w.position.y=q.base+.012*bob;u.refresh()}
+ if(GD)GD.update(t,dt);
+ if(nalaIn){let np,sit=0,spd=0;const lvY=curL>=0?LV[curL]:null,seg=lvY!==null?LSEG[Object.keys(LSEG).map(Number).find(y=>Math.abs(y-lvY)<.05)]:null;
+  if(seg){const len=Math.hypot(seg[2]-seg[0],seg[3]-seg[1]),dur=len/.8,cyc=2*dur+3,cc=t%cyc;let f;if(cc<dur)f=V.ease(cc/dur);else if(cc<dur+1.5){f=1;sit=Math.min(1,(cc-dur)/.3)}else if(cc<2*dur+1.5)f=1-V.ease((cc-dur-1.5)/dur);else{f=0;sit=Math.min(1,(cc-2*dur-1.5)/.3)}
+   np=new THREE.Vector3(seg[0]+(seg[2]-seg[0])*f,Y0+lvY+.01,seg[1]+(seg[3]-seg[1])*f)}
+  else{np=new THREE.Vector3(49.9,Y0+.01,c.z+.6);sit=1}
+  if(nInPrev&&nInPrev.distanceTo(np)<3)spd=nInPrev.distanceTo(np)/dt;let ty=spd>.1?Math.atan2(np.x-nInPrev.x,np.z-nInPrev.z):(seg?nInYaw:Math.PI/2);
+  nInYaw=V.yawTo(nInYaw,ty,Math.min(1,dt*6));if(!nInPrev||nInPrev.distanceTo(np)>=3)nInYaw=ty;nInPrev=np.clone();nalaIn.rotation.y=nInYaw;nalaIn.position.copy(np);nalaIn.position.y+=nalaIn.userData.update(t,dt,spd,sit);nalaIn.visible=curL!==-2}
  cooks.forEach(c=>{const u=c.userData;u.L.sr.p=-.75+Math.sin(t*4)*.18;u.L.sr.b=-.7+Math.sin(t*4)*.2;u.refresh()});
  if(arqV){const ua=((t*.38/RLEN)%1+1)%1,P=route.getPointAt(ua),T=route.getTangentAt(ua);arqYaw=V.yawTo(arqYaw,Math.atan2(T.x,T.z),Math.min(1,dt*4));arqV.rotation.y=arqYaw;
   const u=arqV.userData;u.pose(V.poseValues('read'));const bob=u.walk(t*.38/.6*Math.PI,1);arqV.position.set(P.x,P.y+.012*bob,P.z);u.refresh();V.holdPlan(arqV,planV);u.head.rotation.x=.42+Math.sin(t*.7)*.04;
