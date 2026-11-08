@@ -1,0 +1,32 @@
+rules_version = '2';
+// Studio Valentina: Firestore security rules.
+// Paste into Firebase Console > Firestore Database > Rules, then Publish.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Each client can only READ their own project document. Nobody can write from the website.
+    // Valentina edits these from the Firebase Console (admin access bypasses these rules).
+    match /clients/{uid} {
+      allow read: if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // Download form: visitors may only CREATE a lead with the expected fields.
+    // Nobody can read, edit or delete leads from the website.
+    match /leads/{leadId} {
+      allow create: if request.resource.data.keys().hasOnly(['name', 'email', 'optIn', 'resource', 'createdAt'])
+        && request.resource.data.name is string && request.resource.data.name.size() <= 100
+        && request.resource.data.email is string && request.resource.data.email.size() <= 200
+        && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$')
+        && request.resource.data.optIn is bool
+        && request.resource.data.resource is string && request.resource.data.resource.size() <= 100
+        && request.resource.data.createdAt == request.time;
+      allow read, update, delete: if false;
+    }
+
+    // Everything else is closed.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
