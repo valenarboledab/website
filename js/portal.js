@@ -131,12 +131,12 @@ async function start() {
   }
 
   const app = initializeApp(firebaseConfig);
-  // App Check (reCAPTCHA v3): proves requests come from studio-valentina.com. Public site key.
+  // App Check (reCAPTCHA Enterprise / Fraud Defense): proves requests come from studio-valentina.com. Public site key.
   try {
-    const { initializeAppCheck, ReCaptchaV3Provider } =
+    const { initializeAppCheck, ReCaptchaEnterpriseProvider } =
       await import(`https://www.gstatic.com/firebasejs/${v}/firebase-app-check.js`);
     initializeAppCheck(app, {
-      provider: new ReCaptchaV3Provider('6Lc0BhcuAAAAAFmSFtERQmjFgliC_gtEczYDgKLI'),
+      provider: new ReCaptchaEnterpriseProvider('6Lc0BhcuAAAAAFmSFtERQmjFgliC_gtEczYDgKLI'),
       isTokenAutoRefreshEnabled: true
     });
   } catch (e) { /* if App Check fails to load, the site keeps working */ }
