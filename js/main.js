@@ -171,7 +171,7 @@ initRevealObserver();
     {name:'ELEMENTI',country:'USA',cat:'interior',category:'Commercial · Wellness Interior Design',images:elementiImages,page:{en:'/projects/elementi-wellness-interior-design-usa/',es:'/es/proyectos/elementi-diseno-interior-bienestar-usa/'}},
     {name:'Cable Car',country:'Colombia',cat:'commercial',category:'Commercial · Infrastructure',images:['/images/teleferico.webp']},
     {name:'Residential Building 5 Floors',country:'Spain',cat:'commercial',category:'Commercial · Residential',images:residentialBuildingImages},
-    {name:'G-Metria',country:'Colombia',cat:'commercial',category:'Commercial · Public Interior',images:['/COMMERCIAL/PUBLIC SPACE/G-Metria - Colombia/20260527_125716831_iOS.webp']},
+    {name:'G-Metria',country:'Colombia',cat:'commercial',category:'Commercial · Public Interior',images:['/COMMERCIAL/PUBLIC SPACE/G-Metria - Colombia/gmetria-01.webp','/COMMERCIAL/PUBLIC SPACE/G-Metria - Colombia/gmetria-02-aerea.webp','/COMMERCIAL/PUBLIC SPACE/G-Metria - Colombia/gmetria-03-celosia.webp','/COMMERCIAL/PUBLIC SPACE/G-Metria - Colombia/gmetria-04-pabellon.webp','/COMMERCIAL/PUBLIC SPACE/G-Metria - Colombia/20260527_125716831_iOS.webp']},
     {name:'Public Space & View Point',country:'Colombia',cat:'masterplan',category:'Public Space',images:publicSpaceImages},
     {name:'Medical Building',country:'Colombia',cat:'commercial',category:'Commercial · Superintendent',images:['/COMMERCIAL/SUPERINTENDANT/Medical Building - Colombia/marquez y fajardo.webp']},
     {name:'Marawi',country:'Colombia',cat:'commercial',category:'Commercial · Superintendent',images:['/COMMERCIAL/SUPERINTENDANT/Marawi - Colombia/WhatsApp Image 2026-01-31 at 9.44.29 PM.webp']},
