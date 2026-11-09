@@ -485,6 +485,13 @@ const dl=new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/version
 const pts=fetch(BASE+'arboretum-col-pts.json').then(r=>r.json());
 LD.load(BASE+'arboretum-col.glb',async g=>{const m=g.scene;sc.add(m);
  m.traverse(o=>{if(o.isMesh){const mn=o.material.name;if(mn==='grass')o.material.color.setHex(0xd9cfbb);if(mn==='path')o.material.color.setHex(0xe6ddcf);o.castShadow=!o.material.transparent;o.receiveShadow=true;if(o.material.transparent){o.material.depthWrite=false;o.renderOrder=2}if(o.material.name==='glass')winMat=o.material}});
+ // give walls and slabs more visible thickness
+ {const inflate=(g,d)=>{const P2=g.attributes.position,ix=g.index?g.index.array:null,n=P2.count,key=new Array(n),acc=new Map(),a=new THREE.Vector3(),b=new THREE.Vector3(),c2=new THREE.Vector3(),fn=new THREE.Vector3();
+   for(let i=0;i<n;i++)key[i]=Math.round(P2.getX(i)*500)+'_'+Math.round(P2.getY(i)*500)+'_'+Math.round(P2.getZ(i)*500);
+   const T=ix?ix.length:n;for(let i=0;i<T;i+=3){const i0=ix?ix[i]:i,i1=ix?ix[i+1]:i+1,i2=ix?ix[i+2]:i+2;a.fromBufferAttribute(P2,i0);b.fromBufferAttribute(P2,i1);c2.fromBufferAttribute(P2,i2);fn.subVectors(c2,b).cross(a.clone().sub(b));
+    for(const v of [i0,i1,i2]){const k=key[v];const s0=acc.get(k)||new THREE.Vector3();s0.add(fn);acc.set(k,s0)}}
+   for(let i=0;i<n;i++){const v=acc.get(key[i]);if(!v)continue;const u=v.clone().normalize();P2.setXYZ(i,P2.getX(i)+u.x*d,P2.getY(i)+u.y*d,P2.getZ(i)+u.z*d)}P2.needsUpdate=true;g.computeBoundingSphere();g.computeBoundingBox()};
+  m.updateMatrixWorld(true);m.traverse(o=>{if(!o.isMesh)return;const mn=o.material.name,nn=o.name+' '+(o.parent?o.parent.name:''),sc3=new THREE.Vector3();o.matrixWorld.decompose(new THREE.Vector3(),new THREE.Quaternion(),sc3);const k=1/((Math.abs(sc3.x)+Math.abs(sc3.y)+Math.abs(sc3.z))/3);if(mn==='clad'||/Basic Wall/.test(nn))inflate(o.geometry,.09*k);else if(mn==='white'&&/Floor/.test(nn))inflate(o.geometry,.07*k)})}
  const names=['L0','L1','L2','L3','L4','L5','ROOF'];L=names.map(n=>m.getObjectByName(n)).filter(Boolean);L.forEach(o=>o.userData.y0=o.position.y);
  const bb=new THREE.Box3();L.slice(1).forEach(o=>bb.expandByObject(o));bb.getCenter(c);S=bb.getSize(new THREE.Vector3()).length();
  const GY=14.5;gnd.position.set(c.x,GY,c.z);MT.position.set(c.x,GY+33,c.z);MT.visible=false;gnd.visible=false;{const ab=new THREE.Box3().setFromObject(m),sz=ab.getSize(new THREE.Vector3()),ac=ab.getCenter(new THREE.Vector3());terrain(ac.x,ac.z,GY-.03,sz.x*.5,sz.z*.5)}L.forEach((o,i)=>{if(i<3)o.traverse(q=>{if(q.isMesh){q.castShadow=false}})});
@@ -504,7 +511,7 @@ LD.load(BASE+'arboretum-col.glb',async g=>{const m=g.scene;sc.add(m);
    for(let j=0;j<2;j++){o.position.set(p[0]+(rnd(i*13+j)-.5)*1.2,p[1]-0.7,p[2]+(rnd(i*17+j)-.5)*1.2);o.rotation.set(0,rnd(i*19+j)*6,0);o.scale.set(1,.5+rnd(i*11+j)*.9,1);o.updateMatrix();ih.setColorAt(h,greens[(i*3+j)%6]);ih.setMatrixAt(h++,o.matrix)}});
   ib.castShadow=ih.castShadow=true;gp.add(ib,ih)}
  // smooth roof caps (cover openings on the roofs)
- if(P.cap){const capM=m.getObjectByName('ROOF');let wm=null;m.traverse(o=>{if(!wm&&o.isMesh&&o.material.name==='white')wm=o.material});const gs=P.cap.map(([x,z0,z1])=>{const g=new THREE.BoxGeometry(1.02,.08,z1-z0+1.02);g.translate(x,30.06,(z0+z1)/2);return g});const cg=mergeGeometries(gs);const cm=new THREE.Mesh(cg,new THREE.MeshStandardMaterial({color:0xf3f1ec,roughness:.9}));cm.receiveShadow=false;cm.castShadow=false;(capM||m).add(cm)}
+ if(P.cap){const capM=m.getObjectByName('ROOF');let wm=null;m.traverse(o=>{if(!wm&&o.isMesh&&o.material.name==='white')wm=o.material});const gs=P.cap.map(([x,z0,z1])=>{const g=new THREE.BoxGeometry(1.02,.3,z1-z0+1.02);g.translate(x,29.97,(z0+z1)/2);return g});const cg=mergeGeometries(gs);const cm=new THREE.Mesh(cg,new THREE.MeshStandardMaterial({color:0xf3f1ec,roughness:.9}));cm.receiveShadow=false;cm.castShadow=false;(capM||m).add(cm)}
  // lamps
  const lampN=Math.min(28,P.plaza.length);const poleG=new THREE.CylinderGeometry(.06,.08,4.2,6),headG=new THREE.SphereGeometry(.22,10,8);lampMat=new THREE.MeshStandardMaterial({color:0xfff2d0,emissive:0xffc77a,emissiveIntensity:0});
  const ip=new THREE.InstancedMesh(poleG,new THREE.MeshStandardMaterial({color:0x222222,roughness:.5}),lampN),ih2=new THREE.InstancedMesh(headG,lampMat,lampN);{const o=new THREE.Object3D();for(let i=0;i<lampN;i++){const p=P.plaza[Math.floor(i*P.plaza.length/lampN)];o.position.set(p[0]+1.2,p[1]+2.1,p[2]+1.2);o.scale.setScalar(1);o.rotation.set(0,0,0);o.updateMatrix();ip.setMatrixAt(i,o.matrix);o.position.y=p[1]+4.3;o.updateMatrix();ih2.setMatrixAt(i,o.matrix)}}
@@ -581,6 +588,14 @@ LD.load(BASE+'arboretum-col.glb',async g=>{const m=g.scene;sc.add(m);
   const sf=mergeGeometries([(()=>{const g=new THREE.BoxGeometry(2,.42,.85);g.translate(0,.21,0);return g})(),(()=>{const g=new THREE.BoxGeometry(2,.45,.18);g.translate(0,.62,-.34);return g})(),(()=>{const g=new THREE.BoxGeometry(.18,.3,.85);g.translate(-.92,.55,0);return g})(),(()=>{const g=new THREE.BoxGeometry(.18,.3,.85);g.translate(.92,.55,0);return g})()]);
   const TB=[],CH=[],SF=[];P.inn.forEach((q,i)=>{const r0=rnd(i*23)*3;if(i%3===1){TB.push([q[0]-.9,q[1],q[2]-.7,0,1]);for(const s2 of [-1,1])CH.push([q[0]-.9+Math.cos(r0)*.75*s2,q[1],q[2]-.7+Math.sin(r0)*.75*s2,-r0+(s2>0?-Math.PI/2:Math.PI/2),1])}if(i%3===2)SF.push([q[0]-1,q[1],q[2]+.8,r0,1])});
   P.ring.forEach((rg)=>{rg.p.forEach((a,i)=>{if(i%7===3)return})});
+  P.plaza.forEach((q,i)=>{if(i%5===2||(q[1]<20&&i%9===4)){const r0=rnd(i*29)*3,x=q[0]-1.2,z=q[2]-1.2;TB.push([x,q[1],z,0,1]);for(let k=0;k<4;k++){const an=r0+k*Math.PI/2;CH.push([x+Math.cos(an)*.78,q[1],z+Math.sin(an)*.78,-an-Math.PI/2,1])}}});
+  P.inn.forEach((q,i)=>{if(i%3===0){const r0=rnd(i*31)*3;TB.push([q[0]+1.6,q[1],q[2]-1.3,0,1]);for(let k=0;k<3;k++){const an=r0+k*2.1;CH.push([q[0]+1.6+Math.cos(an)*.78,q[1],q[2]-1.3+Math.sin(an)*.78,-an-Math.PI/2,1])}}});
+  const rug=new THREE.BoxGeometry(2.6,.02,1.8);rug.translate(0,.01,0);const RU=[],AC=[],SH=[];
+  P.inn.forEach((q,i)=>{const r0=rnd(i*37)*3;if(i%3===2){RU.push([q[0]-1,q[1],q[2]+1.6,r0,1]);for(const s2 of [-1,1])AC.push([q[0]-1+Math.cos(r0)*1.1*s2,q[1],q[2]+1.6-Math.sin(r0)*1.1*s2,r0+(s2>0?Math.PI/2:-Math.PI/2),1])}
+   if(i%4===1)SH.push([q[0]+.4,q[1],q[2]+2.4,r0,1])});
+  const ac=mergeGeometries([(()=>{const g=new THREE.BoxGeometry(.8,.4,.8);g.translate(0,.2,0);return g})(),(()=>{const g=new THREE.BoxGeometry(.8,.42,.16);g.translate(0,.6,-.32);return g})()]);
+  const sh=mergeGeometries([0,1,2,3].map(k=>{const g=new THREE.BoxGeometry(1.6,.04,.4);g.translate(0,.3+k*.5,0);return g}).concat([(()=>{const g=new THREE.BoxGeometry(.05,1.9,.4);g.translate(-.78,.95,0);return g})(),(()=>{const g=new THREE.BoxGeometry(.05,1.9,.4);g.translate(.78,.95,0);return g})()]));
+  put(rug,new THREE.MeshStandardMaterial({color:0xe6dccb,roughness:1}),RU);put(ac,new THREE.MeshStandardMaterial({color:0xc9b79f,roughness:.95}),AC);put(sh,new THREE.MeshStandardMaterial({color:0xb79c7c,roughness:.7}),SH);
   put(tb,new THREE.MeshStandardMaterial({color:0xe9e2d6,roughness:.6}),TB);put(ch,new THREE.MeshStandardMaterial({color:0xa98c6e,roughness:.7}),CH);put(sf,new THREE.MeshStandardMaterial({color:0xd8ccb8,roughness:.95}),SF);
  }
  root.querySelector('.ld').style.opacity=0;ready=true;fr();loop()});
