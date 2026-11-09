@@ -30,6 +30,22 @@ function safeUrl(u) {
   try { const x = new URL(u); return x.protocol === 'https:' ? x.href : null; } catch (e) { return null; }
 }
 
+// Project media: Firestore fields `images` (list of paths/URLs) and `video`; when missing, a client
+// whose project is in the public portfolio gets those renders automatically.
+const PORTFOLIO_MEDIA = [
+  { match: /pradera/i, images: ['/RESIDENTIAL/Rooftop Single Family House - Colombia/TERRACE.webp'], video: 'rooftop' }
+];
+function mediaFor(data) {
+  const known = PORTFOLIO_MEDIA.find((m) => m.match.test(data.project || ''));
+  const imgs = (Array.isArray(data.images) && data.images.length ? data.images : known?.images || [])
+    .map((u) => (typeof u === 'string' ? u : u?.url)).filter((u) => u && (u.startsWith('/') || safeUrl(u)));
+  const vid = data.video || known?.video;
+  if (!imgs.length && !vid) return '';
+  const v = vid ? `<video class="pt-video" src="/videos/proj-${esc(vid)}.mp4" poster="/videos/posters/proj-${esc(vid)}.webp" controls muted playsinline preload="none"></video>` : '';
+  const g = imgs.map((u) => `<a href="${esc(encodeURI(u))}" target="_blank" rel="noopener"><img src="${esc(encodeURI(u))}" alt="${esc(data.project || '')}" loading="lazy"></a>`).join('');
+  return `<div class="pt-card pt-media"><h3>${T('Your project', 'Tu proyecto')}</h3>${v}<div class="pt-gallery">${g}</div></div>`;
+}
+
 function render(user, data) {
   $('ptHello').textContent = T('Hello, ', 'Hola, ') + (data?.name || user.email);
   if (!data) {
@@ -47,6 +63,7 @@ function render(user, data) {
       <div class="pt-steps">${steps}</div>
       <p class="pt-phase">${T('Current phase', 'Fase actual')}: <strong>${esc(PHASES[phase])}</strong></p>
     </div>
+    ${mediaFor(data)}
     <div class="pt-grid">
       <div class="pt-card"><h3>${T('Next steps', 'Próximos pasos')}</h3>${list(data.nextSteps, (s) => `<li>${esc(s)}</li>`, T('Nothing pending right now.', 'Nada pendiente por ahora.'))}</div>
       <div class="pt-card"><h3>${T('Documents', 'Documentos')}</h3>${list(data.documents, (d) => { const u = safeUrl(d.url); return `<li>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(d.name)}</a>` : esc(d.name)}</li>`; }, T('No documents shared yet.', 'Aún no hay documentos compartidos.'))}</div>

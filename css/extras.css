@@ -357,3 +357,8 @@ body:has(#page-contact.active) .ct-fab:hover{opacity:1}
 #page-portal #ptLogin .faq-hero:has(.pt-valentina) .sp-title{grid-column:1/-1}
 #page-portal .faq-hero img.pt-valentina{height:170px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(80,60,40,.18))}
 @media (max-width:640px){#page-portal .faq-hero img.pt-valentina{height:130px}}
+/* Client project media */
+.pt-media{margin-top:18px}
+.pt-media .pt-video{width:100%;border-radius:12px;display:block;margin-bottom:12px;background:#000}
+.pt-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.pt-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block}
