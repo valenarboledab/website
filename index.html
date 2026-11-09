@@ -146,7 +146,7 @@
 import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';
 const V=await import('/js/valentinas.js');const VM=V.materials();
 const root=document.getElementById('sv-eco'),cv=root.querySelector('canvas'),caps=[...root.querySelectorAll('.cap')],bar=root.querySelector('.bar');
-const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
+const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,1.5));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
 const sc=new THREE.Scene();sc.background=new THREE.Color(0xf0eeed);
 const cam=new THREE.PerspectiveCamera(32,1,0.5,600);
 sc.add(new THREE.HemisphereLight(0xfffaf0,0xb9ad98,0.9));const sun=new THREE.DirectionalLight(0xfff3e0,3.2);sun.castShadow=true;sun.shadow.bias=-0.0006;sun.shadow.normalBias=0.06;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-45,right:45,top:45,bottom:-45,far:200});sc.add(sun,sun.target);
@@ -454,6 +454,7 @@ let q=0;addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(()=>{q=0
 
 <script type="module">
 import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+await new Promise(r=>{const e=document.getElementById('sv-acol'),ok=()=>e.getClientRects().length>0;if(ok())return r();const iv=setInterval(()=>{if(ok()){clearInterval(iv);r()}},300)});
 const root=document.getElementById('sv-acol'),cv=root.querySelector('canvas'),caps=[...root.querySelectorAll('.cap')],bar=root.querySelector('.bar');
 const BASE=root.dataset.base??'/images/3d/';
 const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
@@ -846,6 +847,7 @@ let qq=0;addEventListener('scroll',()=>{if(!qq){qq=1;requestAnimationFrame(()=>{
 <div class="bar"></div></div>
 <script type="module">
 import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+await new Promise(r=>{const e=document.getElementById('sv-burgos'),ok=()=>e.getClientRects().length>0;if(ok())return r();const iv=setInterval(()=>{if(ok()){clearInterval(iv);r()}},300)});
 const V=await import(document.getElementById('sv-burgos').dataset.lib??'/js/valentinas.js');const VM=V.materials();
 const root=document.getElementById('sv-burgos'),cv=root.querySelector('canvas'),caps=[...root.querySelectorAll('.cap')],bar=root.querySelector('.bar'),lv=root.querySelector('.lv'),lvs=[...lv.children],ldp=root.querySelector('.ld span'),clk=root.querySelector('.clk');
 const BASE=root.dataset.base??'/images/3d/',MOB=innerWidth<700;
