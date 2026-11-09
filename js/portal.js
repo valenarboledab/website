@@ -15,6 +15,9 @@ const PHASES = ['Vision', 'Strategy', 'Design', 'Documentation', 'Execution'];
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+const ES = (document.documentElement.lang || '').startsWith('es');
+const T = (en, es) => (ES ? es : en);
+
 function show(view) {
   ['ptSetup', 'ptLogin', 'ptDash'].forEach((v) => { const el = $(v); if (el) el.hidden = v !== view; });
 }
@@ -25,7 +28,7 @@ function safeUrl(u) {
 }
 
 function render(user, data) {
-  $('ptHello').textContent = 'Hello, ' + (data?.name || user.email);
+  $('ptHello').textContent = T('Hello, ', 'Hola, ') + (data?.name || user.email);
   if (!data) {
     $('ptBody').innerHTML = '<div class="pt-card"><p>Your project space is being set up. Valentina will add your project details shortly.</p></div>';
     return;
@@ -117,16 +120,18 @@ async function start() {
 
   const v = '10.12.2';
   let initializeApp, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail,
+      GoogleAuthProvider, signInWithPopup, signInWithRedirect, getAdditionalUserInfo, setPersistence, browserLocalPersistence,
       getFirestore, doc, getDoc, collection, addDoc, serverTimestamp;
   try {
     ({ initializeApp } = await import(`https://www.gstatic.com/firebasejs/${v}/firebase-app.js`));
-    ({ getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail } =
+    ({ getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, sendPasswordResetEmail,
+       GoogleAuthProvider, signInWithPopup, signInWithRedirect, getAdditionalUserInfo, setPersistence, browserLocalPersistence } =
       await import(`https://www.gstatic.com/firebasejs/${v}/firebase-auth.js`));
     ({ getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } =
       await import(`https://www.gstatic.com/firebasejs/${v}/firebase-firestore.js`));
   } catch (e) {
     resolveLeadSaver(null);
-    if ($('page-portal')) { show('ptLogin'); msg('The portal could not load. Please disable ad-blockers or try again later.'); }
+    if ($('page-portal')) { show('ptLogin'); msg(T('The portal could not load. Please disable ad-blockers or try again later.', 'El portal no pudo cargar. Desactiva el bloqueador de anuncios o inténtalo más tarde.')); }
     return;
   }
 
@@ -146,27 +151,59 @@ async function start() {
   resolveLeadSaver((lead) => addDoc(collection(db, 'leads'), { ...lead, createdAt: serverTimestamp() }));
   if (!$('page-portal')) return;
 
+  setPersistence(auth, browserLocalPersistence).catch(() => {});
+  const errText = (err) => {
+    const c = err?.code || '';
+    if (c.includes('invalid-credential') || c.includes('wrong-password') || c.includes('user-not-found') || c.includes('invalid-email'))
+      return T('Email or password is incorrect.', 'El correo o la contraseña no son correctos.');
+    if (c.includes('too-many-requests')) return T('Too many attempts. Please wait a few minutes and try again.', 'Demasiados intentos. Espera unos minutos e inténtalo de nuevo.');
+    if (c.includes('network')) return T('No connection. Check your internet and try again.', 'Sin conexión. Revisa tu internet e inténtalo de nuevo.');
+    if (c.includes('account-exists-with-different-credential')) return T('This email already has a password. Sign in with email below.', 'Este correo ya tiene contraseña. Entra con tu correo abajo.');
+    if (c.includes('popup-closed') || c.includes('cancelled-popup')) return '';
+    return T('We could not sign you in. Please try again.', 'No pudimos iniciar tu sesión. Inténtalo de nuevo.');
+  };
+  // Google accounts that are not clients: remove the just-created account and say so.
+  const NOT_CLIENT = T('This Google account has no active project. If you are a client, contact Valentina or sign in with the email she registered.',
+    'Esta cuenta de Google no tiene un proyecto activo. Si eres cliente, escríbele a Valentina o entra con el correo que ella registró.');
+  let pendingNotice = '';
+
   $('ptForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     msg('');
     try {
       await signInWithEmailAndPassword(auth, $('ptEmail').value.trim(), $('ptPass').value);
     } catch (err) {
-      msg('Email or password is incorrect.');
+      msg(errText(err));
     }
+  });
+  $('ptGoogle')?.addEventListener('click', async () => {
+    msg('');
+    const b = $('ptGoogle'); b.disabled = true;
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+    try {
+      const res = await signInWithPopup(auth, provider);
+      if (getAdditionalUserInfo(res)?.isNewUser) {
+        const snap = await getDoc(doc(db, 'clients', res.user.uid)).catch(() => null);
+        if (!snap || !snap.exists()) { pendingNotice = NOT_CLIENT; await res.user.delete().catch(() => signOut(auth)); }
+      }
+    } catch (err) {
+      if ((err?.code || '').includes('popup-blocked')) { signInWithRedirect(auth, provider); return; }
+      msg(errText(err));
+    } finally { b.disabled = false; }
   });
   $('ptReset').addEventListener('click', async () => {
     const email = $('ptEmail').value.trim();
-    if (!email) { msg('Type your email first, then tap "Forgot password".'); return; }
+    if (!email) { msg(T('Type your email first, then tap "Forgot password".', 'Escribe tu correo primero y luego toca "¿Olvidaste tu contraseña?".')); return; }
     try { await sendPasswordResetEmail(auth, email); } catch (e) {}
-    msg('If that email has an account, a reset link is on its way.', true);
+    msg(T('If that email has an account, a reset link is on its way.', 'Si ese correo tiene cuenta, te llegará un enlace para cambiar la contraseña.'), true);
   });
   $('ptOut').addEventListener('click', () => signOut(auth));
 
   onAuthStateChanged(auth, async (user) => {
-    if (!user) { show('ptLogin'); return; }
+    if (!user) { show('ptLogin'); if (pendingNotice) { msg(pendingNotice); pendingNotice = ''; } return; }
     show('ptDash');
-    $('ptBody').innerHTML = '<p>Loading…</p>';
+    $('ptBody').innerHTML = `<p>${T('Loading…', 'Cargando…')}</p>`;
     try {
       const snap = await getDoc(doc(db, 'clients', user.uid));
       render(user, snap.exists() ? snap.data() : null);
