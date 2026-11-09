@@ -241,7 +241,7 @@ function planMode() {
   img.hidden = !has || editing; toggle.hidden = !has;
   if (has) { img.src = PLANS[current]; img.alt = "Furnished floor plan by Studio Valentina"; }
   planCanvas.style.visibility = has && !editing ? "hidden" : "visible";
-  toggle.textContent = editing ? "Ver mi planta" : "Mover muebles";
+  toggle.textContent = editing ? "Ver mi planta" : "Volver a mover muebles";
 }
 toggle.addEventListener("click", () => { editing = !editing; planMode(); if (ctx) { fit(); draw(); } });
 
@@ -289,11 +289,11 @@ setTimeout(() => { load(0).then(() => load(1)).then(() => load(2)).catch(() => {
 function makeCtx() {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color("#f3efe8");
-  scene.add(new THREE.HemisphereLight(0xfff8ee, 0xc9b9a0, 1.25));
-  const sun = new THREE.DirectionalLight(0xfff0dc, 1.9); sun.position.set(30, 40, 18); scene.add(sun, sun.target);
+  scene.add(new THREE.HemisphereLight(0xfff8ee, 0xb8a78f, 0.55));
+  const sun = new THREE.DirectionalLight(0xfff0dc, 1.25); sun.position.set(30, 40, 18); scene.add(sun, sun.target);
   const plan = new THREE.WebGLRenderer({ canvas: planCanvas, antialias: true });
   const mini = new THREE.WebGLRenderer({ canvas: miniCanvas, antialias: true, alpha: true });
-  for (const r of [plan, mini]) { r.localClippingEnabled = true; r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.05; }
+  for (const r of [plan, mini]) { r.localClippingEnabled = true; r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 0.85; }
   const ortho = new THREE.OrthographicCamera(-5, 5, 5, -5, 0.1, 100);
   const persp = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
   const ctl = new OrbitControls(persp, miniCanvas); ctl.enableDamping = true; ctl.enablePan = false;
@@ -316,7 +316,7 @@ let raf = 0;
 function draw() { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; if (!ctx || current < 0) return; ctx.ctl.update(); ctx.plan.render(ctx.scene, ctx.ortho); ctx.mini.render(ctx.scene, ctx.persp); }); }
 
 async function show(n) {
-  current = n; wrap.hidden = false; editing = false; planMode();
+  current = n; wrap.hidden = false; editing = true; planMode();
   if (n === 5) { msg.hidden = false; msg.textContent = "El techo no tiene interior"; planCanvas.style.opacity = 0; return; }
   planCanvas.style.opacity = 1;
   msg.hidden = false; msg.textContent = "Cargando tu diseño…";
@@ -380,12 +380,12 @@ renderBtn?.addEventListener("click", async (e) => {
   const set = floorSet[FLOOR(current)];
   const r = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
   r.localClippingEnabled = true; r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
-  r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.1;
+  r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 0.95;
   const w = canvas.clientWidth, h = canvas.clientHeight; r.setSize(w, h, false);
   const scene = new THREE.Scene(); scene.background = new THREE.Color("#efe9df");
-  scene.add(new THREE.HemisphereLight(0xfff6ea, 0xb9a88f, 0.9));
+  scene.add(new THREE.HemisphereLight(0xfff6ea, 0xb9a88f, 0.5));
   const fx = (39.4 + 48.75) / 2, fz = (-17.3 + -6.1) / 2;
-  const sun = new THREE.DirectionalLight(0xffefd8, 2.8); sun.position.set(fx + 10, set.y0 + 14, fz + 6); sun.target.position.set(fx, set.y0, fz);
+  const sun = new THREE.DirectionalLight(0xffefd8, 2.2); sun.position.set(fx + 10, set.y0 + 14, fz + 6); sun.target.position.set(fx, set.y0, fz);
   sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8, near: 1, far: 50 }); sun.shadow.bias = -0.0004; sun.shadow.radius = 4;
   scene.add(sun, sun.target);
   const fill = new THREE.PointLight(0xffe2c0, 18, 12); fill.position.set(fx - 1, set.y0 + 2.2, fz + 1); scene.add(fill);
