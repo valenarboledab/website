@@ -116,8 +116,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 #sv-burgos .ld{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);letter-spacing:.3em;font-size:11px;text-transform:uppercase;color:#9a7f61;transition:opacity .5s;text-align:center}
 #sv-burgos .bar{position:absolute;left:0;bottom:0;height:2px;background:#9a7f61;width:0;z-index:3}
 @media (max-width:700px){#sv-burgos .st:after{background:linear-gradient(0deg,rgba(240,238,237,.92) 0,rgba(240,238,237,0) 55%)}#sv-burgos .cap{bottom:9vh;left:6vw}#sv-burgos .lv{top:84px;transform:none;right:5vw}#sv-burgos .clk{bottom:auto;top:84px;left:6vw;right:auto}}
+#sv-burgos .ld{z-index:2;background:rgba(250,247,242,.88);padding:9px 16px;border-radius:20px}#sv-burgos .pst{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1s;pointer-events:none}#sv-burgos.rd .pst{opacity:0}
 </style>
-<div class="st"><canvas></canvas><div class="ld">Loading model <span>0%</span></div>
+<div class="st"><canvas></canvas><img class="pst" src="/images/3d/burgos-poster.webp" alt="" fetchpriority="high"><div class="ld">Loading model <span>0%</span></div>
 <div class="cap on"><small>Interior design · Burgos, Spain</small><h2>Edificio <em>Burgos</em></h2><p>A five-story residential building, designed inside out. Scroll to spend a day in it, floor by floor.</p></div>
 <div class="cap"><small>Attic</small><h2>Under the <em>beams</em></h2><p>Attic penthouses with exposed timber, linen and soft daylight.</p></div>
 <div class="cap"><small>Residences</small><h2>Warm wood, <em>calm</em> light</h2><p>Light oak, beige and linen. One Japandi language on every floor.</p></div>
@@ -234,7 +235,7 @@ LD.load(BASE+'edificio-burgos.glb',async g=>{const m=g.scene;sc.add(m);
  context();
  nalaIn=V.nala({clip:[cut]});nalaIn.scale.setScalar(1.2);sc.add(nalaIn);
  sun.target.position.copy(c);
- root.querySelector('.ld').style.opacity=0;ready=true;fr();loop()},x=>{if(x.total)ldp.textContent=Math.round(x.loaded/x.total*100)+'%'});
+ root.querySelector('.ld').style.opacity=0;root.classList.add('rd');ready=true;fr();loop()},x=>{if(x.total)ldp.textContent=Math.round(x.loaded/x.total*100)+'%'});
 function context(){const C=new THREE.Group();sc.add(C);gnd.material.color.setHex(0xd9d2c6);
  const tex=(w,h,draw)=>{const cv=document.createElement('canvas');cv.width=w;cv.height=h;draw(cv.getContext('2d'),w,h);const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=8;return t};
  const grain=(x,w,h,a)=>{const im=x.getImageData(0,0,w,h);for(let i=0;i<im.data.length;i+=4){const n=(Math.random()-.5)*a;im.data[i]+=n;im.data[i+1]+=n;im.data[i+2]+=n}x.putImageData(im,0,0)};
