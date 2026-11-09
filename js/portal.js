@@ -11,12 +11,15 @@ const firebaseConfig = {
   appId: "1:290715834538:web:b2e1b40130fa8256b358d3"
 };
 
-const PHASES = ['Vision', 'Strategy', 'Design', 'Documentation', 'Execution'];
+const PHASES_EN = ['Vision', 'Strategy', 'Design', 'Documentation', 'Execution'];
+const PHASES_ES = ['Visión', 'Estrategia', 'Diseño', 'Documentación', 'Ejecución'];
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 const ES = (document.documentElement.lang || '').startsWith('es');
 const T = (en, es) => (ES ? es : en);
+
+const PHASES = ES ? PHASES_ES : PHASES_EN;
 
 function show(view) {
   ['ptSetup', 'ptLogin', 'ptDash'].forEach((v) => { const el = $(v); if (el) el.hidden = v !== view; });
@@ -30,7 +33,7 @@ function safeUrl(u) {
 function render(user, data) {
   $('ptHello').textContent = T('Hello, ', 'Hola, ') + (data?.name || user.email);
   if (!data) {
-    $('ptBody').innerHTML = '<div class="pt-card"><p>Your project space is being set up. Valentina will add your project details shortly.</p></div>';
+    $('ptBody').innerHTML = `<div class="pt-card"><p>${T('Your project space is being set up. Valentina will add your project details shortly.', 'Tu espacio de proyecto se está preparando. Valentina agregará los detalles muy pronto.')}</p></div>`;
     return;
   }
   const phase = Math.max(0, Math.min(PHASES.length - 1, Number(data.phase) || 0));
@@ -38,16 +41,16 @@ function render(user, data) {
   const list = (arr, fn, empty) => (Array.isArray(arr) && arr.length) ? `<ul class="pt-list">${arr.map(fn).join('')}</ul>` : `<p>${empty}</p>`;
   $('ptBody').innerHTML = `
     <div class="pt-card">
-      <h3 style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin:0 0 8px;font-weight:500">Project</h3>
-      <p style="font-size:22px;color:var(--text);margin:0 0 10px">${esc(data.project || 'Your project')}</p>
-      <span class="pt-status">${esc(data.status || 'In progress')}</span>
+      <h3 style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin:0 0 8px;font-weight:500">${T('Project', 'Proyecto')}</h3>
+      <p style="font-size:22px;color:var(--text);margin:0 0 10px">${esc(data.project || T('Your project', 'Tu proyecto'))}</p>
+      <span class="pt-status">${esc(data.status || T('In progress', 'En curso'))}</span>
       <div class="pt-steps">${steps}</div>
-      <p class="pt-phase">Current phase: <strong>${esc(PHASES[phase])}</strong></p>
+      <p class="pt-phase">${T('Current phase', 'Fase actual')}: <strong>${esc(PHASES[phase])}</strong></p>
     </div>
     <div class="pt-grid">
-      <div class="pt-card"><h3>Next steps</h3>${list(data.nextSteps, (s) => `<li>${esc(s)}</li>`, 'Nothing pending right now.')}</div>
-      <div class="pt-card"><h3>Documents</h3>${list(data.documents, (d) => { const u = safeUrl(d.url); return `<li>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(d.name)}</a>` : esc(d.name)}</li>`; }, 'No documents shared yet.')}</div>
-      <div class="pt-card"><h3>Updates</h3>${list(data.updates, (u) => `<li>${esc(u.text)}<small>${esc(u.date)}</small></li>`, 'No updates yet.')}</div>
+      <div class="pt-card"><h3>${T('Next steps', 'Próximos pasos')}</h3>${list(data.nextSteps, (s) => `<li>${esc(s)}</li>`, T('Nothing pending right now.', 'Nada pendiente por ahora.'))}</div>
+      <div class="pt-card"><h3>${T('Documents', 'Documentos')}</h3>${list(data.documents, (d) => { const u = safeUrl(d.url); return `<li>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(d.name)}</a>` : esc(d.name)}</li>`; }, T('No documents shared yet.', 'Aún no hay documentos compartidos.'))}</div>
+      <div class="pt-card"><h3>${T('Updates', 'Novedades')}</h3>${list(data.updates, (u) => `<li>${esc(u.text)}<small>${esc(u.date)}</small></li>`, T('No updates yet.', 'Aún no hay novedades.'))}</div>
     </div>`;
 }
 
@@ -208,7 +211,7 @@ async function start() {
       const snap = await getDoc(doc(db, 'clients', user.uid));
       render(user, snap.exists() ? snap.data() : null);
     } catch (e) {
-      $('ptBody').innerHTML = '<p>We could not load your project right now. Please try again later.</p>';
+      $('ptBody').innerHTML = `<p>${T('We could not load your project right now. Please try again later.', 'No pudimos cargar tu proyecto ahora. Inténtalo más tarde.')}</p>`;
     }
   });
 }

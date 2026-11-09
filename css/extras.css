@@ -351,3 +351,9 @@ body:has(#page-contact.active) .ct-fab:hover{opacity:1}
 .pt-or{display:flex;align-items:center;gap:12px;margin:18px 0 6px;color:var(--text-light);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 .pt-or::before,.pt-or::after{content:"";flex:1;height:1px;background:var(--sand)}
 #page-portal #ptReset{font-size:14px;color:var(--text)}
+/* Valentina next to Nala on the client login */
+#page-portal #ptLogin .faq-hero{position:relative}
+#page-portal #ptLogin .faq-hero:has(.pt-valentina){display:grid;grid-template-columns:auto auto;justify-content:center;align-items:end;column-gap:4px}
+#page-portal #ptLogin .faq-hero:has(.pt-valentina) .sp-title{grid-column:1/-1}
+#page-portal .faq-hero img.pt-valentina{height:170px;width:auto;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(80,60,40,.18))}
+@media (max-width:640px){#page-portal .faq-hero img.pt-valentina{height:130px}}
