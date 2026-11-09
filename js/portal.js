@@ -4,7 +4,7 @@
    "coming soon" message and no login is attempted. */
 const firebaseConfig = {
   apiKey: "AIzaSyDD3Ez_i7z0iyeBfixSRTVdhzdrzyMuqek",
-  authDomain: "studio-valentina-portal.firebaseapp.com",
+  authDomain: "studio-valentina.com",
   projectId: "studio-valentina-portal",
   storageBucket: "studio-valentina-portal.firebasestorage.app",
   messagingSenderId: "290715834538",
