@@ -186,6 +186,8 @@ function walk(t){const dt=Math.min(.1,Math.max(.001,t-lastT));lastT=t;
  for(const w of W){const u2=(t*w.sp+w.ph)%2,f=u2<1?u2:2-u2,dir=u2<1?1:-1;const x=w.A[0]+(w.B[0]-w.A[0])*f,z=w.A[1]+(w.B[1]-w.A[1])*f;w.pp.position.set(x,w.y,z);
   w.yaw=V.yawTo(w.yaw,Math.atan2((w.B[0]-w.A[0])*dir,(w.B[1]-w.A[1])*dir),Math.min(1,dt*4));w.pp.rotation.y=w.yaw;const len=Math.hypot(w.B[0]-w.A[0],w.B[1]-w.A[1]);
   const u=w.pp.userData;u.pose(V.poseValues('stand'));const bob=u.walk(f*len/.6*Math.PI,1);w.pp.position.y=w.y+.015*bob;u.refresh()}
+ const stg=pr()>=.7;if(arqV&&stg){const SA=new THREE.Vector3(33.2,3.55,1.2),SN=new THREE.Vector3(34.6,3.55,2.6);arqV.position.copy(SA);arqV.rotation.y=Math.atan2(.93,.38)+.5;const u=arqV.userData;u.pose(V.poseValues('read'));u.walk(0,0);u.refresh();V.holdPlan(arqV,planV);u.head.rotation.x=.42;
+  nalaV.position.copy(SN);nalaV.rotation.y=Math.atan2(.93,.38)-.3;nPrev=null;nalaV.position.y+=nalaV.userData.update(t,dt,0,1)*1.7;return}
  if(arqV){const ua=((t*.55/RL)%1+1)%1,P=route.getPointAt(ua),T=route.getTangentAt(ua);aYaw=V.yawTo(aYaw,Math.atan2(T.x,T.z),Math.min(1,dt*4));arqV.rotation.y=aYaw;
   const u=arqV.userData;u.pose(V.poseValues('read'));const bob=u.walk(t*.55/1.25/.6*Math.PI,1);arqV.position.set(P.x,P.y+.015*bob,P.z);u.refresh();V.holdPlan(arqV,planV);u.head.rotation.x=.42;
   const un=(ua-1.6/RL+1)%1,Q=route.getPointAt(un),TQ=route.getTangentAt(un),side=new THREE.Vector3(TQ.z,0,-TQ.x).multiplyScalar(.7),np=Q.clone().add(side);
@@ -196,7 +198,7 @@ const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-in
 function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<.22?0:p<.62?1:2;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
  const ex=sg(p,.15,.6);L.forEach((o,i)=>o.position.y=o.userData.y0+ex*i*S*0.09);
  const a=-0.9+p*1.4,el=THREE.MathUtils.lerp(.42,.62,sg(p,.1,.6)),d=S*(THREE.MathUtils.lerp(1.15,1.35,sg(p,.1,.6))-0.35*sg(p,.68,.95))*(innerWidth<700?1.4:1);
- const zn=nalaV?sg(p,.74,.92):0,tg=new THREE.Vector3(c.x,c.y+ex*S*0.15,c.z);if(nalaV)tg.lerp(nalaV.position.clone().setY(nalaV.position.y+1),zn);const dd=d*THREE.MathUtils.lerp(1,.085,zn),el2=THREE.MathUtils.lerp(el,.3,zn);
+ const zn=nalaV?sg(p,.74,.92):0,tg=new THREE.Vector3(c.x,c.y+ex*S*0.15,c.z);if(nalaV)tg.lerp(new THREE.Vector3(34,4.4,2),zn);const dd=d*THREE.MathUtils.lerp(1,.12,zn),el2=THREE.MathUtils.lerp(el,.3,zn);
  cam.position.set(tg.x+Math.cos(a)*Math.cos(el2)*dd,tg.y+Math.sin(el2)*dd,tg.z+Math.sin(a)*Math.cos(el2)*dd);cam.lookAt(tg);r.render(sc,cam)}
 let q=0;addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(()=>{q=0;fr()})}},{passive:true});
 </script></section>
