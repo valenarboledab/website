@@ -285,7 +285,7 @@ function buildFloor(n) {
   return set;
 }
 // start downloading the floors in the background while the building is on screen
-(window.requestIdleCallback || ((f) => setTimeout(f, 1500)))(() => { load(0).then(() => load(1)).then(() => load(2)).catch(() => {}); });
+setTimeout(() => { load(0).then(() => load(1)).then(() => load(2)).catch(() => {}); }, 2500);
 function makeCtx() {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color("#f3efe8");
