@@ -245,133 +245,47 @@ function planMode() {
 }
 toggle.addEventListener("click", () => { editing = !editing; planMode(); if (ctx) { fit(); draw(); } });
 
-let gltf = null, loading = {}, models = {}, floorSet = {}, current = -1, ctx = null;
+let loading = {}, models = {}, floorSet = {}, current = -1, ctx = null;
+const LITE = (n) => SITE + "images/3d/burgos-floor-" + n + "-lite.glb";
+const HD_PARTS = { 0: 2, 1: 2, 2: 2 };
+const HD = (n, k) => SITE + "images/3d/burgos-floor-" + n + "-hd-" + k + ".glb";
+const FLOOR = (n) => (n === 3 ? 2 : n);                 // floors 2 and 3 share one layout
+let draco = null;
+function loader() { const l = new GLTFLoader(); if (!draco) { draco = new DRACOLoader(); draco.setDecoderPath(window.BZ_DRACO || "https://www.gstatic.com/draco/versioned/decoders/1.5.6/"); } l.setDRACOLoader(draco); return l; }
 function load(n) {
+  n = FLOOR(n);
   if (loading[n]) return loading[n];
-  const l = new GLTFLoader(), d = new DRACOLoader();
-  d.setDecoderPath(window.BZ_DRACO || "https://www.gstatic.com/draco/versioned/decoders/1.5.6/");
-  l.setDRACOLoader(d);
-  const one = (k) => new Promise((res, rej) => l.load(MODEL(n, k), res, undefined, rej));
-  let done = 0;
-  loading[n] = Promise.all(Array.from({ length: PARTS[n] }, (_, k) => one(k).then((g) => { msg.textContent = "Cargando tu diseño… " + Math.round((++done / PARTS[n]) * 100) + "%"; return g; })))
-    .then((gs) => { const scene = new THREE.Group(); gs.forEach((g) => scene.add(g.scene)); scene.updateMatrixWorld(true); models[n] = { scene }; return models[n]; });
+  loading[n] = new Promise((res, rej) => loader().load(LITE(n), (g) => { models[n] = g; res(g); }, (e) => { if (current >= 0 && FLOOR(current) === n && e.total) msg.textContent = "Cargando tu diseño… " + Math.min(99, Math.round((e.loaded / e.total) * 100)) + "%"; }, rej));
   return loading[n];
 }
-
-// split the model into the triangles of one floor, then into separate pieces
-function buildFloor(n) {
-  if (floorSet[n]) return floorSet[n];
-  const [y0, y1] = BANDS[n];
+// the pieces were separated once, offline: nodes named piece_N are furniture, the rest is the structure
+const H_BANDS = BANDS;
+function clipStructure(obj, y0) {
+  const plane = new THREE.Plane(new THREE.Vector3(0, -1, 0), y0 + 0.25 + 1.6);
+  obj.traverse((m) => { if (!m.isMesh) return; if (!m.geometry.attributes.normal) m.geometry.computeVertexNormals(); const mat = m.material.clone(); mat.side = THREE.DoubleSide; mat.clippingPlanes = [plane]; mat.clipShadows = true; m.material = mat; m.receiveShadow = true; });
+}
+function splitScene(scene, y0) {
   const root = new THREE.Group(), structure = new THREE.Group(), pieces = new THREE.Group();
   root.add(structure, pieces);
-  const comps = [];
-  const fp = { x0: 39.4, x1: 48.75, z0: -17.3, z1: -6.1 };      // building footprint in model units (m)
-  const A = new THREE.Vector3(), B = new THREE.Vector3(), C = new THREE.Vector3();
-  models[n].scene.traverse((o) => {
-    if (!o.isMesh) return;
-    const g = o.geometry, pos = g.attributes.position, nor = g.attributes.normal, uv = g.attributes.uv, idx = g.index;
-    const N = idx ? idx.count : pos.count, M = o.matrixWorld, NM = new THREE.Matrix3().getNormalMatrix(M);
-    const keep = [];
-    for (let i = 0; i < N; i += 3) {
-      const a = idx ? idx.getX(i) : i, b = idx ? idx.getX(i + 1) : i + 1, c = idx ? idx.getX(i + 2) : i + 2;
-      A.fromBufferAttribute(pos, a).applyMatrix4(M); B.fromBufferAttribute(pos, b).applyMatrix4(M); C.fromBufferAttribute(pos, c).applyMatrix4(M);
-      const cy = (A.y + B.y + C.y) / 3, cx = (A.x + B.x + C.x) / 3, cz = (A.z + B.z + C.z) / 3;
-      if (cy < y0 || cy > y1) continue;
-      if (cx < fp.x0 || cx > fp.x1 || cz < fp.z0 || cz > fp.z1) continue;
-      keep.push(a, b, c);
-    }
-    if (!keep.length) return;
-    // weld by position to find connected islands
-    const key = new Map(), vid = new Int32Array(keep.length);
-    for (let k = 0; k < keep.length; k++) {
-      A.fromBufferAttribute(pos, keep[k]);
-      const h = Math.round(A.x * 500) + "," + Math.round(A.y * 500) + "," + Math.round(A.z * 500);
-      let v = key.get(h); if (v === undefined) { v = key.size; key.set(h, v); } vid[k] = v;
-    }
-    const par = new Int32Array(key.size).map((_, i) => i);
-    const find = (x) => { while (par[x] !== x) { par[x] = par[par[x]]; x = par[x]; } return x; };
-    for (let k = 0; k < keep.length; k += 3) { const r = find(vid[k]); par[find(vid[k + 1])] = r; par[find(vid[k + 2])] = r; }
-    const groups = new Map();
-    for (let k = 0; k < keep.length; k += 3) { const r = find(vid[k]); let arr = groups.get(r); if (!arr) groups.set(r, (arr = [])); arr.push(k); }
-    for (const tris of groups.values()) {
-      const P = new Float32Array(tris.length * 9), Nn = nor ? new Float32Array(tris.length * 9) : null, U = uv ? new Float32Array(tris.length * 6) : null;
-      const box = new THREE.Box3();
-      tris.forEach((k, t) => {
-        for (let j = 0; j < 3; j++) {
-          const v = keep[k + j];
-          A.fromBufferAttribute(pos, v).applyMatrix4(M); P.set([A.x, A.y, A.z], t * 9 + j * 3); box.expandByPoint(A);
-          if (Nn) { B.fromBufferAttribute(nor, v).applyMatrix3(NM).normalize(); Nn.set([B.x, B.y, B.z], t * 9 + j * 3); }
-          if (U) U.set([uv.getX(v), uv.getY(v)], t * 6 + j * 2);
-        }
-      });
-      comps.push({ P, Nn, U, box, mat: o.material });
-    }
-  });
-  // furniture: small islands that are not slabs or walls
-  const H = y1 - y0;
-  const isFurniture = (c) => {
-    const s = c.box.getSize(new THREE.Vector3());
-    const big = Math.max(s.x, s.z);
-    if (big > 2.7 || s.y > H - 0.25) return false;
-    if (c.box.min.y > y0 + 0.25 + 1.9) return null;                                   // ceiling lights and fittings
-    if (s.y < 0.06 && big > 1.6 && c.box.min.y < y0 + 0.08) return false;          // floor finish
-    if ((s.x < 0.14 || s.z < 0.14) && s.y > 1.9) return false;                        // wall panel
-    return true;
-  };
-  const furn = [], stat = [];
-  comps.forEach((c) => { const f = isFurniture(c); if (f === null) return; (f ? furn : stat).push(c); });
-  // cluster touching islands into pieces (a bed with its pillows and throw, a table with its chairs stay separate if they do not touch)
-  const par = furn.map((_, i) => i);
-  const find = (x) => { while (par[x] !== x) { par[x] = par[par[x]]; x = par[x]; } return x; };
-  const ex = furn.map((c) => c.box.clone().expandByScalar(0.012));
-  const order = furn.map((_, i) => i).sort((a, b) => furn[a].box.min.x - furn[b].box.min.x);
-  for (let ii = 0; ii < order.length; ii++) {
-    const i = order[ii];
-    for (let jj = ii + 1; jj < order.length; jj++) {
-      const j = order[jj];
-      if (ex[j].min.x > ex[i].max.x) break;
-      if (!ex[i].intersectsBox(ex[j])) continue;
-      const ri = find(i), rj = find(j); if (ri === rj) continue;
-      par[rj] = ri;
-    }
-  }
-  const sets = new Map();
-  furn.forEach((c, i) => { const r = find(i); let s = sets.get(r); if (!s) sets.set(r, (s = [])); s.push(c); });
-  // too-big clusters (furniture glued to walls) go back to the structure
-  const meshOf = (list) => {
-    const byMat = new Map();
-    list.forEach((c) => { let a = byMat.get(c.mat); if (!a) byMat.set(c.mat, (a = [])); a.push(c); });
-    const g = new THREE.Group();
-    for (const [mat, cs] of byMat) {
-      const n = cs.reduce((s, c) => s + c.P.length, 0), P = new Float32Array(n), Nn = new Float32Array(n), U = new Float32Array((n / 3) * 2);
-      let o = 0, ou = 0, hasN = true, hasU = true;
-      cs.forEach((c) => { P.set(c.P, o); if (c.Nn) Nn.set(c.Nn, o); else hasN = false; if (c.U) U.set(c.U, ou); else hasU = false; o += c.P.length; ou += (c.P.length / 3) * 2; });
-      const geo = new THREE.BufferGeometry();
-      geo.setAttribute("position", new THREE.BufferAttribute(P, 3));
-      if (hasN) geo.setAttribute("normal", new THREE.BufferAttribute(Nn, 3)); else geo.computeVertexNormals();
-      if (hasU) geo.setAttribute("uv", new THREE.BufferAttribute(U, 2));
-      const m = new THREE.Mesh(geo, mat); m.castShadow = m.receiveShadow = true; g.add(m);
-    }
-    return g;
-  };
-  let count = 0;
-  for (const list of sets.values()) {
-    const box = new THREE.Box3(); list.forEach((c) => box.union(c.box));
-    const s = box.getSize(new THREE.Vector3());
-    if (Math.max(s.x, s.z) > 3.2 || s.x * s.z < 0.004) { stat.push(...list); continue; }
-    const g = meshOf(list); g.userData.piece = true; g.userData.box = box; pieces.add(g); count++;
-  }
-  // plan cut: a real clipping plane 1.60 m above the floor, walls drawn on both sides so the cut reads solid
-  const cutY = y0 + 0.25 + 1.6;
-  const plane = new THREE.Plane(new THREE.Vector3(0, -1, 0), cutY);
-  const st = meshOf(stat);
-  st.traverse((m) => { if (!m.isMesh) return; const mat = m.material.clone(); mat.side = THREE.DoubleSide; mat.clippingPlanes = [plane]; mat.clipShadows = true; m.material = mat; });
-  structure.add(st);
-  const set = { root, pieces, structure, count, y0, y1 };
-  floorSet[n] = set;
+  scene.updateMatrixWorld(true);
+  const found = [];
+  scene.traverse((o) => { if (/^piece_/.test(o.name)) found.push(o); });
+  const rest = scene;
+  for (const o of found) { const g = new THREE.Group(); g.name = o.name; g.userData.piece = true; o.updateMatrixWorld(true); const c = o.clone(); c.applyMatrix4(o.parent ? o.parent.matrixWorld : new THREE.Matrix4()); g.add(c); g.traverse((m) => { if (m.isMesh) { if (!m.geometry.attributes.normal) m.geometry.computeVertexNormals(); m.castShadow = m.receiveShadow = true; } }); pieces.add(g); o.parent && o.parent.remove(o); }
+  clipStructure(rest, y0); structure.add(rest);
+  return { root, structure, pieces, count: found.length };
+}
+function buildFloor(n) {
+  n = FLOOR(n);
+  if (floorSet[n]) return floorSet[n];
+  const [y0, y1] = BANDS[n];
+  const s = splitScene(models[n].scene, y0);
+  const set = { ...s, y0, y1 };
+  floorSet[n] = set; window.BZ_FLOORS = floorSet;
   return set;
 }
-
+// start downloading the floors in the background while the building is on screen
+(window.requestIdleCallback || ((f) => setTimeout(f, 1500)))(() => { load(0).then(() => load(1)).then(() => load(2)).catch(() => {}); });
 function makeCtx() {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color("#f3efe8");
@@ -393,7 +307,7 @@ function fit() {
   plan.setSize(w, h, false);
   const mw = miniCanvas.clientWidth || 200, mh = miniCanvas.clientHeight || 160;
   mini.setSize(mw, mh, false); persp.aspect = mw / mh; persp.updateProjectionMatrix();
-  const set = floorSet[current]; if (!set) return;
+  const set = floorSet[FLOOR(current)]; if (!set) return;
   const fx = (39.4 + 48.75) / 2, fz = (-17.3 + -6.1) / 2, span = 6.0, a = w / h;
   ortho.left = -span * Math.max(a, 1); ortho.right = span * Math.max(a, 1); ortho.top = span / Math.min(a, 1); ortho.bottom = -span / Math.min(a, 1);
   ortho.position.set(fx, set.y1 + 20, fz); ortho.up.set(0, 0, -1); ortho.lookAt(fx, set.y0, fz); ortho.updateProjectionMatrix();
@@ -434,7 +348,7 @@ const planeHit = (y) => { const p = new THREE.Vector3(); ray.ray.intersectPlane(
 planCanvas.addEventListener("pointerdown", (e) => {
   if (!ctx || current < 0 || current === 5) return;
   toNdc(e); ray.setFromCamera(ndc, ctx.ortho);
-  const set = floorSet[current]; if (!set) return;
+  const set = floorSet[FLOOR(current)]; if (!set) return;
   const hit = ray.intersectObjects(set.pieces.children, true)[0]; if (!hit) return;
   let g = hit.object; while (g.parent && !g.userData.piece) g = g.parent; if (!g.userData.piece) return;
   e.preventDefault(); planCanvas.setPointerCapture(e.pointerId);
@@ -444,7 +358,7 @@ planCanvas.addEventListener("pointerdown", (e) => {
 planCanvas.addEventListener("pointermove", (e) => {
   if (!drag || e.pointerId !== drag.id) return;
   toNdc(e); ray.setFromCamera(ndc, ctx.ortho);
-  const p = planeHit(floorSet[current].y0);
+  const p = planeHit(floorSet[FLOOR(current)].y0);
   drag.g.position.set(drag.pos0.x + p.x - drag.start.x, 0, drag.pos0.z + p.z - drag.start.z);
   ctx.helper.setFromObject(drag.g); draw();
 });
@@ -453,17 +367,17 @@ planCanvas.addEventListener("pointerup", end); planCanvas.addEventListener("poin
 
 // reset and render
 document.querySelector(".bz-reset")?.addEventListener("click", (e) => {
-  if (current < 0 || !floorSet[current]) return; e.stopImmediatePropagation();
-  floorSet[current].pieces.children.forEach((g) => g.position.set(0, 0, 0)); draw();
+  if (current < 0 || !floorSet[FLOOR(current)]) return; e.stopImmediatePropagation();
+  floorSet[FLOOR(current)].pieces.children.forEach((g) => g.position.set(0, 0, 0)); draw();
 }, true);
 const renderBtn = document.querySelector(".bz-render"), view = document.querySelector(".bz-render-view");
 renderBtn?.addEventListener("click", async (e) => {
   e.stopImmediatePropagation();
-  if (current < 0 || current === 5 || !floorSet[current]) return;
+  if (current < 0 || current === 5 || !floorSet[FLOOR(current)]) return;
   view.hidden = false;
   const canvas = view.querySelector("canvas"), rmsg = view.querySelector(".bz-rmsg");
   rmsg.textContent = "Renderizando…";
-  const set = floorSet[current];
+  const set = floorSet[FLOOR(current)];
   const r = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
   r.localClippingEnabled = true; r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
   r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.1;
@@ -475,19 +389,32 @@ renderBtn?.addEventListener("click", async (e) => {
   sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); Object.assign(sun.shadow.camera, { left: -8, right: 8, top: 8, bottom: -8, near: 1, far: 50 }); sun.shadow.bias = -0.0004; sun.shadow.radius = 4;
   scene.add(sun, sun.target);
   const fill = new THREE.PointLight(0xffe2c0, 18, 12); fill.position.set(fx - 1, set.y0 + 2.2, fz + 1); scene.add(fill);
-  scene.add(set.root);
+  rmsg.textContent = "Cargando el detalle completo…";
+  let hd = set.hd;
+  if (!hd) {
+    try {
+      const n = FLOOR(current);
+      const gs = await Promise.all(Array.from({ length: HD_PARTS[n] }, (_, k) => new Promise((res, rej) => loader().load(HD(n, k), res, undefined, rej))));
+      const sc = new THREE.Group(); gs.forEach((g) => sc.add(g.scene));
+      hd = set.hd = splitScene(sc, set.y0);
+    } catch (err) { hd = null; }
+  }
+  const use = hd || set;
+  if (hd) { const pos = new Map(set.pieces.children.map((g) => [g.name, g.position])); hd.pieces.children.forEach((g) => { const p = pos.get(g.name); if (p) g.position.copy(p); }); }
+  if (!hd) ctx.scene.remove(set.root);
+  scene.add(use.root);
   const cam = new THREE.PerspectiveCamera(30, w / h, 0.1, 200); cam.position.set(fx + 5.5, set.y0 + 11, fz + 7.5);
   const ctl = new OrbitControls(cam, canvas); ctl.target.set(fx, set.y0 + 0.8, fz); ctl.enableDamping = true;
   let on = true;
   const loop = () => { if (!on) return; ctl.update(); r.render(scene, cam); requestAnimationFrame(loop); };
   loop();
   rmsg.textContent = DATA_NAME(current) + " · tu diseño · arrastra para girar";
-  const close = () => { on = false; ctl.dispose(); r.dispose(); view.hidden = true; if (ctx) { ctx.scene.add(set.root); draw(); } };
+  const close = () => { on = false; ctl.dispose(); r.dispose(); view.hidden = true; if (ctx && !hd) { ctx.scene.add(set.root); } draw(); };
   view.querySelector(".bz-rclose").onclick = close;
   view.querySelector(".bz-rsave").onclick = () => { const a = document.createElement("a"); a.download = "edificio-burgos-" + DATA_NAME(current).toLowerCase().replace(/\s+/g, "-") + ".png"; a.href = canvas.toDataURL("image/png"); a.click(); };
   view.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }, true);
-const DATA_NAME = (n) => ["Ground floor", "Floor 1", "Floor 2", "Floor 3", "Attic", "Roof"][n];
+const DATA_NAME = (n) => ["Ground floor", "Floor 1", "Floors 2 & 3", "Floors 2 & 3", "Attic", "Roof"][n];
 
 // follow the page's floor mode
 new MutationObserver(() => {
