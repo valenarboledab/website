@@ -167,6 +167,7 @@ new GLTFLoader().setDRACOLoader(dl).load(root.dataset.glb||'/images/3d/eco-hotel
  const hb={min:{x:-8,z:-24},max:{x:30,z:17}};const pad=2;const rect=[[hb.min.x-pad,hb.min.z-pad],[hb.max.x+pad,hb.min.z-pad],[hb.max.x+pad,hb.max.z+pad],[hb.min.x-pad,hb.max.z+pad]];
  const add=(parent,A,B,y,i,sp)=>{const pp=V.figure(VM.white,{hair:['bob','pony','long'][i%3]});pp.scale.setScalar(1.25);parent.add(pp);W.push({pp,A,B,y,ph:(i*0.37)%1,sp,yaw:0})};
  for(let i=0;i<5;i++){const k=i%4,A=rect[k],B=rect[(k+1)%4];add(sc,A,B,3.55,i,0.035+(i%3)*0.01)}
+ [[[33.6,-6],[33.6,9],.085],[[37,9],[37,-5],.095],[[35.2,-3],[38.5,8],.11],[[38.8,-2],[35.4,10],.09]].forEach(([A,B,sp],j)=>add(sc,A,B,3.55,j+1,sp));
  route=new THREE.CatmullRomCurve3(rect.map(([x,z])=>new THREE.Vector3(x,3.55,z)),true,'centripetal',.2);RL=route.getLength();
  arqV=V.figure(VM.gold,{hair:'bob',gold:true,h:1.64});arqV.scale.setScalar(1.25);planV=V.blueprint();arqV.add(planV);sc.add(arqV);nalaV=V.nala();nalaV.scale.setScalar(1.7);sc.add(nalaV);
  const cx=11,cz=-3;L.forEach((o,li)=>{if(li>3)return;const fy=[3.55,7.05,11.0,14.1][li];
@@ -198,7 +199,7 @@ const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-in
 function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<.22?0:p<.62?1:2;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
  const ex=sg(p,.15,.6);L.forEach((o,i)=>o.position.y=o.userData.y0+ex*i*S*0.09);
  const a=-0.9+p*1.4,el=THREE.MathUtils.lerp(.42,.62,sg(p,.1,.6)),d=S*(THREE.MathUtils.lerp(1.15,1.35,sg(p,.1,.6))-0.35*sg(p,.68,.95))*(innerWidth<700?1.4:1);
- const zn=nalaV?sg(p,.74,.92):0,tg=new THREE.Vector3(c.x,c.y+ex*S*0.15,c.z);if(nalaV)tg.lerp(new THREE.Vector3(34,4.4,2),zn);const dd=d*THREE.MathUtils.lerp(1,.12,zn),el2=THREE.MathUtils.lerp(el,.3,zn);
+ const zn=nalaV?sg(p,.74,.92):0,tg=new THREE.Vector3(c.x,c.y+ex*S*0.15,c.z);if(nalaV)tg.lerp(new THREE.Vector3(34,4.4,2),zn);const dd=d*THREE.MathUtils.lerp(1,.17,zn),el2=THREE.MathUtils.lerp(el,.3,zn);
  cam.position.set(tg.x+Math.cos(a)*Math.cos(el2)*dd,tg.y+Math.sin(el2)*dd,tg.z+Math.sin(a)*Math.cos(el2)*dd);cam.lookAt(tg);r.render(sc,cam)}
 let q=0;addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(()=>{q=0;fr()})}},{passive:true});
 </script></section>
