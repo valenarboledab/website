@@ -35,40 +35,51 @@ function safeUrl(u) {
 const PORTFOLIO_MEDIA = [
   { match: /pradera/i, images: ['/RESIDENTIAL/Rooftop Single Family House - Colombia/TERRACE.webp'], video: 'rooftop' }
 ];
-function mediaFor(data) {
+function mediaOf(data) {
   const known = PORTFOLIO_MEDIA.find((m) => m.match.test(data.project || ''));
   const imgs = (Array.isArray(data.images) && data.images.length ? data.images : known?.images || [])
     .map((u) => (typeof u === 'string' ? u : u?.url)).filter((u) => u && (u.startsWith('/') || safeUrl(u)));
-  const vid = data.video || known?.video;
-  if (!imgs.length && !vid) return '';
-  const v = vid ? `<video class="pt-video" src="/videos/proj-${esc(vid)}.mp4" poster="/videos/posters/proj-${esc(vid)}.webp" controls muted playsinline preload="none"></video>` : '';
-  const g = imgs.map((u) => `<a href="${esc(encodeURI(u))}" target="_blank" rel="noopener"><img src="${esc(encodeURI(u))}" alt="${esc(data.project || '')}" loading="lazy"></a>`).join('');
-  return `<div class="pt-card pt-media"><h3>${T('Your project', 'Tu proyecto')}</h3>${v}<div class="pt-gallery">${g}</div></div>`;
+  return { imgs, vid: data.video || known?.video || '' };
 }
+const WA = 'https://wa.me/16784905574';
+const MAIL = 'mailto:officestudiovalentina@gmail.com';
 
 function render(user, data) {
-  $('ptHello').textContent = T('Hello, ', 'Hola, ') + (data?.name || user.email);
+  const first = String(data?.name || user.displayName || user.email || '').split(/[\s@]/)[0];
+  $('ptHello').textContent = T('Hello, ', 'Hola, ') + first;
+  const contact = `<div class="pd-contact"><div><h3>${T('Questions about your project?', '¿Dudas sobre tu proyecto?')}</h3>
+      <p>${T('Write to Valentina directly — she usually replies the same day.', 'Escríbele directamente a Valentina; normalmente responde el mismo día.')}</p></div>
+      <div class="pd-contact-btns"><a class="pd-btn" href="${WA}" target="_blank" rel="noopener">WhatsApp</a><a class="pd-btn ghost" href="${MAIL}">Email</a></div></div>`;
   if (!data) {
-    $('ptBody').innerHTML = `<div class="pt-card"><p>${T('Your project space is being set up. Valentina will add your project details shortly.', 'Tu espacio de proyecto se está preparando. Valentina agregará los detalles muy pronto.')}</p></div>`;
+    $('ptBody').innerHTML = `<div class="pt-card"><p>${T('Your project space is being set up. Valentina will add your project details shortly.', 'Tu espacio de proyecto se está preparando. Valentina agregará los detalles muy pronto.')}</p></div>${contact}`;
     return;
   }
   const phase = Math.max(0, Math.min(PHASES.length - 1, Number(data.phase) || 0));
-  const steps = PHASES.map((_, i) => `<span class="${i <= phase ? 'on' : ''}"></span>`).join('');
-  const list = (arr, fn, empty) => (Array.isArray(arr) && arr.length) ? `<ul class="pt-list">${arr.map(fn).join('')}</ul>` : `<p>${empty}</p>`;
+  const done = /complet|termin|finaliz/i.test(data.status || '');
+  const { imgs, vid } = mediaOf(data);
+  const cover = imgs[0] ? `style="background-image:linear-gradient(180deg,rgba(30,24,18,.05) 30%,rgba(30,24,18,.72)),url('${esc(encodeURI(imgs[0]))}')"` : '';
+  const timeline = PHASES.map((p, i) => `<li class="${i < phase || done ? 'done' : i === phase ? 'now' : ''}"><span class="pd-dot">${i < phase || done ? '✓' : i + 1}</span><span class="pd-lbl">${esc(p)}</span></li>`).join('');
+  const list = (arr, fn, empty) => (Array.isArray(arr) && arr.length) ? `<ul class="pt-list">${arr.map(fn).join('')}</ul>` : `<p class="pd-empty">${empty}</p>`;
+  const video = vid ? `<video class="pd-video" src="/videos/proj-${esc(vid)}.mp4" poster="/videos/posters/proj-${esc(vid)}.webp" controls muted playsinline preload="none"></video>` : '';
+  const gallery = imgs.length ? `<div class="pd-gallery">${imgs.map((u) => `<a href="${esc(encodeURI(u))}" target="_blank" rel="noopener"><img src="${esc(encodeURI(u))}" alt="${esc(data.project || '')}" loading="lazy"></a>`).join('')}</div>` : '';
   $('ptBody').innerHTML = `
-    <div class="pt-card">
-      <h3 style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-light);margin:0 0 8px;font-weight:500">${T('Project', 'Proyecto')}</h3>
-      <p style="font-size:22px;color:var(--text);margin:0 0 10px">${esc(data.project || T('Your project', 'Tu proyecto'))}</p>
-      <span class="pt-status">${esc(data.status || T('In progress', 'En curso'))}</span>
-      <div class="pt-steps">${steps}</div>
-      <p class="pt-phase">${T('Current phase', 'Fase actual')}: <strong>${esc(PHASES[phase])}</strong></p>
-    </div>
-    ${mediaFor(data)}
+    <section class="pd-hero ${imgs[0] ? 'has-img' : ''}" ${cover}>
+      <span class="pd-eyebrow">${T('Your project', 'Tu proyecto')}</span>
+      <h2 class="pd-title">${esc(data.project || T('Your project', 'Tu proyecto'))}</h2>
+      <span class="pd-chip ${done ? 'ok' : ''}">${esc(data.status || T('In progress', 'En curso'))}</span>
+    </section>
+    <section class="pt-card pd-progress">
+      <h3>${T('Progress', 'Avance')}</h3>
+      <ol class="pd-timeline">${timeline}</ol>
+      <p class="pd-phase">${done ? T('Project completed. Thank you for trusting Studio Valentina.', 'Proyecto terminado. Gracias por confiar en Studio Valentina.') : `${T('Current phase', 'Fase actual')}: <strong>${esc(PHASES[phase])}</strong>`}</p>
+    </section>
+    ${video || gallery ? `<section class="pt-card pd-media"><h3>${T('Renders & video', 'Renders y video')}</h3>${video}${gallery}</section>` : ''}
     <div class="pt-grid">
-      <div class="pt-card"><h3>${T('Next steps', 'Próximos pasos')}</h3>${list(data.nextSteps, (s) => `<li>${esc(s)}</li>`, T('Nothing pending right now.', 'Nada pendiente por ahora.'))}</div>
+      <div class="pt-card"><h3>${T('Next steps', 'Próximos pasos')}</h3>${list(data.nextSteps, (x) => `<li>${esc(x)}</li>`, T('Nothing pending right now.', 'Nada pendiente por ahora.'))}</div>
       <div class="pt-card"><h3>${T('Documents', 'Documentos')}</h3>${list(data.documents, (d) => { const u = safeUrl(d.url); return `<li>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(d.name)}</a>` : esc(d.name)}</li>`; }, T('No documents shared yet.', 'Aún no hay documentos compartidos.'))}</div>
       <div class="pt-card"><h3>${T('Updates', 'Novedades')}</h3>${list(data.updates, (u) => `<li>${esc(u.text)}<small>${esc(u.date)}</small></li>`, T('No updates yet.', 'Aún no hay novedades.'))}</div>
-    </div>`;
+    </div>
+    ${contact}`;
 }
 
 /* Free-resource download form: saves the lead (if Firebase is set up), then downloads the file. */
