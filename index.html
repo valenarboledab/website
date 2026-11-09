@@ -198,7 +198,7 @@ const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-in
 function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<.22?0:p<.62?1:2;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
  const ex=sg(p,.15,.6);L.forEach((o,i)=>o.position.y=o.userData.y0+ex*i*S*0.09);
  const a=-0.9+p*1.4,el=THREE.MathUtils.lerp(.42,.62,sg(p,.1,.6)),d=S*(THREE.MathUtils.lerp(1.15,1.35,sg(p,.1,.6))-0.35*sg(p,.68,.95))*(innerWidth<700?1.4:1);
- const zn=nalaV?sg(p,.74,.92):0,tg=new THREE.Vector3(c.x,c.y+ex*S*0.15,c.z);if(nalaV)tg.lerp(new THREE.Vector3(34,4.4,2),zn);const zm=nalaV?sg(p,.34,.44)-sg(p,.54,.64):0;if(zm>0&&L[2]){const tz=new THREE.Vector3(-3,L[2].position.y-L[2].userData.y0+13.4,7);tg.lerp(tz,zm)}const dd=d*THREE.MathUtils.lerp(1,.17,zn)*THREE.MathUtils.lerp(1,.2,zm),el2=THREE.MathUtils.lerp(THREE.MathUtils.lerp(el,.55,zm),.3,zn);
+ const zn=nalaV?sg(p,.74,.92):0,tg=new THREE.Vector3(c.x,c.y+ex*S*0.15,c.z);if(nalaV)tg.lerp(new THREE.Vector3(34,4.4,2),zn);const dd=d*THREE.MathUtils.lerp(1,.17,zn),el2=THREE.MathUtils.lerp(el,.3,zn);
  cam.position.set(tg.x+Math.cos(a)*Math.cos(el2)*dd,tg.y+Math.sin(el2)*dd,tg.z+Math.sin(a)*Math.cos(el2)*dd);cam.lookAt(tg);r.render(sc,cam)}
 let q=0;addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(()=>{q=0;fr()})}},{passive:true});
 </script></section>
