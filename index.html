@@ -118,7 +118,7 @@
     <!-- HERO: Arboretum 2 interactive 3D -->
 <section id="sv-eco" class="sv-home">
 <style>
-#sv-eco{position:relative;height:760vh;background:#f0eeed;color:#4a4540;font-family:'DM Sans',system-ui,sans-serif;margin:0 0 16px}
+#sv-eco{position:relative;height:1200vh;background:#f0eeed;color:#4a4540;font-family:'DM Sans',system-ui,sans-serif;margin:0 0 16px}
 #sv-eco .st{position:sticky;top:0;height:100vh;overflow:hidden}
 #sv-eco canvas{display:block;width:100%;height:100%}
 #sv-eco .st:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(240,238,237,.94) 0,rgba(240,238,237,.6) 28%,rgba(240,238,237,0) 48%);pointer-events:none}
@@ -165,7 +165,7 @@ new GLTFLoader().setDRACOLoader(dl).load(root.dataset.glb||'/images/3d/eco-hotel
   g.add(body,head);g.traverse(o=>{if(o.isMesh)o.castShadow=true});g.userData={lg,ar};return g};
  W=[];const b0=bAll,gy=b.min.y;
  const hb={min:{x:-8,z:-24},max:{x:30,z:17}};const pad=2;const rect=[[hb.min.x-pad,hb.min.z-pad],[hb.max.x+pad,hb.min.z-pad],[hb.max.x+pad,hb.max.z+pad],[hb.min.x-pad,hb.max.z+pad]];
- const add=(parent,A,B,y,i,sp)=>{const pp=V.figure(VM.white,{hair:['bob','pony','long'][i%3]});pp.scale.setScalar(1.25);parent.add(pp);W.push({pp,A,B,y,ph:(i*0.37)%1,sp,yaw:0})};
+ const add=(parent,A,B,y,i,sp)=>{const pp=V.figure(VM.white,{hair:['bob','pony','long'][i%3]});pp.scale.setScalar(parent===sc?1.25:1.5);parent.add(pp);W.push({pp,A,B,y,ph:(i*0.37)%1,sp,yaw:0})};
  for(let i=0;i<5;i++){const k=i%4,A=rect[k],B=rect[(k+1)%4];add(sc,A,B,3.55,i,0.035+(i%3)*0.01)}
  [[[33.6,-6],[33.6,9],.085],[[37,9],[37,-5],.095],[[35.2,-3],[38.5,8],.11],[[38.8,-2],[35.4,10],.09]].forEach(([A,B,sp],j)=>add(sc,A,B,3.55,j+1,sp));
  route=new THREE.CatmullRomCurve3(rect.map(([x,z])=>new THREE.Vector3(x,3.55,z)),true,'centripetal',.2);RL=route.getLength();
@@ -186,7 +186,7 @@ function walk(t){const dt=Math.min(.1,Math.max(.001,t-lastT));lastT=t;
  for(const w of W){const u2=(t*w.sp+w.ph)%2,f=u2<1?u2:2-u2,dir=u2<1?1:-1;const x=w.A[0]+(w.B[0]-w.A[0])*f,z=w.A[1]+(w.B[1]-w.A[1])*f;w.pp.position.set(x,w.y,z);
   w.yaw=V.yawTo(w.yaw,Math.atan2((w.B[0]-w.A[0])*dir,(w.B[1]-w.A[1])*dir),Math.min(1,dt*4));w.pp.rotation.y=w.yaw;const len=Math.hypot(w.B[0]-w.A[0],w.B[1]-w.A[1]);
   const u=w.pp.userData;u.pose(V.poseValues('stand'));const bob=u.walk(f*len/.6*Math.PI,1);w.pp.position.y=w.y+.015*bob;u.refresh()}
- const stg=pr()>=.7;if(arqV&&stg){const SA=new THREE.Vector3(33.2,3.55,1.2),SN=new THREE.Vector3(34.6,3.55,2.6);arqV.position.copy(SA);arqV.rotation.y=Math.atan2(.93,.38)+.5;const u=arqV.userData;u.pose(V.poseValues('read'));u.walk(0,0);u.refresh();V.holdPlan(arqV,planV);u.head.rotation.x=.42;
+ const stg=pr()>=.74;if(arqV&&stg){const SA=new THREE.Vector3(33.2,3.55,1.2),SN=new THREE.Vector3(34.6,3.55,2.6);arqV.position.copy(SA);arqV.rotation.y=Math.atan2(.93,.38)+.5;const u=arqV.userData;u.pose(V.poseValues('read'));u.walk(0,0);u.refresh();V.holdPlan(arqV,planV);u.head.rotation.x=.42;
   nalaV.position.copy(SN);nalaV.rotation.y=Math.atan2(.93,.38)-.3;nPrev=null;nalaV.position.y+=nalaV.userData.update(t,dt,0,1)*1.7;return}
  if(arqV){const ua=((t*.55/RL)%1+1)%1,P=route.getPointAt(ua),T=route.getTangentAt(ua);aYaw=V.yawTo(aYaw,Math.atan2(T.x,T.z),Math.min(1,dt*4));arqV.rotation.y=aYaw;
   const u=arqV.userData;u.pose(V.poseValues('read'));const bob=u.walk(t*.55/1.25/.6*Math.PI,1);arqV.position.set(P.x,P.y+.015*bob,P.z);u.refresh();V.holdPlan(arqV,planV);u.head.rotation.x=.42;
@@ -195,10 +195,10 @@ function walk(t){const dt=Math.min(.1,Math.max(.001,t-lastT));lastT=t;
 function rs(){const w=cv.clientWidth,h=cv.clientHeight;r.setSize(w,h,false);cam.aspect=w/h;if(w>700)cam.setViewOffset(w,h,-w*0.16,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}addEventListener('resize',()=>{rs();fr()});rs();new ResizeObserver(()=>{rs();fr()}).observe(cv);
 const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),e=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,sg=(p,a,b)=>e(cl((p-a)/(b-a)));
 const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-innerHeight))};
-function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<.22?0:p<.62?1:2;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
- const ex=sg(p,.15,.6);L.forEach((o,i)=>o.position.y=o.userData.y0+ex*i*S*0.09);
- const a=-0.9+p*1.4,el=THREE.MathUtils.lerp(.42,.62,sg(p,.1,.6)),d=S*(THREE.MathUtils.lerp(1.15,1.35,sg(p,.1,.6))-0.35*sg(p,.68,.95))*(innerWidth<700?1.4:1);
- const zn=nalaV?sg(p,.74,.92):0,tg=new THREE.Vector3(c.x,c.y+ex*S*0.15,c.z);if(nalaV)tg.lerp(new THREE.Vector3(34,4.4,2),zn);const dd=d*THREE.MathUtils.lerp(1,.17,zn),el2=THREE.MathUtils.lerp(el,.3,zn);
+function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<.3?0:p<.66?1:2;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
+ const ex=sg(p,.34,.52)*(1-sg(p,.62,.72));L.forEach((o,i)=>o.position.y=o.userData.y0+ex*i*S*0.09);
+ const KF=[[0,-.6,.32,.95],[.14,.15,.27,.78],[.28,.95,.2,.62],[.44,2.2,.45,1.15],[.58,2.5,.5,1.15],[.72,.9,.4,.95],[.94,.39,.3,.9]];let ki=0;while(ki<KF.length-2&&p>KF[ki+1][0])ki++;const k0=KF[ki],k1=KF[ki+1],kt=sg(p,k0[0],k1[0]),kl=(i)=>THREE.MathUtils.lerp(k0[i],k1[i],kt);const a=kl(1),el=kl(2),d=S*kl(3)*(innerWidth<700?1.4:1);
+ const zn=nalaV?sg(p,.76,.94):0,tg=new THREE.Vector3(c.x,c.y+ex*S*0.2,c.z);if(nalaV)tg.lerp(new THREE.Vector3(34,4.4,2),zn);const dd=d*THREE.MathUtils.lerp(1,.17,zn),el2=THREE.MathUtils.lerp(el,.3,zn);
  cam.position.set(tg.x+Math.cos(a)*Math.cos(el2)*dd,tg.y+Math.sin(el2)*dd,tg.z+Math.sin(a)*Math.cos(el2)*dd);cam.lookAt(tg);r.render(sc,cam)}
 let q=0;addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(()=>{q=0;fr()})}},{passive:true});
 </script></section>
