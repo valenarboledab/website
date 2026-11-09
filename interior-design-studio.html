@@ -242,6 +242,7 @@ function planMode() {
   img.hidden = !has || editing; toggle.hidden = !has;
   if (has) { img.src = PLANS[current]; img.alt = "Furnished floor plan by Studio Valentina"; }
   planCanvas.style.visibility = has && !editing ? "hidden" : "visible";
+  if (typeof svgPlan !== "undefined") svgPlan.style.visibility = planCanvas.style.visibility;
   toggle.textContent = editing ? "Ver mi planta" : "Volver a mover muebles";
 }
 toggle.addEventListener("click", () => { editing = !editing; planMode(); if (ctx) { fit(); draw(); } });
@@ -482,6 +483,7 @@ async function show(n) {
   ctx.persp.position.set(fx + 7, set.y0 + 10, fz + 8.5); ctx.ctl.target.set(fx, set.y0 + 0.8, fz);
   ctx.sun.position.set(fx + 12, set.y0 + 20, fz + 8); ctx.sun.target.position.set(fx, set.y0, fz);
   fit(); draw();
+  drawPlanSvg(n);
   window.BZ_STATE = "ready" + n + ":" + set.count + ":" + Math.round(performance.now());
   if (readout) readout.textContent = "Tu diseño · " + set.count + " piezas · arrastra para mover";
 }
@@ -512,10 +514,98 @@ planCanvas.addEventListener("pointermove", (e) => {
 const end = () => { if (!drag) return; drag = null; ctx.helper.visible = false; draw(); };
 planCanvas.addEventListener("pointerup", end); planCanvas.addEventListener("pointercancel", end);
 
+// ---------- the plan as a drawing (like the first version): planks, dark walls, flat furniture ----------
+const FIXED = {"0":[[46.718,-13.405,47.191,-12.676,0.59],[44.842,-9.873,45.092,-9.073,0.17],[45.988,-10.406,46.217,-9.406,0.21],[46.217,-10.406,46.446,-9.406,0.21],[46.446,-10.406,46.675,-9.406,0.21],[43.732,-16.604,44.532,-15.87,2.29],[43.848,-14.615,44.592,-14.268,2.25],[47.692,-16.604,48.492,-16.064,2.29],[44.835,-12.466,45.48,-11.963,2.25],[44.852,-11.633,45.424,-9.948,2.29],[39.935,-16.709,40.635,-14.707,2.29],[40.09,-15.688,40.574,-14.828,0.16],[40.09,-16.588,40.574,-15.728,0.16],[44.852,-14.168,45.851,-13.924,0.85],[46.44,-13.849,48.492,-12.669,1.26],[45.851,-14.168,46.805,-13.924,0.85],[42.929,-13.568,43.671,-13.214,2.25],[45.44,-13.169,46.44,-12.669,0.43]],"1":[[47.692,-11.881,48.492,-11.652,0.18],[45.193,-13.132,45.923,-12.659,0.59],[40.071,-6.954,40.583,-6.413,1.65],[39.994,-10.878,40.249,-10.01,2.38],[46.82,-13.41,47.293,-12.681,0.59],[46.022,-12.304,46.712,-11.67,2.11],[45.631,-10.593,46.231,-9.923,0.99],[46.712,-12.574,48.492,-11.706,1.16],[45.453,-13.809,45.927,-13.159,0.91],[45.851,-14.168,46.805,-13.924,0.85],[41.088,-16.734,41.537,-16.265,0.63],[44.852,-14.168,45.851,-13.924,0.85],[43.168,-16.734,43.617,-16.265,0.63],[46.065,-13.924,48.492,-12.669,1.46],[45.042,-10.473,47.642,-9.923,2.0],[42.503,-14.654,42.938,-13.988,0.6],[41.431,-15.783,43.216,-15.376,0.29],[39.996,-9.89,40.211,-8.455,0.24],[39.973,-12.265,40.189,-10.83,0.24],[39.996,-9.89,40.211,-8.455,0.24],[39.973,-12.264,40.189,-10.83,0.24],[39.928,-14.704,40.143,-13.168,0.24],[47.088,-7.423,47.355,-6.423,0.27],[46.82,-7.423,47.088,-6.423,0.27]],"2":[[40.034,-10.813,40.494,-10.356,0.93],[40.167,-7.402,40.889,-6.851,0.57],[46.042,-12.263,46.704,-11.629,2.11],[47.889,-11.711,48.492,-9.901,1.24],[47.91,-9.301,48.492,-8.873,2.23],[40.818,-16.923,41.317,-16.425,0.63],[43.784,-16.866,44.622,-16.062,1.8],[44.942,-14.167,45.941,-13.922,0.65],[40.118,-6.773,42.834,-6.423,0.17],[45.941,-14.167,46.895,-13.922,0.65],[39.494,-12.205,39.714,-10.843,0.9],[43.218,-16.923,43.717,-16.425,0.63],[45.217,-12.982,45.947,-12.509,0.62],[42.44,-14.628,42.923,-13.919,0.6],[45.484,-8.723,45.751,-7.723,0.27],[45.751,-8.723,46.019,-7.723,0.27]]};
+const NS = "http://www.w3.org/2000/svg";
+const svgPlan = document.createElementNS(NS, "svg");
+svgPlan.setAttribute("class", "bz-real-plan bz-real-svg");
+svgPlan.setAttribute("viewBox", "38.08 -17.72 12 12");
+svgPlan.setAttribute("preserveAspectRatio", "xMidYMid meet");
+planCanvas.insertAdjacentElement("afterend", svgPlan);
+planCanvas.style.display = "none";
+const SV = { line: "#4a4540", sw: 0.022, wood: "#c99a6b", woodD: "#a97b54", cream: "#f3ede2", white: "#fbf8f2", sofa: "#cfc6b6", cushion: "#efe6d6", rug: "#dcd0bd", plant: "#7f9a6b", plantHi: "#9db487", poche: "#3e3935", fixed: "#ece6db", floor: "#d8b48a", plank: "#c49d70", ward: "#e8dccb" };
+const DUVET = { linen: "#e9dfcf", grey: "#cfcac2", dark: "#b9ab9d", green: "#a3b08a", blue: "#b3c0cc", brown: "#cfa98a" };
+const el = (tag, at, parent) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); if (parent) parent.appendChild(e); return e; };
+const R = (g, x, y, w, h, fill, extra = {}) => el("rect", { x: x - w / 2, y: y - h / 2, width: Math.max(w, 0.01), height: Math.max(h, 0.01), rx: Math.min(0.04, w / 4, h / 4), fill, stroke: SV.line, "stroke-width": SV.sw, ...extra }, g);
+const E = (g, x, y, rx, ry, fill, extra = {}) => el("ellipse", { cx: x, cy: y, rx, ry, fill, stroke: SV.line, "stroke-width": SV.sw, ...extra }, g);
+// symbols drawn in local coordinates: width W across, depth D, back (headboard, sofa back) at -D/2
+const SYM = {
+  bed(g, W, D, c) {
+    R(g, 0, 0, W, D, SV.cream); R(g, 0, -D / 2 + 0.05, W + 0.04, 0.1, SV.woodD);
+    const n = W > 1.25 ? 2 : 1, pw = Math.min(0.62, W / n - 0.12); for (let i = 0; i < n; i++) R(g, n === 1 ? 0 : (i ? 1 : -1) * W / 4, -D / 2 + 0.33, pw, 0.34, SV.white);
+    R(g, 0, D / 2 - D * 0.31, W - 0.02, D * 0.62, DUVET[c] || DUVET.linen); el("line", { x1: -W / 2 + 0.02, y1: D / 2 - D * 0.62 + 0.12, x2: W / 2 - 0.02, y2: D / 2 - D * 0.62 + 0.12, stroke: SV.line, "stroke-width": SV.sw * 0.7, opacity: 0.6 }, g);
+  },
+  sofa(g, W, D, c, one) {
+    const arm = 0.16; R(g, 0, 0, W, D, SV.sofa); R(g, 0, -D / 2 + 0.1, W, 0.2, SV.sofa);
+    for (const s of [-1, 1]) R(g, s * (W / 2 - arm / 2), 0.05, arm, D - 0.1, SV.sofa);
+    const n = one ? 1 : Math.max(1, Math.round((W - 2 * arm) / 0.75)), cw = (W - 2 * arm) / n;
+    for (let i = 0; i < n; i++) R(g, -W / 2 + arm + cw * (i + 0.5), 0.1, cw - 0.03, D - 0.3, SV.cushion);
+  },
+  armchair(g, W, D, c) { SYM.sofa(g, W, D, c, true); },
+  chair(g, W, D) { const s = Math.min(W, D, 0.5); R(g, 0, 0, s, s, SV.wood); R(g, 0, -s / 2 + 0.03, s, 0.06, SV.woodD); },
+  table(g, W, D, c, round) { round ? E(g, 0, 0, W / 2, D / 2, SV.wood) : R(g, 0, 0, W, D, SV.wood); },
+  dining(g, W, D, c, round) {
+    const tw = Math.max(W - 1.0, 0.9), td = Math.max(D - 0.95, 0.8), per = Math.max(1, Math.round(tw / 0.6));
+    for (let i = 0; i < per; i++) for (const s of [-1, 1]) { const cg = el("g", { transform: `translate(${-tw / 2 + tw * (i + 0.5) / per} ${s * (td / 2 + 0.2)}) rotate(${s > 0 ? 180 : 0})` }, g); SYM.chair(cg, 0.44, 0.44); }
+    round ? E(g, 0, 0, tw / 2, td / 2, SV.wood) : R(g, 0, 0, tw, td, SV.wood);
+  },
+  lowtable(g, W, D, c, round) { round ? E(g, 0, 0, W / 2, D / 2, SV.woodD) : R(g, 0, 0, W, D, SV.wood); },
+  nightstand(g, W, D, c, round) { round ? E(g, 0, 0, W / 2, D / 2, c === "linen" ? SV.sofa : DUVET[c]) : R(g, 0, 0, W, D, SV.wood); },
+  cabinet(g, W, D) { R(g, 0, 0, W, D, SV.wood); const n = Math.max(1, Math.round(W / 0.5)); for (let i = 1; i < n; i++) el("line", { x1: -W / 2 + W * i / n, y1: -D / 2, x2: -W / 2 + W * i / n, y2: D / 2, stroke: SV.line, "stroke-width": SV.sw * 0.7 }, g); },
+  wardrobe(g, W, D) { R(g, 0, 0, W, D, SV.ward); el("path", { d: `M${-W / 2} ${-D / 2}L${W / 2} ${D / 2}M${W / 2} ${-D / 2}L${-W / 2} ${D / 2}`, stroke: SV.line, "stroke-width": SV.sw * 0.6, opacity: 0.5 }, g); },
+  rug(g, W, D, c, round) { const f = c === "linen" ? SV.rug : DUVET[c]; round ? E(g, 0, 0, W / 2, D / 2, f, { stroke: "none" }) : R(g, 0, 0, W, D, f, { stroke: "none" }); },
+  plant(g, W, D) { const r = Math.min(Math.max(Math.min(W, D) / 2, 0.18), 0.4); E(g, 0, 0, r, r, SV.plant); E(g, -r * 0.2, -r * 0.2, r * 0.45, r * 0.45, SV.plantHi, { stroke: "none" }); },
+  lamp(g) { E(g, 0, 0, 0.16, 0.16, SV.cream); E(g, 0, 0, 0.04, 0.04, SV.line, { stroke: "none" }); },
+};
+let svgDrag = null, svgN = -1;
+function drawPlanSvg(n) {
+  svgN = n; svgPlan.innerHTML = "";
+  const lv = FLOOR(n), base = el("g", {}, svgPlan);
+  // floor: warm planks over the footprint
+  el("rect", { x: 39.5, y: -17.25, width: 9.15, height: 11.0, fill: SV.floor }, base);
+  let pk = ""; for (let z = -17.2; z < -6.25; z += 0.18) pk += `M39.5 ${z.toFixed(2)}H48.65`;
+  el("path", { d: pk, stroke: SV.plank, "stroke-width": 0.012, fill: "none" }, base);
+  // built-ins from the model: kitchen, bathrooms, stairs (fixed, not movable)
+  for (const [x0, z0, x1, z1] of FIXED[lv] || []) el("rect", { x: x0, y: z0, width: x1 - x0, height: z1 - z0, fill: SV.fixed, stroke: SV.line, "stroke-width": SV.sw * 0.8 }, base);
+  // movable furniture, rugs first
+  const set = floorSet[lv]; const recs = FURN[lv] || [];
+  const order = recs.map((r, i) => i).sort((a, b) => (recs[b].t === "rug") - (recs[a].t === "rug"));
+  for (const i of order) {
+    const r = recs[i], ax = r.b ? r.b[0] : "z", sg = r.b ? r.b[1] : "-";
+    const W = ax === "z" ? r.w : r.d, D = ax === "z" ? r.d : r.w;
+    const rot = ax === "z" ? (sg === "-" ? 0 : 180) : (sg === "-" ? -90 : 90);
+    const g = el("g", { "data-i": i, class: "pl-item", style: "cursor:grab" }, svgPlan);
+    const p = set && set.pieces.children[i] ? set.pieces.children[i].position : { x: 0, z: 0 };
+    g.setAttribute("transform", `translate(${r.x + p.x} ${r.z + p.z})`);
+    const inner = el("g", { transform: `rotate(${rot})` }, g);
+    (SYM[r.t] || SYM.cabinet)(inner, W, D, r.c, !!r.r);
+  }
+  // walls on top: the dark poché of the section
+  const walls = (POCHE_POLY[lv] || []).map((rings) => rings.map((ring) => "M" + ring.map(([x, z]) => x + " " + z).join("L") + "Z").join("")).join("");
+  el("path", { d: walls, fill: SV.poche, "fill-rule": "evenodd", "pointer-events": "none" }, svgPlan);
+}
+const svgPt = (e) => { const m = svgPlan.getScreenCTM().inverse(); return [m.a * e.clientX + m.c * e.clientY + m.e, m.b * e.clientX + m.d * e.clientY + m.f]; };
+svgPlan.addEventListener("pointerdown", (e) => {
+  const g = e.target.closest(".pl-item"); if (!g || svgN < 0) return;
+  const set = floorSet[FLOOR(svgN)]; const i = +g.dataset.i; const piece = set && set.pieces.children[i]; if (!piece) return;
+  e.preventDefault(); svgPlan.setPointerCapture(e.pointerId);
+  svgDrag = { g, i, piece, start: svgPt(e), p0: [piece.position.x, piece.position.z], id: e.pointerId, rec: FURN[FLOOR(svgN)][i] };
+  g.style.cursor = "grabbing"; g.querySelectorAll("rect,ellipse").forEach((s) => s.setAttribute("stroke", "#000"));
+});
+svgPlan.addEventListener("pointermove", (e) => {
+  if (!svgDrag || e.pointerId !== svgDrag.id) return;
+  const [x, z] = svgPt(e), dx = svgDrag.p0[0] + x - svgDrag.start[0], dz = svgDrag.p0[1] + z - svgDrag.start[1];
+  svgDrag.piece.position.set(dx, 0, dz);
+  svgDrag.g.setAttribute("transform", `translate(${svgDrag.rec.x + dx} ${svgDrag.rec.z + dz})`);
+  draw();
+});
+const svgEnd = () => { if (!svgDrag) return; svgDrag.g.style.cursor = "grab"; svgDrag.g.querySelectorAll("rect,ellipse").forEach((s) => s.getAttribute("stroke") === "#000" && s.setAttribute("stroke", SV.line)); svgDrag = null; };
+svgPlan.addEventListener("pointerup", svgEnd); svgPlan.addEventListener("pointercancel", svgEnd);
+
 // reset and render
 document.querySelector(".bz-reset")?.addEventListener("click", (e) => {
   if (current < 0 || !floorSet[FLOOR(current)]) return; e.stopImmediatePropagation();
-  floorSet[FLOOR(current)].pieces.children.forEach((g) => g.position.set(0, 0, 0)); draw();
+  floorSet[FLOOR(current)].pieces.children.forEach((g) => g.position.set(0, 0, 0)); draw(); drawPlanSvg(current);
 }, true);
 const renderBtn = document.querySelector(".bz-render"), view = document.querySelector(".bz-render-view");
 renderBtn?.addEventListener("click", async (e) => {
