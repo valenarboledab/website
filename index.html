@@ -131,6 +131,13 @@
 #sv-eco .cap a{display:inline-block;margin-top:18px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#72604e;text-decoration:none;border-bottom:1px solid #9a7f61;padding-bottom:3px;pointer-events:auto}
 #sv-eco .ld{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);letter-spacing:.3em;font-size:11px;text-transform:uppercase;color:#9a7f61;transition:opacity .5s}
 #sv-eco .bar{position:absolute;left:0;bottom:0;height:2px;background:#9a7f61;width:0}
+#sv-eco .bub{position:absolute;z-index:3;transform:translate(-50%,calc(-100% - 14px)) scale(.9);opacity:0;transition:opacity .45s,transform .45s;background:#fffdf9;color:#4a4540;border:1px solid #d9c9b3;border-radius:16px;padding:12px 16px;font:14px/1.45 'DM Sans',system-ui,sans-serif;max-width:min(270px,62vw);box-shadow:0 8px 24px rgba(74,69,64,.12);pointer-events:none}
+#sv-eco .bub b{font-family:Georgia,serif;font-weight:400;font-size:17px;color:#9a7f61}
+#sv-eco .bub::after{content:'';position:absolute;left:50%;bottom:-7px;width:12px;height:12px;background:#fffdf9;border-right:1px solid #d9c9b3;border-bottom:1px solid #d9c9b3;transform:translateX(-50%) rotate(45deg)}
+#sv-eco .bub.on{opacity:1;transform:translate(-50%,calc(-100% - 14px))}
+#sv-eco .bub.bn,#sv-eco .bub.bn.on{transform:translate(-88%,calc(-100% - 14px))}
+#sv-eco .bub.bn::after{left:85%}
+#sv-eco .bub.bn{padding:7px 12px;font-weight:600;color:#9a7f61;transition-delay:.25s}
 #sv-eco .sv-h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:clamp(52px,7vw,104px);line-height:.95;letter-spacing:-.02em;margin:0 0 16px;color:#27231f}#sv-eco .sv-h1 em{font-style:italic}
 #sv-eco .sv-btn{display:inline-block;margin-top:20px;padding:12px 22px;border-radius:999px;background:#4a4540;color:#f5f0e8;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;pointer-events:auto}
 @media (max-width:700px){#sv-eco .sv-h1{font-size:54px}#sv-eco .st:after{background:linear-gradient(180deg,rgba(240,238,237,0) 38%,rgba(240,238,237,.9) 62%,rgba(240,238,237,.97))}#sv-eco .cap{bottom:9vh}}
@@ -186,7 +193,7 @@ function walk(t){const dt=Math.min(.1,Math.max(.001,t-lastT));lastT=t;
  for(const w of W){const u2=(t*w.sp+w.ph)%2,f=u2<1?u2:2-u2,dir=u2<1?1:-1;const x=w.A[0]+(w.B[0]-w.A[0])*f,z=w.A[1]+(w.B[1]-w.A[1])*f;w.pp.position.set(x,w.y,z);
   w.yaw=V.yawTo(w.yaw,Math.atan2((w.B[0]-w.A[0])*dir,(w.B[1]-w.A[1])*dir),Math.min(1,dt*4));w.pp.rotation.y=w.yaw;const len=Math.hypot(w.B[0]-w.A[0],w.B[1]-w.A[1]);
   const u=w.pp.userData;u.pose(V.poseValues('stand'));const bob=u.walk(f*len/.6*Math.PI,1);w.pp.position.y=w.y+.015*bob;u.refresh()}
- const stg=pr()>=.74;if(arqV&&stg){const SA=new THREE.Vector3(33.2,3.55,1.2),SN=new THREE.Vector3(34.6,3.55,2.6);arqV.position.copy(SA);arqV.rotation.y=Math.atan2(.93,.38)+.5;const u=arqV.userData;u.pose(V.poseValues('read'));u.walk(0,0);u.refresh();V.holdPlan(arqV,planV);u.head.rotation.x=.42;
+ const stg=pr()>=.74;if(arqV&&stg){const SA=new THREE.Vector3(33.2,3.55,1.2),SN=new THREE.Vector3(34.6,3.55,2.6);arqV.position.copy(SA);arqV.rotation.y=Math.atan2(.93,.38)+.2;const u=arqV.userData,pv=V.poseValues('stand'),wv=Math.sin(t*7);pv.sr=[-2.55,-.55+.25*wv,.32+.22*wv];pv.sl=[-.85,-.95,-.3];pv.hp=-.04;u.pose(pv);u.walk(0,0);u.refresh();const hl=u.hand.sl.position;planV.position.set(hl.x+.04,hl.y-.07,hl.z+.035);planV.rotation.set(-.12,.25,0);u.head.rotation.x=-.08;u.head.rotation.y=.1*Math.sin(t*1.3);
   nalaV.position.copy(SN);nalaV.rotation.y=Math.atan2(.93,.38)-.3;nPrev=null;nalaV.position.y+=nalaV.userData.update(t,dt,0,1)*1.7;return}
  if(arqV){const ua=((t*.55/RL)%1+1)%1,P=route.getPointAt(ua),T=route.getTangentAt(ua);aYaw=V.yawTo(aYaw,Math.atan2(T.x,T.z),Math.min(1,dt*4));arqV.rotation.y=aYaw;
   const u=arqV.userData;u.pose(V.poseValues('read'));const bob=u.walk(t*.55/1.25/.6*Math.PI,1);arqV.position.set(P.x,P.y+.015*bob,P.z);u.refresh();V.holdPlan(arqV,planV);u.head.rotation.x=.42;
@@ -199,7 +206,8 @@ function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<
  const ex=sg(p,.34,.52)*(1-sg(p,.62,.72));L.forEach((o,i)=>o.position.y=o.userData.y0+ex*i*S*0.09);
  const KF=[[0,-.6,.32,.95],[.14,.15,.27,.78],[.28,.95,.2,.62],[.44,2.2,.45,1.15],[.58,2.5,.5,1.15],[.72,.9,.4,.95],[.94,.39,.3,.9]];let ki=0;while(ki<KF.length-2&&p>KF[ki+1][0])ki++;const k0=KF[ki],k1=KF[ki+1],kt=sg(p,k0[0],k1[0]),kl=(i)=>THREE.MathUtils.lerp(k0[i],k1[i],kt);const a=kl(1),el=kl(2),d=S*kl(3)*(innerWidth<700?1.4:1);
  const zn=nalaV?sg(p,.76,.94):0,tg=new THREE.Vector3(c.x,c.y+ex*S*0.2,c.z);if(nalaV)tg.lerp(new THREE.Vector3(34,4.4,2),zn);const dd=d*THREE.MathUtils.lerp(1,.17,zn),el2=THREE.MathUtils.lerp(el,.3,zn);
- cam.position.set(tg.x+Math.cos(a)*Math.cos(el2)*dd,tg.y+Math.sin(el2)*dd,tg.z+Math.sin(a)*Math.cos(el2)*dd);cam.lookAt(tg);r.render(sc,cam)}
+ cam.position.set(tg.x+Math.cos(a)*Math.cos(el2)*dd,tg.y+Math.sin(el2)*dd,tg.z+Math.sin(a)*Math.cos(el2)*dd);cam.lookAt(tg);r.render(sc,cam);bub(zn)}
+const stE=root.querySelector('.st'),bA=document.createElement('div'),bN=document.createElement('div');bA.className='bub';bN.className='bub bn';bA.innerHTML='<b>Hi! Welcome to my portfolio.</b><br>I\'m Valentina, and these are my <i>Valentinas</i>: the human scale in all my projects.';bN.textContent='Woof! 🐾';stE.append(bA,bN);const pv3=new THREE.Vector3();function place(el,obj,dy,on){if(!obj||!on){el.classList.remove('on');return}obj.getWorldPosition(pv3);pv3.y+=dy;pv3.project(cam);const W=stE.clientWidth,H=stE.clientHeight;el.style.left=((pv3.x+1)/2*W)+'px';el.style.top=((1-pv3.y)/2*H)+'px';el.classList.add('on')}function bub(z){place(bA,arqV,2.75,z>.8);place(bN,nalaV,1.6,z>.86)}
 let q=0;addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(()=>{q=0;fr()})}},{passive:true});
 </script></section>
 
