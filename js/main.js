@@ -707,7 +707,7 @@ initRevealObserver();
     if (!cursor.querySelector('.c-paw')) {
       const paw = document.createElement('div');
       paw.className = 'c-paw';
-      paw.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="12" cy="16" rx="5.2" ry="4.4"/><ellipse cx="5.6" cy="10.4" rx="2.1" ry="2.7" transform="rotate(-20 5.6 10.4)"/><ellipse cx="9.6" cy="6.6" rx="2.1" ry="2.8"/><ellipse cx="14.4" cy="6.6" rx="2.1" ry="2.8"/><ellipse cx="18.4" cy="10.4" rx="2.1" ry="2.7" transform="rotate(20 18.4 10.4)"/></svg>';
+      paw.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg>';
       cursor.appendChild(paw);
     }
     window.addEventListener('pointermove', event => {
