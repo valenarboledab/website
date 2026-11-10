@@ -707,7 +707,7 @@ initRevealObserver();
     if (!cursor.querySelector('.c-paw')) {
       const paw = document.createElement('div');
       paw.className = 'c-paw';
-      paw.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg>';
+      paw.innerHTML = '<svg viewBox="0 0 24 24"><g stroke="#72604e" stroke-width="1.1" stroke-linejoin="round"><path fill="#fffdf9" d="M10.2 3.6c0-1 .7-1.7 1.6-1.7s1.6.7 1.6 1.7v6.2l1.1-.3c.9-.2 1.7.3 1.9 1.1l.9-.2c.9-.2 1.7.4 1.8 1.2l.1.2c.8-.1 1.5.5 1.5 1.3v2.6c0 2.7-2.2 4.9-4.9 4.9h-2.4c-1.6 0-3.1-.8-4-2.1l-2.7-3.9c-.5-.7-.3-1.6.4-2.1.6-.4 1.4-.3 1.9.2l1.2 1.3z"/><path fill="none" d="M13.4 9.8v3.2M15.9 10.7v2.6M17.8 11.5v2"/></g><rect x="9.6" y="20.4" width="7.6" height="2.2" rx="1.1" fill="#c8a35f"/></svg>';
       cursor.appendChild(paw);
     }
     window.addEventListener('pointermove', event => {
