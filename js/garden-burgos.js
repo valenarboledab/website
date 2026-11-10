@@ -82,7 +82,7 @@ export function buildGarden({sc,V,VM,glow,lamps}){
    [[0,1],[1,-1],[-1,-1]].forEach(([a,b])=>{const l=put(new THREE.CylinderGeometry(.015,.015,.5,8),M({color:0x2b2b2b,metalness:.6}),gx+a*.18,DY+.25,gz+b*.15,0)});
    put(rb(.5,.03,.3,.01),M({map:teak(),color:0xb98f68}),gx-.42,DY+.72,gz)}
   // ---- shed + bench ----
-  put(rb(1.1,2,.9,.02),M({map:rep(teak(),3,1),color:0x9d8670,roughness:.8}),35.45,1,-6.75);put(rb(1.25,.07,1.05,.01),M({color:0x3a3a3c,roughness:.6}),35.45,2.04,-6.75);
+  put(rb(1.1,2,.9,.02),M({map:rep(teak(),3,1),color:0x9d8670,roughness:.8}),35.45,1,-6.75);put(rb(1.25,.07,1.05,.01),M({color:0xd8cfc2,roughness:.75}),35.45,2.04,-6.75);
   put(rb(1.6,.06,.42,.015),M({map:teak(),color:0xb88f66,roughness:.55}),36.9,.43,-6.55);[36.25,37.55].forEach(x=>put(rb(.08,.4,.38,.01),M({map:teak(),color:0xa47c56}),x,.2,-6.55));
   // ---- fire bowl: cast concrete, flames, embers ----
   {const fx=36.1,fz=-11.6;const prof=[[0,.08],[.3,.06],[.5,.18],[.58,.42],[.6,.5],[.52,.5],[.5,.44],[.3,.32],[0,.3]].map(([r,y])=>new THREE.Vector2(r,y));
@@ -135,7 +135,7 @@ export function buildGarden({sc,V,VM,glow,lamps}){
   const home=new THREE.Vector3(36.95,.02,-10.6),throwsTo=[[35.75,-13.4],[35.9,-8.6],[36.3,-14.6],[36.0,-9.4]];
   let nYaw=-Math.PI/2,nPrev=null,aYaw=-Math.PI/2;const tmp=new THREE.Vector3();
   const ease=V.ease,yawTo=V.yawTo;
-  return {group:G,focus:()=>nala.position.clone().setY(.6),
+  return {group:G,focus:()=>nala.position.clone().lerp(arq.position,.5).setY(.6),
    update(t,dt){
     if(G.userData.grass&&G.userData.grass.userData.u)G.userData.grass.userData.u.value=t;
     const w=G.userData.water;if(w){const P=w.geometry.attributes.position;for(let i=0;i<P.count;i++){const x=P.getX(i),z=P.getZ(i);P.setY(i,Math.sin(x*9+t*2.2)*.006+Math.cos(z*11+t*1.7)*.005)}P.needsUpdate=true;w.geometry.computeVertexNormals()}
