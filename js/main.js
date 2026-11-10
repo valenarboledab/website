@@ -704,19 +704,40 @@ initRevealObserver();
   function initPreviewCursor() {
     const cursor = document.querySelector('.c-cursor');
     if (!cursor || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-    if (!cursor.querySelector('.c-paw')) {
-      const paw = document.createElement('div');
-      paw.className = 'c-paw';
-      paw.innerHTML = '<svg viewBox="0 0 24 24"><g stroke="#72604e" stroke-width="1.1" stroke-linejoin="round"><path fill="#fffdf9" d="M10.2 3.6c0-1 .7-1.7 1.6-1.7s1.6.7 1.6 1.7v6.2l1.1-.3c.9-.2 1.7.3 1.9 1.1l.9-.2c.9-.2 1.7.4 1.8 1.2l.1.2c.8-.1 1.5.5 1.5 1.3v2.6c0 2.7-2.2 4.9-4.9 4.9h-2.4c-1.6 0-3.1-.8-4-2.1l-2.7-3.9c-.5-.7-.3-1.6.4-2.1.6-.4 1.4-.3 1.9.2l1.2 1.3z"/><path fill="none" d="M13.4 9.8v3.2M15.9 10.7v2.6M17.8 11.5v2"/></g><rect x="9.6" y="20.4" width="7.6" height="2.2" rx="1.1" fill="#c8a35f"/></svg>';
-      cursor.appendChild(paw);
+    let val = cursor.querySelector('.c-val');
+    if (!val) {
+      val = document.createElement('div');
+      val.className = 'c-val';
+      val.innerHTML = '<svg viewBox="0 0 40 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="vb" x1="0" x2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#f7f3ed"/><stop offset="1" stop-color="#cbc0b2"/></linearGradient><linearGradient id="vh" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fbf8f3"/><stop offset="1" stop-color="#e3dbcf"/></linearGradient><linearGradient id="vg" x1="0" x2="1"><stop offset="0" stop-color="#e9cf8f"/><stop offset=".5" stop-color="#c8a35f"/><stop offset="1" stop-color="#9c7a3c"/></linearGradient><filter id="vs" x="-40%" y="-20%" width="180%" height="140%"><feDropShadow dx=".6" dy="1.2" stdDeviation="1.3" flood-color="#4a4540" flood-opacity=".55"/></filter></defs><g filter="url(#vs)" fill="url(#vb)"><path d="M17.3 38.5c-.4 6.4-.6 11.9-.9 18.6-.1 1.2.6 1.9 1.4 1.9s1.3-.6 1.4-1.6l1-18.8z"/><path d="M21.2 38.5l1.4 18.9c.1 1 .6 1.6 1.4 1.6s1.5-.7 1.4-1.9c-.4-6.7-.8-12.2-1.3-18.6z"/><path d="M14.6 20.6c-1.7.6-2.3 1.9-2.6 3.7l-1.6 9.4c-.2 1.1.4 1.8 1.1 1.9.7.1 1.3-.4 1.5-1.4l2-9.6z"/><path class="va-down" d="M25.4 20.6c1.7.6 2.3 1.9 2.6 3.7l1.6 9.4c.2 1.1-.4 1.8-1.1 1.9-.7.1-1.3-.4-1.5-1.4l-2-9.6z"/><path class="va-up" d="M25.2 20.9c1.7-.5 2.6-1.8 3.3-3.4l3.6-8.7c.4-1 1.2-1.4 1.9-1.1.7.3.9 1.1.5 2.1l-3.6 9c-.8 2-2.1 3.6-4.3 4.2z"/><path d="M15.2 19.8c1.4-.8 3-1.1 4.8-1.1s3.4.3 4.8 1.1c.9.5 1.3 1.4 1.2 2.4l-1.2 8.2c-.1.9.2 1.8.6 2.6l.9 2.2c.6 1.6-.1 3.4-2 3.8-1.4.3-2.8.4-4.3.4s-2.9-.1-4.3-.4c-1.9-.4-2.6-2.2-2-3.8l.9-2.2c.4-.8.7-1.7.6-2.6L14 22.2c-.1-1 .3-1.9 1.2-2.4z"/><rect x="18.4" y="14.5" width="3.2" height="5" rx="1.5"/><ellipse cx="20" cy="9.6" rx="4.6" ry="5.6"/></g><path d="M15.1 10.7c-.6-4.4 1.5-7.5 4.9-7.5s5.5 3.1 4.9 7.5c-.2 1.4-.6 2.6-1.1 3.4.2-1.8.1-3.8-.7-5.3-.7.6-2 1-3.6 1s-2.6-.5-3.2-1.2c-.6 1.6-.6 3.6-.4 5.5-.5-.8-.8-2-.9-3.4z" fill="url(#vh)" opacity=".95"/><path d="M16.6 16.9c1 .6 2.1.9 3.4.9s2.4-.3 3.4-.9" fill="none" stroke="url(#vg)" stroke-width="1.5" stroke-linecap="round"/></svg>';
+      cursor.appendChild(val);
+    }
+    document.body.classList.add('vcur');
+    let x = -100, y = -100, px = null, py = null, vx = 0, vy = 0, rot = 0, sy = 1, flip = 1, raf = 0, last = performance.now();
+    function tick(now) {
+      const dt = Math.min(64, now - last) / 16.7; last = now;
+      vx *= Math.pow(.82, dt); vy *= Math.pow(.82, dt);
+      const tRot = Math.max(-28, Math.min(28, vx * 2.2));
+      const tSy = 1 + Math.max(-.12, Math.min(.12, -vy * .012));
+      rot += (tRot - rot) * Math.min(1, .25 * dt);
+      sy += (tSy - sy) * Math.min(1, .25 * dt);
+      if (vx > 1.2) flip = 1; else if (vx < -1.2) flip = -1;
+      val.style.transform = 'rotate(' + rot.toFixed(2) + 'deg) scale(' + flip + ',' + sy.toFixed(3) + ')';
+      cursor.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+      raf = (Math.abs(vx) + Math.abs(vy) > .05 || Math.abs(rot) > .2 || Math.abs(sy - 1) > .002) ? requestAnimationFrame(tick) : 0;
     }
     window.addEventListener('pointermove', event => {
-      cursor.style.transform = 'translate(' + event.clientX + 'px,' + event.clientY + 'px)';
+      x = event.clientX; y = event.clientY;
+      if (px !== null) { vx += (x - px) * .35; vy += (y - py) * .35; }
+      px = x; py = y;
+      if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
     }, {passive:true});
     document.addEventListener('pointerover', event => {
       cursor.classList.toggle('expanded', !!event.target.closest('a,button,[onclick],.preview-carousel'));
     });
+    document.addEventListener('mouseleave', () => cursor.classList.add('gone'));
+    document.addEventListener('mouseenter', () => cursor.classList.remove('gone'));
   }
+
 
   updateNavigation();
   updateHome();

@@ -1202,12 +1202,16 @@ body.preview-mode{background:#f5f0e8;color:#27231f}
 .preview-mode .c-cursor{display:block;transform:translate(-100px,-100px);transition:transform .05s linear}
 .preview-mode .c-ring{width:28px;height:28px;border-radius:50%;border:1px solid var(--preview-primary);background:transparent;transform:translate(-50%,-50%);transition:width .25s ease,height .25s ease,background .25s ease,opacity .25s ease}
 .preview-mode .c-dot{width:6px;height:6px;background:#c8a35f;transition:opacity .2s ease}
-.preview-mode .c-cursor.expanded .c-ring{width:46px;height:46px;background:rgba(245,240,232,.94);opacity:1}
-.preview-mode .c-cursor.expanded .c-dot{opacity:0}
-.c-paw{position:absolute;left:0;top:0;width:28px;height:28px;color:#a8834a;transform:translate(-50%,-50%) scale(.3);opacity:0;transition:opacity .25s ease,transform .3s cubic-bezier(.3,1.6,.5,1)}
-.c-paw svg{width:100%;height:100%;display:block}
-.c-cursor.expanded .c-paw{opacity:1;transform:translate(-50%,-38%) scale(1)}
-body.preview-mode:active .c-cursor.expanded .c-paw{transform:translate(-50%,-30%) scale(.9)}
+.c-val{position:absolute;left:-8px;top:-3px;width:30px;height:48px;transform-origin:50% 92%;will-change:transform}
+.c-val svg{width:100%;height:100%;display:block;overflow:visible}
+.c-val .va-up{opacity:0;transition:opacity .15s ease}
+.c-val .va-down{transition:opacity .15s ease}
+.c-cursor.expanded .c-val .va-up{opacity:1}
+.c-cursor.expanded .c-val .va-down{opacity:0}
+.c-cursor.gone{opacity:0}
+body.vcur .c-ring,body.vcur .c-dot{display:none!important}
+body.vcur,body.vcur a,body.vcur button,body.vcur [onclick],body.vcur *{cursor:none!important}
+body.vcur input,body.vcur textarea,body.vcur select,body.vcur [contenteditable]{cursor:text!important}
 .preview-mode .nav{background:rgba(245,240,232,.95);backdrop-filter:blur(14px);border-color:rgba(114,96,78,.16)}
 .preview-mode .nav-badge,.preview-mode .float-cta,.preview-mode .footer-badge{background:var(--preview-primary)}
 .preview-mode .nav-links a:hover,.preview-mode .nav-links a.active{color:var(--preview-primary)}
