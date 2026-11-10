@@ -71,11 +71,6 @@ export function buildGarden({sc,V,VM,glow,lamps}){
    [[-.85,.35],[.85,-.2]].forEach(([dz,ry],i)=>{const p=put(rb(.12,.36,.36,.08),pil[i],SX+.08,DY+.62,SZ+dz,ry)});
    put(rb(.6,.04,.95,.015),M({map:teak(),color:0xc29a72,roughness:.5}),38.3,DY+.38,SZ);put(rb(.5,.36,.82,.02),fr,38.3,DY+.18,SZ);
    [[38.15,-7.55],[38.15,-10.85]].forEach(([x,z])=>{put(rb(.72,.3,.72,.03),fr,x,DY+.17,z);put(rb(.62,.13,.62,.05),cu,x,DY+.38,z)})}
-  // ---- parasol: octagonal canopy with ribs ----
-  {const px=37.85,pz=-8.15;put(new THREE.CylinderGeometry(.025,.03,2.5,12),M({color:0xd8d3cb,metalness:.5,roughness:.35}),px,DY+1.25,pz);
-   const can=new THREE.ConeGeometry(1.35,.42,8,3,true);const cm=M({map:rep(linen(),3,3),color:0xe7dcc6,side:THREE.DoubleSide,roughness:.95});put(can,cm,px,DY+2.55,pz,Math.PI/8);
-   for(let i=0;i<8;i++){const a=i/8*Math.PI*2+Math.PI/8;const r=put(new THREE.CylinderGeometry(.008,.008,1.4,5),M({color:0xd8d3cb,metalness:.6}),px+Math.cos(a)*.66,DY+2.45,pz+Math.sin(a)*.66,0,false);r.rotation.set(0,0,0);r.lookAt(px,DY+2.76,pz);r.rotateX(Math.PI/2)}
-   put(rb(.5,.08,.5,.02),M({color:0x4a4744,roughness:.5}),px,DY+.04,pz)}
   // ---- kamado grill ----
   {const gx=39.2,gz=-12.6;const eg=put(new THREE.SphereGeometry(.3,32,24),M({color:0x2f3a2c,roughness:.28,metalness:.1,clearcoat:1}),gx,DY+.78,gz);eg.scale.set(1,1.15,1);
    put(new THREE.TorusGeometry(.29,.012,8,40),M({color:0x9b9b98,metalness:.8,roughness:.3}),gx,DY+.86,gz).rotation.x=Math.PI/2;
