@@ -92,9 +92,103 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <a class="brand" href="/es/"><span class="badge">VA</span>STUDIO VALENTINA</a>
     <nav><a href="/es/">Inicio</a><a href="/es/proyectos/">Todos los proyectos</a><a href="/es/#contact">Contacto</a><a class="lang" href="/projects/eco-hotel-quindio-colombia/" hreflang="en" lang="en">English</a></nav>
   </div></div>
-  <div class="hero"><figure><video src="/videos/proj-ecohotel.mp4" poster="/videos/posters/proj-ecohotel.webp" autoplay muted loop playsinline aria-label="Eco Hotel"></video><noscript><img src="/COMMERCIAL/COMMERCIAL%20+%20PUBLIC%20INTERIOR%20DESIGN/Eco-Hotel%20-%20Colombia/ECO%20HOTEL%203.webp" alt="Eco Hotel"></noscript></figure></div>
+  <section id="sv-eco" class="sv-home">
+<style>
+#sv-eco{position:relative;height:1200vh;background:#f0eeed;color:#4a4540;font-family:'DM Sans',system-ui,sans-serif;margin:0 0 16px}
+#sv-eco .st{position:sticky;top:0;height:100vh;overflow:hidden}
+#sv-eco canvas{display:block;width:100%;height:100%}
+#sv-eco .st:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(240,238,237,.94) 0,rgba(240,238,237,.6) 28%,rgba(240,238,237,0) 48%);pointer-events:none}
+#sv-eco .cap{z-index:2;position:absolute;left:7vw;bottom:13vh;max-width:min(460px,86vw);opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
+#sv-eco .cap.on{opacity:1;transform:none}
+#sv-eco .cap small{display:block;letter-spacing:.28em;text-transform:uppercase;font-size:11px;color:#9a7f61;margin-bottom:14px}
+#sv-eco .cap h2 em{font-style:italic}
+#sv-eco .cap h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:clamp(42px,5.5vw,80px);line-height:1;letter-spacing:-.02em;margin:0 0 14px;color:#27231f}
+#sv-eco .cap p{font-size:16px;line-height:1.6;margin:0;color:#4a4540}
+#sv-eco .cap a{display:inline-block;margin-top:18px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#72604e;text-decoration:none;border-bottom:1px solid #9a7f61;padding-bottom:3px;pointer-events:auto}
+#sv-eco .ld{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);letter-spacing:.3em;font-size:11px;text-transform:uppercase;color:#9a7f61;transition:opacity .5s}
+#sv-eco .bar{position:absolute;left:0;bottom:0;height:2px;background:#9a7f61;width:0}
+#sv-eco .bub{position:absolute;z-index:3;transform:translate(-50%,calc(-100% - 14px)) scale(.9);opacity:0;transition:opacity .45s,transform .45s;background:#fffdf9;color:#4a4540;border:1px solid #d9c9b3;border-radius:16px;padding:12px 16px;font:14px/1.45 'DM Sans',system-ui,sans-serif;max-width:min(270px,62vw);box-shadow:0 8px 24px rgba(74,69,64,.12);pointer-events:none}
+#sv-eco .bub b{font-family:Georgia,serif;font-weight:400;font-size:17px;color:#9a7f61}
+#sv-eco .bub::after{content:'';position:absolute;left:50%;bottom:-7px;width:12px;height:12px;background:#fffdf9;border-right:1px solid #d9c9b3;border-bottom:1px solid #d9c9b3;transform:translateX(-50%) rotate(45deg)}
+#sv-eco .bub.on{opacity:1;transform:translate(-50%,calc(-100% - 14px))}
+#sv-eco .bub.bn,#sv-eco .bub.bn.on{transform:translate(-88%,calc(-100% - 14px))}
+#sv-eco .bub.bn::after{left:85%}
+#sv-eco .bub.bn{padding:7px 12px;font-weight:600;color:#9a7f61;transition-delay:.25s}
+#sv-eco .sv-h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:clamp(52px,7vw,104px);line-height:.95;letter-spacing:-.02em;margin:0 0 16px;color:#27231f}#sv-eco .sv-h1 em{font-style:italic}
+#sv-eco .sv-btn{display:inline-block;margin-top:20px;padding:12px 22px;border-radius:999px;background:#4a4540;color:#f5f0e8;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;pointer-events:auto}
+@media (max-width:700px){#sv-eco .sv-h1{font-size:54px}#sv-eco .st:after{background:linear-gradient(180deg,rgba(240,238,237,0) 38%,rgba(240,238,237,.9) 62%,rgba(240,238,237,.97))}#sv-eco .cap{bottom:9vh}}
+</style>
+<div class="st"><canvas></canvas><div class="ld">Cargando modelo</div>
+<div class="cap on"><small>Caso de estudio · Colombia · 🥇 Proyecto ganador</small><h2>Eco <em>Hotel</em></h2><p>Haz scroll para recorrer el hotel piso por piso, sus terrazas y el paisaje que lo rodea.</p></div>
+<div class="cap"><small>Eco Hotel · Corte</small><h2>Piso por <em>piso</em></h2><p>El edificio se abre nivel por nivel para mostrar cómo se apilan las habitaciones, las terrazas y las circulaciones.</p></div>
+<div class="cap"><small>Paisaje</small><h2>Parte de la <em>estadía</em></h2><p>Terrazas sembradas, jardines en la base y una piscina en la cubierta abren el hotel hacia las montañas. Nala lo aprueba.</p><a href="#case">Leer el caso de estudio ↓</a></div>
+<div class="bar"></div></div>
+
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';
+const V=await import('/js/valentinas.js');const VM=V.materials();
+const root=document.getElementById('sv-eco'),cv=root.querySelector('canvas'),caps=[...root.querySelectorAll('.cap')],bar=root.querySelector('.bar');
+const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(devicePixelRatio,1.5));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
+const sc=new THREE.Scene();sc.background=new THREE.Color(0xf0eeed);
+const cam=new THREE.PerspectiveCamera(32,1,0.5,600);
+sc.add(new THREE.HemisphereLight(0xfffaf0,0xb9ad98,0.9));const sun=new THREE.DirectionalLight(0xfff3e0,3.2);sun.castShadow=true;sun.shadow.bias=-0.0006;sun.shadow.normalBias=0.06;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-45,right:45,top:45,bottom:-45,far:200});sc.add(sun,sun.target);
+const gnd=new THREE.Mesh(new THREE.CircleGeometry(140,64),new THREE.MeshStandardMaterial({color:0xD8CDBA,roughness:1}));gnd.rotation.x=-Math.PI/2;gnd.receiveShadow=true;sc.add(gnd);
+let L=[],c=new THREE.Vector3(),S=40,ready=false;
+const dl=new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+new GLTFLoader().setDRACOLoader(dl).load(root.dataset.glb||'/images/3d/eco-hotel.glb',g=>{const m=g.scene;sc.add(m);
+ const bAll=new THREE.Box3().setFromObject(m);const b=new THREE.Box3();['L1','L2','L3','ROOF'].forEach(n=>{const o=m.getObjectByName(n);if(o)b.expandByObject(o)});b.getCenter(c);S=b.getSize(new THREE.Vector3()).length();gnd.position.set(c.x,bAll.min.y-0.02,c.z);gnd.visible=false;sc.fog=new THREE.Fog(0xf0eeed,170,430);terrain(-12,-1.4,bAll.min.y-0.02);
+ m.traverse(o=>{if(o.isMesh){o.castShadow=!o.material.transparent;o.receiveShadow=true;if(o.material.transparent){o.material.depthWrite=false;o.renderOrder=2}}});
+ L=['L0','L1','L2','L3','ROOF'].map(n=>m.getObjectByName(n)).filter(Boolean);L.forEach(o=>o.userData.y0=o.position.y);
+ sun.target.position.copy(c);sun.position.set(c.x+40,c.y+70,c.z+30);
+ const pm=new THREE.MeshStandardMaterial({color:0xF7F3EC,roughness:.7}),dk=new THREE.MeshStandardMaterial({color:0x8a7c68,roughness:.8});
+ const mkP=(i)=>{const g=new THREE.Group();g.scale.setScalar(1.25);const h=1.7*(.9+((i*13)%20)/100);const body=new THREE.Mesh(new THREE.CapsuleGeometry(.19,h*.36,4,10),i%3?pm:dk);body.position.y=h*.62;const head=new THREE.Mesh(new THREE.SphereGeometry(.12,12,10),pm);head.position.y=h*.93;
+  const lg=[0,1].map(k=>{const p=new THREE.Group();p.position.set(k?.09:-.09,h*.46,0);const m=new THREE.Mesh(new THREE.CylinderGeometry(.06,.05,h*.46,6),i%3?pm:dk);m.position.y=-h*.23;p.add(m);g.add(p);return p});
+  const ar=[0,1].map(k=>{const p=new THREE.Group();p.position.set(k?.24:-.24,h*.78,0);const m=new THREE.Mesh(new THREE.CylinderGeometry(.045,.04,h*.34,6),pm);m.position.y=-h*.17;p.add(m);g.add(p);return p});
+  g.add(body,head);g.traverse(o=>{if(o.isMesh)o.castShadow=true});g.userData={lg,ar};return g};
+ W=[];const b0=bAll,gy=b.min.y;
+ const hb={min:{x:-8,z:-24},max:{x:30,z:17}};const pad=2;const rect=[[hb.min.x-pad,hb.min.z-pad],[hb.max.x+pad,hb.min.z-pad],[hb.max.x+pad,hb.max.z+pad],[hb.min.x-pad,hb.max.z+pad]];
+ const add=(parent,A,B,y,i,sp)=>{const pp=V.figure(VM.white,{hair:['bob','pony','long'][i%3]});pp.scale.setScalar(parent===sc?1.25:1.5);parent.add(pp);W.push({pp,A,B,y,ph:(i*0.37)%1,sp,yaw:0})};
+ for(let i=0;i<5;i++){const k=i%4,A=rect[k],B=rect[(k+1)%4];add(sc,A,B,3.55,i,0.035+(i%3)*0.01)}
+ [[[33.6,-6],[33.6,9],.085],[[37,9],[37,-5],.095],[[35.2,-3],[38.5,8],.11],[[38.8,-2],[35.4,10],.09]].forEach(([A,B,sp],j)=>add(sc,A,B,3.55,j+1,sp));
+ route=new THREE.CatmullRomCurve3(rect.map(([x,z])=>new THREE.Vector3(x,3.55,z)),true,'centripetal',.2);RL=route.getLength();
+ arqV=V.figure(VM.gold,{hair:'bob',gold:true,h:1.64});arqV.scale.setScalar(1.25);planV=V.blueprint();arqV.add(planV);sc.add(arqV);nalaV=V.nala();nalaV.scale.setScalar(1.7);sc.add(nalaV);
+ const LW={L1:[7.0,[[-3,-15.5],[3,-15.5]],[[-1.5,-17],[-1.5,-13]]],L2:[12.5,[[-9,6],[8,6]],[[-6,1],[-6,11]],[[-9,10],[-1,10]]],L3:[14.0,[[0,-5.5],[18,-5.5]]],ROOF:[18.5,[[24,-11],[24,0]]]};L.forEach((o,li)=>{const w=LW[o.name];if(!w)return;w.slice(1).forEach((ab,j)=>{const len=Math.hypot(ab[1][0]-ab[0][0],ab[1][1]-ab[0][1]);add(o,ab[0],ab[1],w[0],20+li*3+j,(1.1+.15*j)/len)})});
+ root.querySelector('.ld').style.opacity=0;ready=true;fr();loop()});
+function terrain(cx,cz,y0){const n2=(x,z)=>.5+.25*Math.sin(x*.021+1.3)*Math.cos(z*.017)+.15*Math.sin(x*.047+z*.033)+.1*Math.cos(x*.09-z*.071);
+ const ss=(a,b,x)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t)};
+ const RE=(x,z)=>Math.pow(Math.pow(Math.abs((x-cx)/72),4)+Math.pow(Math.abs((z-cz)/95),4),.25);const H=(x,z)=>{const t=ss(1.12,1.95,RE(x,z));return t*(6+26*n2(x,z))};const STEP=1.6;
+ const g=new THREE.PlaneGeometry(640,640,320,320);g.rotateX(-Math.PI/2);const P=g.attributes.position,col=new Float32Array(P.count*3),c0=new THREE.Color(0xe2d8c6),c1=new THREE.Color(0xd6cab4);
+ for(let i=0;i<P.count;i++){const x=P.getX(i)+cx,z=P.getZ(i)+cz,h=H(x,z),k=Math.floor(h/STEP);P.setY(i,k*STEP);const cc=k%2?c1:c0;col[i*3]=cc.r;col[i*3+1]=cc.g;col[i*3+2]=cc.b}
+ g.setAttribute('color',new THREE.BufferAttribute(col,3));g.computeVertexNormals();
+ const t=new THREE.Mesh(g,new THREE.MeshStandardMaterial({vertexColors:true,roughness:1,flatShading:true}));t.position.set(cx,y0,cz);t.receiveShadow=true;t.castShadow=true;sc.add(t);
+}
+let W=[],route=null,RL=1,arqV=null,planV=null,nalaV=null,aYaw=0,nYaw=0,nPrev=null,lastT=0,clk=new THREE.Clock(),vis=true;new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis)loop()}).observe(root);
+let looping=false;function loop(){if(looping||!ready)return;looping=true;const step=()=>{if(!vis||!ready){looping=false;return}walk(clk.getElapsedTime());fr();requestAnimationFrame(step)};requestAnimationFrame(step)}
+function walk(t){const dt=Math.min(.1,Math.max(.001,t-lastT));lastT=t;
+ for(const w of W){const u2=(t*w.sp+w.ph)%2,f=u2<1?u2:2-u2,dir=u2<1?1:-1;const x=w.A[0]+(w.B[0]-w.A[0])*f,z=w.A[1]+(w.B[1]-w.A[1])*f;w.pp.position.set(x,w.y,z);
+  w.yaw=V.yawTo(w.yaw,Math.atan2((w.B[0]-w.A[0])*dir,(w.B[1]-w.A[1])*dir),Math.min(1,dt*4));w.pp.rotation.y=w.yaw;const len=Math.hypot(w.B[0]-w.A[0],w.B[1]-w.A[1]);
+  const u=w.pp.userData;u.pose(V.poseValues('stand'));const bob=u.walk(f*len/.6*Math.PI,1);w.pp.position.y=w.y+.015*bob;u.refresh()}
+ const stg=pr()>=.74;if(arqV&&stg){const SA=new THREE.Vector3(33.2,3.55,1.2),SN=new THREE.Vector3(34.6,3.55,2.6);arqV.position.copy(SA);arqV.rotation.y=Math.atan2(.93,.38)+.2;const u=arqV.userData,pv=V.poseValues('stand'),wv=Math.sin(t*7);pv.sr=[-2.55,-.55+.25*wv,.32+.22*wv];pv.sl=[-.85,-.95,-.3];pv.hp=-.04;u.pose(pv);u.walk(0,0);u.refresh();const hl=u.hand.sl.position;planV.position.set(hl.x+.04,hl.y-.07,hl.z+.035);planV.rotation.set(-.12,.25,0);u.head.rotation.x=-.08;u.head.rotation.y=.1*Math.sin(t*1.3);
+  nalaV.position.copy(SN);nalaV.rotation.y=Math.atan2(.93,.38)-.3;nPrev=null;nalaV.position.y+=nalaV.userData.update(t,dt,0,1)*1.7;return}
+ if(arqV){const ua=((t*.55/RL)%1+1)%1,P=route.getPointAt(ua),T=route.getTangentAt(ua);aYaw=V.yawTo(aYaw,Math.atan2(T.x,T.z),Math.min(1,dt*4));arqV.rotation.y=aYaw;
+  const u=arqV.userData;u.pose(V.poseValues('read'));const bob=u.walk(t*.55/1.25/.6*Math.PI,1);arqV.position.set(P.x,P.y+.015*bob,P.z);u.refresh();V.holdPlan(arqV,planV);u.head.rotation.x=.42;
+  const un=(ua-1.6/RL+1)%1,Q=route.getPointAt(un),TQ=route.getTangentAt(un),side=new THREE.Vector3(TQ.z,0,-TQ.x).multiplyScalar(.7),np=Q.clone().add(side);
+  const spd=nPrev?nPrev.distanceTo(np)/dt/1.7:0;nPrev=np.clone();nYaw=V.yawTo(nYaw,Math.atan2(TQ.x,TQ.z),Math.min(1,dt*5));nalaV.rotation.y=nYaw;nalaV.position.copy(np);nalaV.position.y+=nalaV.userData.update(t,dt,spd,0)*1.7}}
+function rs(){const w=cv.clientWidth,h=cv.clientHeight;r.setSize(w,h,false);cam.aspect=w/h;if(w>700)cam.setViewOffset(w,h,-w*0.16,0,w,h);else cam.clearViewOffset();cam.updateProjectionMatrix()}addEventListener('resize',()=>{rs();fr()});rs();new ResizeObserver(()=>{rs();fr()}).observe(cv);
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),e=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,sg=(p,a,b)=>e(cl((p-a)/(b-a)));
+const pr=()=>{const q=root.getBoundingClientRect();return cl(-q.top/(q.height-innerHeight))};
+function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<.3?0:p<.66?1:2;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
+ const ex=sg(p,.34,.52)*(1-sg(p,.62,.72));L.forEach((o,i)=>o.position.y=o.userData.y0+ex*i*S*0.09);
+ const KF=[[0,-.6,.32,.95],[.14,.15,.27,.78],[.28,.95,.2,.62],[.44,2.2,.45,1.15],[.58,2.5,.5,1.15],[.72,.9,.4,.95],[.94,.39,.3,.9]];let ki=0;while(ki<KF.length-2&&p>KF[ki+1][0])ki++;const k0=KF[ki],k1=KF[ki+1],kt=sg(p,k0[0],k1[0]),kl=(i)=>THREE.MathUtils.lerp(k0[i],k1[i],kt);const a=kl(1),el=kl(2),d=S*kl(3)*(innerWidth<700?1.4:1);
+ const zn=nalaV?sg(p,.76,.94):0,tg=new THREE.Vector3(c.x,c.y+ex*S*0.2,c.z);if(nalaV)tg.lerp(new THREE.Vector3(34,4.4,2),zn);const dd=d*THREE.MathUtils.lerp(1,.17,zn),el2=THREE.MathUtils.lerp(el,.3,zn);
+ cam.position.set(tg.x+Math.cos(a)*Math.cos(el2)*dd,tg.y+Math.sin(el2)*dd,tg.z+Math.sin(a)*Math.cos(el2)*dd);cam.lookAt(tg);r.render(sc,cam);bub(zn)}
+const stE=root.querySelector('.st'),bA=document.createElement('div'),bN=document.createElement('div');bA.className='bub';bN.className='bub bn';bA.innerHTML='<b>¡Hola! Bienvenido a mi portafolio.</b><br>Soy Valentina, y todas ellas son mis <i>Valentinas</i>: la escala humana en todos mis proyectos.';bN.textContent='¡Guau! 🐾';stE.append(bA,bN);const pv3=new THREE.Vector3();function place(el,obj,dy,on){if(!obj||!on){el.classList.remove('on');return}obj.getWorldPosition(pv3);pv3.y+=dy;pv3.project(cam);const W=stE.clientWidth,H=stE.clientHeight;el.style.left=((pv3.x+1)/2*W)+'px';el.style.top=Math.max(el.offsetHeight+80,(1-pv3.y)/2*H)+'px';el.classList.add('on')}function bub(z){place(bA,arqV,2.75,z>.8);place(bN,nalaV,1.6,z>.86)}
+let q=0;addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(()=>{q=0;fr()})}},{passive:true});
+</script></section>
+<div class="hero"><figure><video src="/videos/proj-ecohotel.mp4" poster="/videos/posters/proj-ecohotel.webp" autoplay muted loop playsinline aria-label="Eco Hotel"></video><noscript><img src="/COMMERCIAL/COMMERCIAL%20+%20PUBLIC%20INTERIOR%20DESIGN/Eco-Hotel%20-%20Colombia/ECO%20HOTEL%203.webp" alt="Eco Hotel"></noscript></figure></div>
   <main class="wrap">
-    <header class="intro">
+    <header class="intro" id="case">
       <div><p class="eyebrow">Caso de estudio · Quindío, Colombia · 🥇 Proyecto ganador</p><h1>Eco Hotel: hospitalidad diseñada con la naturaleza</h1></div>
       <dl class="facts"><div><dt>Ubicación</dt><dd>Quindío, Colombia</dd></div><div><dt>Tipo</dt><dd>Comercial · Hotel</dd></div><div><dt>Mi rol</dt><dd>Diseño arquitectónico · Renders 3D</dd></div><div><dt>Reconocimiento</dt><dd>Proyecto ganador</dd></div></dl>
     </header>
