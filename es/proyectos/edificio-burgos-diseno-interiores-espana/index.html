@@ -142,7 +142,7 @@ const cam=new THREE.PerspectiveCamera(32,1,0.1,400);{const pm=new THREE.PMREMGen
 const hemi=new THREE.HemisphereLight(0xfffaf0,0x9c8a72,1.25);sc.add(hemi);
 const sun=new THREE.DirectionalLight(0xfff0d8,2.6);sun.castShadow=true;sun.shadow.bias=-0.0004;sun.shadow.normalBias=0.03;sun.shadow.mapSize.set(MOB?1024:2048,MOB?1024:2048);Object.assign(sun.shadow.camera,{left:-24,right:24,top:24,bottom:-24,near:1,far:110});sc.add(sun,sun.target);
 const gnd=new THREE.Mesh(new THREE.CircleGeometry(160,64),new THREE.MeshStandardMaterial({color:0xd8d0c3,roughness:1}));gnd.rotation.x=-Math.PI/2;gnd.receiveShadow=true;sc.add(gnd);
-const cut=new THREE.Plane(new THREE.Vector3(0,-1,0),999);
+const UCUT={value:999},cut=new THREE.Plane(new THREE.Vector3(0,-1,0),999),cutF=new THREE.Plane(new THREE.Vector3(0,-1,0),999);
 const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),e=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,sg=(p,a,b)=>e(cl((p-a)/(b-a))),lerp=THREE.MathUtils.lerp;
 const rnd=i=>((Math.sin(i*12.9898)*43758.5453)%1+1)%1;
 let ROOF=null,CM=[],GD=null,nalaIn=null,LSEG={},curL=-1,nInPrev=null,nInYaw=0,arqV=null,planV=null,nalaV=null,cooks=[],ready=false,c=new THREE.Vector3(),S=20,Y0=0,TOP=12,glow=[],glass=[],W=[],lamps=[],fire=null,fireL=null,SH=[];
@@ -222,7 +222,7 @@ LD.load(BASE+'edificio-burgos.glb',async g=>{const m=g.scene;sc.add(m);
  m.updateMatrixWorld(true);m.traverse(o=>{if(!o.isMesh)return;const M=o.material,n=M.name||'';{let bx;if(o.isInstancedMesh){o.computeBoundingBox();bx=o.boundingBox.clone()}else{o.geometry.computeBoundingBox();bx=o.geometry.boundingBox.clone()}bx.applyMatrix4(o.matrixWorld);CM.push([o,bx.min.y])}
   if(!o.geometry.attributes.normal)o.geometry.computeVertexNormals();M.envMapIntensity=.35;
   if(!n&&!M.map){M.metalness=0;M.roughness=.9;M.color.setHex(0xe8e2d8)}
-  M.clippingPlanes=[cut];M.clipShadows=true;if(M.alphaTest>0&&!M.map&&!M.alphaMap)M.alphaTest=0;
+  M.clippingPlanes=[cut];M.clipShadows=true;if(!M.transparent&&!M.userData.poche){M.userData.poche=1;M.side=THREE.DoubleSide;M.shadowSide=THREE.FrontSide;const ob=M.onBeforeCompile;M.onBeforeCompile=(sh,rr)=>{if(ob)ob(sh,rr);sh.uniforms.uCut=UCUT;sh.vertexShader='varying float vWY;\n'+sh.vertexShader.replace('#include <project_vertex>','#include <project_vertex>\n vec4 wq=vec4(transformed,1.0);\n #ifdef USE_INSTANCING\n wq=instanceMatrix*wq;\n #endif\n vWY=(modelMatrix*wq).y;');sh.fragmentShader='varying float vWY;\nuniform float uCut;\n'+sh.fragmentShader.replace('#include <dithering_fragment>','#include <dithering_fragment>\n if(!gl_FrontFacing&&uCut<900.0&&vWY>uCut-0.55) gl_FragColor=vec4(0.29,0.27,0.25,1.0);')};M.needsUpdate=true}if(M.alphaTest>0&&!M.map&&!M.alphaMap)M.alphaTest=0;
   if(/grass light green/i.test(n)){o.visible=false;o.userData.cv=0}
   const isGlass=M.transparent||/glass|glas|vidr|crist/i.test(n);
   if(isGlass){M.depthWrite=false;o.renderOrder=2;o.castShadow=false;M.emissive=new THREE.Color(0xffb468);M.emissiveIntensity=0;glass.push(M)}else o.castShadow=true;
@@ -232,9 +232,9 @@ LD.load(BASE+'edificio-burgos.glb',async g=>{const m=g.scene;sc.add(m);
  const P=await pts;
  if(P)P.lv.forEach((L,li)=>{L.rooms.forEach((rm,ri)=>{SH[li]=SH[li]||rm.c;if(!LSEG[L.y]&&rm.s[0])LSEG[L.y]=rm.s[0];
    const pl=new THREE.PointLight(0xffc98a,0,7,1.6);pl.position.set(rm.c[0],Y0+L.y+2.0,rm.c[1]);sc.add(pl);lamps.push([pl,ri?5:8]);
-   rm.s.slice(0,ri?1:2).forEach((s,si)=>{const w=V.figure(VM.white,{hair:['bob','pony','long'][(li+ri+si)%3],clip:[cut]});sc.add(w);walker(w,[s[0],Y0+L.y,s[1]],[s[2],Y0+L.y,s[3]],.05+rnd(li+si)*.03,rnd(li*3+si),Y0+L.y)})})});
+   rm.s.slice(0,ri?1:2).forEach((s,si)=>{const w=V.figure(VM.white,{hair:['bob','pony','long'][(li+ri+si)%3],clip:[cutF]});sc.add(w);walker(w,[s[0],Y0+L.y,s[1]],[s[2],Y0+L.y,s[3]],.05+rnd(li+si)*.03,rnd(li*3+si),Y0+L.y)})})});
  context();
- nalaIn=V.nala({clip:[cut]});nalaIn.scale.setScalar(1.2);sc.add(nalaIn);
+ nalaIn=V.nala({clip:[cutF]});nalaIn.scale.setScalar(1.2);sc.add(nalaIn);
  sun.target.position.copy(c);
  root.querySelector('.ld').style.opacity=0;root.classList.add('rd');ready=true;fr();loop()},x=>{if(x.total)ldp.textContent=Math.round(x.loaded/x.total*100)+'%'});
 function context(){const C=new THREE.Group();sc.add(C);gnd.material.color.setHex(0xd9d2c6);
@@ -274,7 +274,7 @@ function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';
  const s=p<.15?0:p<.32?1:p<.56?2:p<.66?3:p<.8?4:5;caps.forEach((x,i)=>x.classList.toggle('on',i===s));
  let i=0;while(i<K.length-2&&p>K[i+1][0])i++;const A=K[i],B=K[i+1],t=e(cl((p-A[0])/(B[0]-A[0])));
  shotT(A,tgt);shotT(B,tmp);tgt.lerp(tmp,t);
- const ha=cutH(A),hb=cutH(B);cut.constant=(ha>900&&hb>900)?999:lerp(Math.min(ha,TOP+1),Math.min(hb,TOP+1),(ha<900&&hb<900&&hb<ha)?cl((t-.46)/.08):t);for(const q of CM)if(q[0].userData.cv!==0)q[0].visible=q[1]<cut.constant+.05;if(GD&&GD.group)GD.group.visible=p>.58;if(ROOF){const u=cl((TOP+1-cut.constant)/2.2);ROOF.position.y=TOP+.02+e(u)*7;ROOF.material.opacity=1-u;ROOF.visible=u<.99}
+ const ha=cutH(A),hb=cutH(B);cut.constant=(ha>900&&hb>900)?999:lerp(Math.min(ha,TOP+1),Math.min(hb,TOP+1),(ha<900&&hb<900&&hb<ha)?cl((t-.46)/.08):t);cutF.constant=cut.constant+.95;UCUT.value=cut.constant;for(const q of CM)if(q[0].userData.cv!==0)q[0].visible=q[1]<cut.constant+.05;if(GD&&GD.group)GD.group.visible=p>.58;if(ROOF){const u=cl((TOP+1-cut.constant)/2.2);ROOF.position.y=TOP+.02+e(u)*7;ROOF.material.opacity=1-u;ROOF.visible=u<.99}
  const L=t<.5?A[1]:B[1],gd=['g','n'].includes(t<.5?A[2]:B[2]);curL=gd?-2:L;lv.classList.toggle('on',L>=0||gd);lvs.forEach((x,j)=>x.classList.toggle('on',gd?j===4:j===L));
  const a=lerp(A[3],B[3],t),el=lerp(A[4],B[4],t),d=S*lerp(A[5],B[5],t)*(MOB?1.4:1);
  cam.position.set(tgt.x+Math.cos(a)*Math.cos(el)*d,tgt.y+Math.sin(el)*d,tgt.z+Math.sin(a)*Math.cos(el)*d);cam.lookAt(tgt);
