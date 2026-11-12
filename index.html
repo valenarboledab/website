@@ -628,7 +628,7 @@ function fr(){if(!ready)return;const p=pr();bar.style.width=p*100+'%';const s=p<
  sun.intensity=3*(1-n*.92);sun.color.setHex(0xfff1dc).lerp(new THREE.Color(0xffd6b0),dk);hemi.intensity=1.1*(1-n*.7);
  if(lampMat)lampMat.emissiveIntensity=lg*3;if(winMat){winMat.emissive=winMat.emissive||new THREE.Color();winMat.emissive.setHex(0xffb468);winMat.emissiveIntensity=lg*.9}facG.forEach(m=>m.emissiveIntensity=lg*1.1);
  r.toneMappingExposure=1-n*.15;r.render(sc,cam);bub(zn)}
-const stE=root.querySelector('.st'),bA=document.createElement('div'),bN=document.createElement('div');bA.className='bub';bN.className='bub bn';bA.innerHTML='<b>¡Hola! Soy Valentina, la arquitecta.</b><br>Este es mi plano del <i>Arboretum 2</i>, un proyecto ganador en Colombia.';bN.textContent='¡Guau! 🐾';stE.append(bA,bN);
+const stE=root.querySelector('.st'),bA=document.createElement('div'),bN=document.createElement('div');bA.className='bub';bN.className='bub bn';bA.innerHTML='<b>Hi! I\'m Valentina, the architect.</b><br>This is my <i>Arboretum 2</i>: a winning project where the mountains became architecture.';bN.textContent='Woof! 🐾';stE.append(bA,bN);
 const pv3=new THREE.Vector3();function place(el,obj,dy,on){if(!obj||!on){el.classList.remove('on');return}obj.getWorldPosition(pv3);pv3.y+=dy;pv3.project(cam);const W2=stE.clientWidth,H2=stE.clientHeight;el.style.left=((pv3.x+1)/2*W2)+'px';el.style.top=Math.max(el.offsetHeight+80,(1-pv3.y)/2*H2)+'px';el.classList.add('on')}
 function bub(z){place(bA,arqV,2.65,z>.8);place(bN,nalaV,1.35,z>.86)}
 let qq=0;addEventListener('scroll',()=>{if(!qq){qq=1;requestAnimationFrame(()=>{qq=0;fr()})}},{passive:true});
