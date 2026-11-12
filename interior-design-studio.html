@@ -263,7 +263,7 @@ LD.load(BASE+'edificio-burgos.glb',async g=>{const m=g.scene;sc.add(m);
  context();
  nalaIn=V.nala({clip:[cutF]});nalaIn.scale.setScalar(1.2);sc.add(nalaIn);
  sun.target.position.copy(c);
- root.querySelector('.ld').style.opacity=0;if(GD&&GD.group){GD.group.visible=true;try{r.compile(sc,cam);r.render(sc,cam)}catch(_){}}root.classList.add('rd');ready=true;fr();loop()},x=>{if(x.total)ldp.textContent=Math.round(x.loaded/x.total*100)+'%'});
+ root.querySelector('.ld').style.opacity=0;if(GD&&GD.group){GD.group.visible=true;try{r.compile(sc,cam);r.render(sc,cam)}catch(_){}}root.classList.add('rd');ready=true;fr();loop()},x=>{if(x.total)ldp.textContent=Math.min(99,Math.round(x.loaded/x.total*100))+'%'});
 function context(){const C=new THREE.Group();sc.add(C);gnd.material.color.setHex(0xd9d2c6);
  const tex=(w,h,draw)=>{const cv=document.createElement('canvas');cv.width=w;cv.height=h;draw(cv.getContext('2d'),w,h);const t=new THREE.CanvasTexture(cv);t.colorSpace=THREE.SRGBColorSpace;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.anisotropy=8;return t};
  const grain=(x,w,h,a)=>{const im=x.getImageData(0,0,w,h);for(let i=0;i<im.data.length;i+=4){const n=(Math.random()-.5)*a;im.data[i]+=n;im.data[i+1]+=n;im.data[i+2]+=n}x.putImageData(im,0,0)};
@@ -507,6 +507,8 @@ function load(n) {
   loading[n] = new Promise((res, rej) => loader().load(LITE(n), (g) => { models[n] = g; res(g); }, (e) => { if (current >= 0 && FLOOR(current) === n && e.total) msg.textContent = "Cargando tu diseño… " + Math.min(99, Math.round((e.loaded / e.total) * 100)) + "%"; }, rej));
   return loading[n];
 }
+// preload the floor models quietly once the page is idle, so scrolling never waits for a download
+addEventListener('load', () => setTimeout(() => { let p = Promise.resolve(); [0, 1, 2].forEach((n) => { p = p.then(() => load(n)).catch(() => {}); }); }, 2500));
 // the pieces were separated once, offline: nodes named piece_N are furniture, the rest is the structure
 const H_BANDS = BANDS;
 // illustrated look: every surface of the model gets one flat colour taken from its own texture,
@@ -688,7 +690,7 @@ function makeCtx() {
   const sun = new THREE.DirectionalLight(0xfff6ea, 0.9); sun.position.set(30, 40, 18); scene.add(sun, sun.target);
   const plan = new THREE.WebGLRenderer({ canvas: planCanvas, antialias: true });
   const mini = new THREE.WebGLRenderer({ canvas: miniCanvas, antialias: true, alpha: true });
-  for (const r of [plan, mini]) { r.localClippingEnabled = true; r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.NoToneMapping; }
+  for (const r of [plan, mini]) { r.localClippingEnabled = true; r.setPixelRatio(Math.min(devicePixelRatio, 1.5)); r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.NoToneMapping; }
   const ortho = new THREE.OrthographicCamera(-5, 5, 5, -5, 0.1, 100);
   const persp = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
   const ctl = new OrbitControls(persp, miniCanvas); ctl.enableDamping = true; ctl.enablePan = false;
@@ -877,7 +879,7 @@ renderBtn?.addEventListener("click", async (e) => {
   rmsg.textContent = "Renderizando…";
   const set = floorSet[FLOOR(current)];
   const r = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
-  r.localClippingEnabled = true; r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
+  r.localClippingEnabled = true; r.setPixelRatio(Math.min(devicePixelRatio, 1.5)); r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
   r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.NoToneMapping;
   const w = canvas.clientWidth, h = canvas.clientHeight; r.setSize(w, h, false);
   const scene = new THREE.Scene(); scene.background = new THREE.Color("#efe9df");
@@ -1836,7 +1838,7 @@ async function render() {
   const canvas = overlay.querySelector("canvas");
   if (!R3) {
     const r = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
-    r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
+    r.setPixelRatio(Math.min(devicePixelRatio, 1.5)); r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
     r.outputColorSpace = THREE.SRGBColorSpace; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.05;
     const cam = new THREE.PerspectiveCamera(35, 1, 0.1, 200);
     const ctl = new OrbitControls(cam, canvas); ctl.enableDamping = true; ctl.maxPolarAngle = Math.PI * 0.48;
