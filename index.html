@@ -214,7 +214,7 @@ let q=0;addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(()=>{q=0
 
     <!-- ABOUT -->
     <section class="h-about">
-      <div class="h-about-img"><img loading="lazy" decoding="async" src="images/home/img-portrait.webp" alt="Valentina Arboleda"></div>
+      <div class="h-about-img fl3d"><canvas aria-hidden="true"></canvas><img loading="lazy" decoding="async" src="images/home/img-portrait-cut.webp" alt="Valentina Arboleda"><div class="fl-tip" role="status"></div></div>
       <div class="h-about-text">
         <div class="h-about-text-l">
           <p class="eyebrow">About Me</p>
@@ -267,78 +267,64 @@ let q=0;addEventListener('scroll',()=>{if(!q){q=1;requestAnimationFrame(()=>{q=0
         </div>
       </div>
     </section>
-
-    <!-- MY WORLD: floating 3D objects -->
-    <section id="sv-float" aria-label="Objects from my studio">
-      <div class="fl-txt">
-        <p class="eyebrow">My World</p>
-        <h2>The pieces I design with</h2>
-        <p>Grab them, toss them, they always come back.</p>
-      </div>
-      <canvas aria-hidden="true"></canvas>
-      <div class="fl-tip" role="status"></div>
-    </section>
-    <style>
-#sv-float{position:relative;height:min(78vh,720px);min-height:460px;margin:20px 40px;border-radius:var(--r,18px);overflow:hidden;background:radial-gradient(120% 90% at 50% 30%,#faf6ef 0%,#efe7da 70%,#e6dccb 100%)}
-#sv-float canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
-#sv-float canvas.drag{cursor:grabbing}
-#sv-float .fl-txt{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;z-index:1;max-width:560px;padding:0 16px}
-#sv-float .fl-txt h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(34px,5vw,62px);line-height:1.05;margin:8px 0 14px}
-#sv-float .fl-txt p:last-child{font-size:15px;opacity:.7}
-#sv-float .fl-tip{position:absolute;z-index:3;pointer-events:none;background:#3d3229;color:#f5f0e8;font-size:13px;padding:8px 14px;border-radius:20px;opacity:0;transform:translate(-50%,-130%) scale(.9);transition:opacity .2s,transform .2s;white-space:nowrap}
-#sv-float .fl-tip.on{opacity:1;transform:translate(-50%,-130%) scale(1)}
-@media(max-width:700px){#sv-float{margin:12px 16px;height:70vh}}
-    </style>
-    <script type="module">
+<style>
+#page-home .h-about-img.fl3d{background:#927050}
+#page-home .h-about-img.fl3d canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1;touch-action:pan-y}
+#page-home .h-about-img.fl3d canvas.drag{cursor:grabbing}
+#page-home .h-about-img.fl3d img{z-index:2;pointer-events:none}
+#page-home .h-about-img.fl3d .fl-tip{position:absolute;z-index:3;pointer-events:none;background:#3d3229;color:#f5f0e8;font-size:12px;padding:7px 13px;border-radius:20px;opacity:0;transform:translate(-50%,-120%) scale(.9);transition:opacity .2s,transform .2s;white-space:nowrap}
+#page-home .h-about-img.fl3d .fl-tip.on{opacity:1;transform:translate(-50%,-120%) scale(1)}
+</style>
+<script type="module">
 import * as THREE from 'three';import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';import {DRACOLoader} from 'three/addons/loaders/DRACOLoader.js';
-const root=document.getElementById('sv-float'),cv=root.querySelector('canvas'),tip=root.querySelector('.fl-tip');
-const es=document.documentElement.lang==='es';
-const ITEMS=[
- {f:'chair',size:2.3,home:[-3.6,-.6,0],tip:es?'Silla mid-century, diseño interior':'Mid-century chair, interior design'},
- {f:'lamp',size:1.7,home:[3.5,1.3,-.5],tip:es?'Iluminación que crea atmósfera':'Lighting that sets the mood'},
- {f:'house',size:2.4,home:[3.2,-1.6,.3],tip:es?'Arquitectura residencial':'Residential architecture'}
-];
+const root=document.querySelector('.h-about-img.fl3d'),cv=root.querySelector('canvas'),tip=root.querySelector('.fl-tip'),es=document.documentElement.lang==='es';
 let started=false;new IntersectionObserver(e=>{if(e[0].isIntersecting&&!started){started=true;init()}},{rootMargin:'200px'}).observe(root);
-function init(){
-const r=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio,1.75));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;
-const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(35,1,.1,100);cam.position.set(0,0,12);
-sc.add(new THREE.HemisphereLight(0xfffaf0,0xc9b9a0,1.6));const k=new THREE.DirectionalLight(0xfff1dc,2.4);k.position.set(4,6,8);sc.add(k);
-const ld=new GLTFLoader().setDRACOLoader(new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/'));
+async function init(){
+const V=await import('/js/valentinas.js'),VM=V.materials();
+const r=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});r.setPixelRatio(Math.min(devicePixelRatio,2));r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;
+const sc=new THREE.Scene(),cam=new THREE.OrthographicCamera(-1.5,1.5,2,-2,-20,20);cam.position.z=10;
+sc.add(new THREE.HemisphereLight(0xfffaf0,0x8a6a4f,1.7));const k=new THREE.DirectionalLight(0xfff1dc,2.6);k.position.set(3,5,6);sc.add(k);
 const objs=[];
-ITEMS.forEach((it,i)=>ld.load('/images/3d/floating/'+it.f+'.glb',g=>{
- const m=g.scene,b=new THREE.Box3().setFromObject(m),s=b.getSize(new THREE.Vector3()),c=b.getCenter(new THREE.Vector3());
- m.position.sub(c);const pivot=new THREE.Group();pivot.add(m);pivot.scale.setScalar(it.size/Math.max(s.x,s.y,s.z));
- const o={g:pivot,home:new THREE.Vector3(...it.home),pos:new THREE.Vector3(...it.home),vel:new THREE.Vector3(),spin:new THREE.Vector3(),ph:i*2.1,sp:.6+i*.17,it};
- pivot.position.copy(o.home);pivot.rotation.y=-.4+i*.5;pivot.userData.o=o;sc.add(pivot);objs.push(o);
-}));
-function size(){const w=root.clientWidth,h=root.clientHeight;r.setSize(w,h,false);cam.aspect=w/h;const s=Math.min(1,w/900);objs.forEach(o=>{});cam.position.z=w<700?17:12;cam.updateProjectionMatrix()}
-addEventListener('resize',size);size();
+// x in [-1.5,1.5], y in [-2,2]; brown space sits around the face and above the head
+function add(node,size,home,tipTxt,opt={}){const b=new THREE.Box3().setFromObject(node),s=b.getSize(new THREE.Vector3()),c=b.getCenter(new THREE.Vector3());node.position.sub(c);
+ const p=new THREE.Group();p.add(node);p.scale.setScalar(size/Math.max(s.x,s.y,s.z));const o={g:p,home:new THREE.Vector3(...home),pos:new THREE.Vector3(...home),vel:new THREE.Vector3(),spin:new THREE.Vector3(),ph:objs.length*1.7,sp:.55+(objs.length%4)*.14,tip:tipTxt,yaw:opt.yaw??0,tilt:opt.tilt??.1,upd:opt.upd};
+ p.position.copy(o.home);p.rotation.y=o.yaw;p.userData.o=o;sc.add(p);objs.push(o);return o}
+// Las Valentinas + Nala
+const gold=V.figure(VM.gold,{hair:'bob',gold:true,h:1.64}),plan=V.blueprint();gold.add(plan);gold.userData.pose(V.poseValues('read'));gold.userData.refresh();V.holdPlan(gold,plan);
+add(gold,.82,[-1.02,1.22,1],es?'Hola, soy Valentina, la arquitecta':'Hi, I\'m Valentina, the architect',{yaw:.5,tilt:.08});
+const v2=V.figure(VM.white,{hair:'pony'});{const pv=V.poseValues('stand');pv.sr=[-2.6,-.4,.3];v2.userData.pose(pv);v2.userData.refresh()}
+add(v2,.56,[.86,1.5,1],es?'¡Hola! Somos Las Valentinas':'Hi! We are Las Valentinas',{yaw:-.3,upd:(o,t)=>{const pv=V.poseValues('stand');pv.sr=[-2.6,-.4+.3*Math.sin(t*6),.3+.2*Math.sin(t*6)];v2.userData.pose(pv);v2.userData.refresh()}});
+const v3=V.figure(VM.white,{hair:'long'});v3.userData.pose(V.poseValues('sit'));v3.userData.refresh();
+add(v3,.46,[-.55,1.58,1],es?'La escala humana de cada espacio':'The human scale behind every space',{yaw:.35});
+const dog=V.nala();dog.userData.update(0,.016,0,1);
+add(dog,.42,[-1.2,-.7,1],es?'¡Guau! Soy Nala 🐾':'Woof! I\'m Nala 🐾',{yaw:.9,upd:(o,t,dt)=>dog.userData.update(t,dt,0,1)});
+// the pieces
+const ld=new GLTFLoader().setDRACOLoader(new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/'));
+[['lamp',.46,[1.15,1.62,0],es?'Iluminación que crea atmósfera':'Lighting that sets the mood',0],['chair',.62,[-1.13,.22,0],es?'Silla mid-century':'Mid-century chair',.6],['house',.5,[1.2,.9,0],es?'Arquitectura residencial':'Residential architecture',-.5]]
+ .forEach(([f,s,h,t,y])=>ld.load('/images/3d/floating/'+f+'.glb',g=>add(g.scene,s,h,t,{yaw:y})));
+function size(){const w=root.clientWidth,h=root.clientHeight;r.setSize(w,h,false);const a=w/h,hh=1.5/a;cam.top=hh;cam.bottom=-hh;cam.updateProjectionMatrix()}
+new ResizeObserver(size).observe(root);size();
 const ray=new THREE.Raycaster(),ptr=new THREE.Vector2(),plane=new THREE.Plane(new THREE.Vector3(0,0,1),0),hit=new THREE.Vector3();
 let drag=null,off=new THREE.Vector3(),last=new THREE.Vector3(),moved=0,downT=0;
 function setPtr(e){const b=cv.getBoundingClientRect();ptr.set((e.clientX-b.left)/b.width*2-1,-(e.clientY-b.top)/b.height*2+1)}
 function pick(){ray.setFromCamera(ptr,cam);const h=ray.intersectObjects(objs.map(o=>o.g),true)[0];if(!h)return null;let n=h.object;while(n&&!n.userData.o)n=n.parent;return n&&n.userData.o}
 cv.addEventListener('pointerdown',e=>{setPtr(e);const o=pick();if(!o)return;e.preventDefault();drag=o;moved=0;downT=performance.now();cv.setPointerCapture(e.pointerId);cv.classList.add('drag');cv.style.touchAction='none';
- plane.constant=-o.pos.z;ray.ray.intersectPlane(plane,hit);off.copy(o.pos).sub(hit);last.copy(o.pos)});
-cv.addEventListener('pointermove',e=>{setPtr(e);if(!drag){cv.style.cursor=pick()?'grab':'default';return}
- ray.setFromCamera(ptr,cam);if(ray.ray.intersectPlane(plane,hit)){const n=hit.add(off);drag.vel.copy(n).sub(last).multiplyScalar(60);moved+=n.distanceTo(last);last.copy(n);drag.pos.copy(n);drag.spin.y+=drag.vel.x*.002;drag.spin.x-=drag.vel.y*.002}});
-function up(e){if(!drag)return;cv.classList.remove('drag');cv.style.touchAction='pan-y';
- if(moved<.08&&performance.now()-downT<350){showTip(drag);drag.vel.set(0,3,0);drag.spin.y+=3}
- drag=null}
+ plane.constant=-o.pos.z;ray.setFromCamera(ptr,cam);ray.ray.intersectPlane(plane,hit);off.copy(o.pos).sub(hit);last.copy(o.pos)});
+cv.addEventListener('pointermove',e=>{setPtr(e);if(!drag){cv.style.cursor=pick()?'grab':'';return}
+ ray.setFromCamera(ptr,cam);if(ray.ray.intersectPlane(plane,hit)){const n=hit.add(off);drag.vel.copy(n).sub(last).multiplyScalar(60);moved+=n.distanceTo(last);last.copy(n);drag.pos.copy(n);drag.spin.y+=drag.vel.x*.01;drag.spin.x-=drag.vel.y*.004}});
+function up(){if(!drag)return;cv.classList.remove('drag');cv.style.touchAction='pan-y';if(moved<.03&&performance.now()-downT<350){showTip(drag);drag.vel.set(0,1.6,0);drag.spin.y+=4}drag=null}
 cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
-let tipO=null,tipT=0;function showTip(o){tip.textContent=o.it.tip;tipO=o;tipT=performance.now();tip.classList.add('on')}
+let tipO=null,tipT=0;function showTip(o){tip.textContent=o.tip;tipO=o;tipT=performance.now();tip.classList.add('on')}
 const v=new THREE.Vector3(),clk=new THREE.Clock();let vis=true;new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis)loop()}).observe(root);
 function loop(){if(!vis)return;requestAnimationFrame(loop);const dt=Math.min(clk.getDelta(),.05),t=clk.elapsedTime;
- objs.forEach(o=>{
-  if(o!==drag){const tgt=v.copy(o.home);tgt.y+=Math.sin(t*o.sp+o.ph)*.25;o.vel.addScaledVector(tgt.sub(o.pos),9*dt);o.vel.multiplyScalar(Math.pow(.18,dt));o.pos.addScaledVector(o.vel,dt)}
-  o.g.position.copy(o.pos);
-  o.g.rotation.y+=(.12+o.spin.y)*dt;o.g.rotation.x=Math.sin(t*o.sp*.7+o.ph)*.12+o.spin.x;o.g.rotation.z=Math.sin(t*o.sp*.5+o.ph)*.06;
-  o.spin.multiplyScalar(Math.pow(.3,dt));
- });
- if(tipO){if(performance.now()-tipT>2200){tip.classList.remove('on');tipO=null}else{v.copy(tipO.pos);v.y+=1.3;v.project(cam);tip.style.left=(v.x+1)/2*root.clientWidth+'px';tip.style.top=(1-v.y)/2*root.clientHeight+'px'}}
+ objs.forEach(o=>{if(o!==drag){const tg=v.copy(o.home);tg.y+=Math.sin(t*o.sp+o.ph)*.06;o.vel.addScaledVector(tg.sub(o.pos),9*dt);o.vel.multiplyScalar(Math.pow(.15,dt));o.pos.addScaledVector(o.vel,dt)}
+  o.g.position.copy(o.pos);o.yaw+=o.spin.y*dt;o.g.rotation.y=o.yaw+Math.sin(t*o.sp*.6+o.ph)*.35;o.g.rotation.x=Math.sin(t*o.sp*.7+o.ph)*o.tilt+o.spin.x;o.g.rotation.z=Math.sin(t*o.sp*.5+o.ph)*.06;
+  o.spin.multiplyScalar(Math.pow(.25,dt));if(o.upd)o.upd(o,t,dt)});
+ if(tipO){if(performance.now()-tipT>2400){tip.classList.remove('on');tipO=null}else{v.copy(tipO.pos);v.y+=.35;v.project(cam);tip.style.left=Math.min(Math.max((v.x+1)/2*root.clientWidth,90),root.clientWidth-90)+'px';tip.style.top=(1-v.y)/2*root.clientHeight+'px'}}
  r.render(sc,cam)}
-loop();
-}
-    </script>
+loop()}
+</script>
+
 
 
     <!-- MARQUEE -->
