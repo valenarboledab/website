@@ -396,3 +396,14 @@ body:has(#page-contact.active) .ct-fab:hover{opacity:1}
 .pd-btn{padding:11px 20px;border-radius:999px;background:#fffdf9;color:#6c5444;font-weight:600;text-decoration:none;font-size:14px}
 .pd-btn.ghost{background:none;color:#fffdf9;border:1px solid rgba(255,253,249,.5)}
 @media (max-width:640px){.pd-hero{padding:22px}.pd-lbl{font-size:10.5px}.pd-dot{width:28px;height:28px}.pd-timeline::before{top:13px}.pd-contact{padding:22px}}
+/* Work · All: grid view (all projects visible at once, renders not cropped) */
+body #page-projects .work-project-track{display:grid!important;grid-template-columns:repeat(3,1fr);gap:20px}
+body #page-projects .work-project-track .wcard{aspect-ratio:4/3!important;max-height:none;border-radius:18px}
+body #page-projects .wcard-lname{font-size:22px}
+body #page-projects .wcard-label{padding:20px 22px}
+body #page-projects .wcard-name{font-size:26px}
+body #page-projects .wcard-info{padding:22px}
+body #page-projects .wcard-arr{width:38px;height:38px;top:16px;right:16px}
+body #page-projects .wcard .preview-carousel-label{display:none}
+@media (max-width:960px){body #page-projects .work-project-track{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){body #page-projects .work-project-track{grid-template-columns:1fr;gap:16px}}
