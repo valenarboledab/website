@@ -1471,7 +1471,7 @@ function plateHtml({ fig, title, hint, readout = "", keys = [], caption, body })
     return `<figure class="iso-figure"><div class="iso-plate"><div class="iso-plate-corners" aria-hidden="true">${corner("fig", fig)}${title ? corner("title", title) : ""}${hint ? corner("hint", hint) : ""}${corner("readout", readout, " data-readout")}</div>${body}</div>${legend}</figure>`;
 }
 function pageHtml({ title, theme = "dark", body, script = "", width = 650 }) {
-    return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(title)}</title><style>${ISO_CSS}${PAGE_CSS.replace("__WIDTH__", String(width))}</style></head><body class="iso" data-theme="${theme}"><main class="iso-page">${body}</main>${script ? `<script type="module">${script.replace(/<\/(script)/gi, "<\\/$1")}<\/script>` : ""}<script src="/js/motion.js?v=20261119b" defer></script>
+    return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(title)}</title><style>${ISO_CSS}${PAGE_CSS.replace("__WIDTH__", String(width))}</style></head><body class="iso" data-theme="${theme}"><main class="iso-page">${body}</main>${script ? `<script type="module">${script.replace(/<\/(script)/gi, "<\\/$1")}<\/script>` : ""}<script src="/js/motion.js?v=20261119c" defer></script>
 </body></html>`;
 }
 const PAGE_CSS = `
@@ -1919,6 +1919,6 @@ buttons.forEach((b) => b.addEventListener("click", () => {
 if (still.matches) touring = false;
 hint.textContent = "Click a floor to zoom in";
 place(); say();
-</script><script src="/js/motion.js?v=20261119b" defer></script>
+</script><script src="/js/motion.js?v=20261119c" defer></script>
 </body></html>
 <!-- design studio floors restored -->

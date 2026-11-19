@@ -30,6 +30,7 @@
       '.sv-h{display:flex!important;flex-wrap:nowrap;gap:40px;width:max-content;padding-right:8vw}' +
       '.sv-h>.pstep{flex:0 0 min(72vw,980px);border-bottom:0!important;opacity:1!important;transform:none!important}' +
       '.sv-hwrap{overflow:hidden}' +
+      '.h-phases .sv-hwrap{padding-top:10px}' +
     '}';
   document.head.appendChild(css);
 
@@ -136,8 +137,8 @@
   function hscroll() {
     if (hst) { hst.scrollTrigger && hst.scrollTrigger.kill(true); hst.kill(); hst = null; }
     if (innerWidth < 900) return;
-    var track = document.querySelector('.proc-content.show .pr-steps');
-    if (!track || !visible(track)) return;
+    var track = Array.prototype.filter.call(document.querySelectorAll('.h-phases .pr-steps, .proc-content.show .pr-steps'), visible)[0];
+    if (!track) return;
     if (!track.__sv) {
       track.__sv = true;
       var wrap = document.createElement('div'); wrap.className = 'sv-hwrap';
@@ -148,7 +149,7 @@
     var wrapEl = track.parentNode;
     var dist = function () { return Math.max(0, track.scrollWidth - wrapEl.clientWidth); };
     hst = gsap.to(track, { x: function () { return -dist(); }, ease: 'none',
-      scrollTrigger: { trigger: wrapEl, start: 'center center', end: function () { return '+=' + dist(); },
+      scrollTrigger: { trigger: track.closest('.h-phases') || wrapEl, start: track.closest('.h-phases') ? 'top 70px' : 'center center', end: function () { return '+=' + dist(); },
         pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1 } });
   }
 
