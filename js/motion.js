@@ -26,7 +26,7 @@
     '#page-home .fproj>img,.jcard-img>img,.wcard>img,.pr-hero-r>img{translate:0 var(--py,0);scale:1.22}' +
     '.sv-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}' +
     '.sv-wi{display:inline-block;will-change:transform}' +
-    '@media(min-width:700px){' +
+    '@media(min-width:900px),(min-width:700px) and (hover:none) and (pointer:coarse){' +
       '.sv-h{display:flex!important;flex-wrap:nowrap;gap:40px;width:max-content;padding-right:8vw}' +
       '.sv-h>.pstep{flex:0 0 min(78vw,980px);border-bottom:0!important;opacity:1!important;transform:none!important}' +
       '.sv-hwrap{overflow:hidden}' +
@@ -136,7 +136,8 @@
   var hst;
   function hscroll() {
     if (hst) { hst.scrollTrigger && hst.scrollTrigger.kill(true); hst.kill(); hst = null; }
-    if (innerWidth < 700) return;
+    var tablet = matchMedia('(hover:none) and (pointer:coarse)').matches;
+    if (innerWidth < (tablet ? 700 : 900)) return;
     var track = Array.prototype.filter.call(document.querySelectorAll('.h-phases .pr-steps, .proc-content.show .pr-steps'), visible)[0];
     if (!track) return;
     if (!track.__sv) {
