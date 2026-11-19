@@ -1425,7 +1425,7 @@ body.gallery-open{overflow:hidden}
 @media(max-width:899px){.h-phases{padding:32px 20px}}
 
 /* ── TABLET / iPad (700–1180px) ── */
-@media (min-width:700px) and (max-width:1366px) and (hover:none) and (pointer:coarse){
+@media (min-width:700px) and (max-width:1366px) and (min-height:560px) and (hover:none) and (pointer:coarse){
   #page-home .h-feat-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
   #page-home .h-explore{grid-template-columns:1fr 1fr;gap:14px}
   #page-home .h-proc-steps{grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
@@ -1434,6 +1434,21 @@ body.gallery-open{overflow:hidden}
   .h-phases{padding:36px 0 36px 32px}
   .h-phases .h-proc-head{padding-right:32px}
 }
-@media (min-width:700px) and (max-width:1024px) and (hover:none) and (pointer:coarse){
+@media (min-width:700px) and (max-width:1024px) and (min-height:560px) and (hover:none) and (pointer:coarse){
   #page-home .h-feat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+}
+
+/* ── LARGE SCREENS (27"+ monitors, TV): keep content at a comfortable width ── */
+@media (min-width:1800px){
+  #page-home .h-about,#page-home .h-marquee,#page-home .h-feat,#page-home .h-proc,#page-home .h-explore{max-width:1680px;margin-left:auto;margin-right:auto}
+  .h-phases{max-width:min(1680px,calc(100% - 32px));margin-left:auto;margin-right:auto}
+}
+
+/* ── PHONE LANDSCAPE: short screens ── */
+@media (max-height:500px) and (orientation:landscape){
+  #sv-eco .st .cap,#sv-acol .st .cap{bottom:6vh;max-width:min(400px,60vw)}
+  #sv-eco .st .cap small,#sv-acol .st .cap small{font-size:9px;margin-bottom:6px}
+  #sv-eco .st .cap .sv-h1,#sv-eco .st .cap h2,#sv-acol .st .cap .sv-h1,#sv-acol .st .cap h2{font-size:clamp(30px,6vw,44px);margin-bottom:8px}
+  #sv-eco .st .cap p,#sv-acol .st .cap p{font-size:13px;line-height:1.45}
+  #sv-eco .st .cap a,#sv-acol .st .cap a{margin-top:10px}
 }
