@@ -1452,3 +1452,17 @@ body.gallery-open{overflow:hidden}
   #sv-eco .st .cap p,#sv-acol .st .cap p{font-size:13px;line-height:1.45}
   #sv-eco .st .cap a,#sv-acol .st .cap a{margin-top:10px}
 }
+
+/* ── PHONE: "Who Am I?" — small photo left, text right (like desktop) ── */
+@media (max-width:699px){
+  body #page-home .h-about{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);grid-template-areas:"img l" "r r";gap:18px 16px;background:#ede8de;border-radius:24px;padding:18px 18px 22px;margin:12px;align-items:start}
+  body #page-home .h-about-text{display:contents}
+  body #page-home .h-about-img{grid-area:img;aspect-ratio:3/4;height:auto;min-height:0;border-radius:16px}
+  body #page-home .h-about-img img{object-position:center 20%}
+  body #page-home .h-about-text-l{grid-area:l;padding-top:4px}
+  body #page-home .h-about-text-l .eyebrow{font-size:10px;margin-bottom:6px}
+  body #page-home .h-about-text-l h2{font-size:27px;line-height:1.05;margin-bottom:10px}
+  body #page-home .h-about-text-l p{font-size:12.5px;line-height:1.55;margin-bottom:8px}
+  body #page-home .h-about-text-l .link-arrow{font-size:11px}
+  body #page-home .h-about-text-r{grid-area:r}
+}
