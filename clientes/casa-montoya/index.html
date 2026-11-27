@@ -44,6 +44,13 @@ section{padding:clamp(28px,4vw,56px) 0 0}
 .doc{display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:20px}
 .doc p{margin:0;flex:1 1 280px;color:var(--mute)}
 footer{margin-top:clamp(40px,5vw,72px);padding:24px 0 40px;border-top:1px solid var(--line);color:var(--mute);font-size:14px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;padding:18px 0 0}
+.tabs [aria-selected=true]{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.files{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.file{display:block;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px 20px;text-decoration:none}
+.file:hover{border-color:var(--brown)}
+.file b{display:block;font-weight:600;margin-bottom:4px}
+.file span{color:var(--mute);font-size:14px}
 @media (prefers-reduced-motion:reduce){.load{transition:none}}
 </style>
 <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
@@ -54,6 +61,35 @@ footer{margin-top:clamp(40px,5vw,72px);padding:24px 0 40px;border-top:1px solid 
     <a class="brand" href="https://studio-valentina.com">STUDIO VALENTINA <span>Arquitectura</span></a>
     <small>Para Mónica Arango y Carlos Montoya</small>
   </div>
+  <div class="tabs" role="tablist" aria-label="Secciones">
+    <button role="tab" id="t-pergola" aria-controls="tab-pergola" aria-selected="true">Pérgola 2026</button>
+    <button role="tab" id="t-casa" aria-controls="tab-casa" aria-selected="false">Archivos de la casa</button>
+  </div>
+
+  <div id="tab-casa" role="tabpanel" aria-labelledby="t-casa" hidden>
+    <header>
+      <h1>La Pradera · Casa 22</h1>
+      <p class="sub">Archivos de la casa existente, reunidos en un solo lugar. Condominio La Pradera, Vía Chagualá, Salento, Quindío.</p>
+    </header>
+    <section>
+      <h2>Planos estructurales</h2>
+      <div class="files">
+        <a class="file" href="casa/Planos_Estructurales_Casa_La_Pradera_22.pdf" target="_blank" rel="noopener"><b>Planos estructurales de la casa y la terraza</b><span>PDF · 6 hojas: cimentación, primer piso, despiece de viguetas, pórticos (mayo 2021), y planta de segundo piso y pórticos de la terraza (julio 2021)</span></a>
+        <a class="file" href="casa/Estructural_Casa_22_v4_may2021.dwg" download><b>Estructural Casa 22 v4</b><span>DWG · mayo 2021</span></a>
+        <a class="file" href="casa/Estructural_Bloque_2_Casas_Salento_V5.dwg" download><b>Estructural bloque 2 casas Salento V5</b><span>DWG</span></a>
+      </div>
+    </section>
+    <section>
+      <h2>Planos arquitectónicos y generales</h2>
+      <div class="files">
+        <a class="file" href="casa/Plano_Record_La_Pradera_ene2023.dwg" download><b>Plano récord La Pradera</b><span>DWG · enero 2023</span></a>
+        <a class="file" href="casa/Contorno_La_Pradera.pdf" target="_blank" rel="noopener"><b>Contorno general La Pradera</b><span>PDF</span></a>
+      </div>
+      <p class="hint">Los archivos DWG se abren con AutoCAD o con el visor gratuito DWG TrueView.</p>
+    </section>
+  </div>
+
+  <div id="tab-pergola" role="tabpanel" aria-labelledby="t-pergola">
 
   <header>
     <h1>Pérgola terraza · Casa Montoya</h1>
@@ -106,6 +142,7 @@ footer{margin-top:clamp(40px,5vw,72px);padding:24px 0 40px;border-top:1px solid 
       <a class="btn dark" href="Presentacion_Pergola_Casa_Montoya.pdf" target="_blank" rel="noopener">Abrir PDF</a>
     </div>
   </section>
+  </div>
 
   <footer>
     <span>Modelo 3D y renders generados con IA, no por el arquitecto; pueden contener errores. Basados en los planos de julio de 2026. Mobiliario y vegetación ilustrativos. Las alturas deben verificarse en obra.</span>
@@ -128,6 +165,12 @@ footer{margin-top:clamp(40px,5vw,72px);padding:24px 0 40px;border-top:1px solid 
   document.getElementById('prev').addEventListener('click', () => step(-1));
   document.getElementById('next').addEventListener('click', () => step(1));
   document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') step(1); if (e.key === 'ArrowLeft') step(-1); });
+  const tabs = [...document.querySelectorAll('[role=tab]')];
+  const show = id => {
+    tabs.forEach(t => { const on = t.getAttribute('aria-controls') === id; t.setAttribute('aria-selected', on); document.getElementById(t.getAttribute('aria-controls')).hidden = !on; });
+  };
+  tabs.forEach(t => t.addEventListener('click', () => { const id = t.getAttribute('aria-controls'); show(id); history.replaceState(null, '', id === 'tab-casa' ? '#casa' : '#'); }));
+  if (location.hash === '#casa') show('tab-casa');
 }
 </script>
 </body>
